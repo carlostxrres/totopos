@@ -4,17 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import type { IndefiniteAnswer, TimerMode } from "@tot-opos/types";
 import { units } from "@tot-opos/curriculum-data";
-import { useTestsStore } from "../store/tests-store";
-import { useSessionStore } from "../store/session-store";
-import { useQuestionHistoryStore } from "../store/question-history-store";
-import { resolveQuestions } from "../lib/test-generator";
-import { QuestionCard } from "../components/QuestionCard";
-import { TimerControl } from "../components/TimerControl";
-import { ConfirmDialog } from "../components/ConfirmDialog";
-import { Button } from "../components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon, MenuDotsIcon } from "../components/icons";
+import { useTestsStore } from "@/store/tests-store";
+import { useSessionStore } from "@/store/session-store";
+import { useQuestionHistoryStore } from "@/store/question-history-store";
+import { resolveQuestions } from "@/lib/test-generator";
+import { QuestionCard } from "@/components/QuestionCard";
+import { TimerControl } from "@/components/TimerControl";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { Button } from "@/components/ui/button";
+import { ChevronLeftIcon, ChevronRightIcon, ClockIcon, MenuDotsIcon } from "@/components/icons";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
-import { cn } from "../lib/cn";
+import { cn } from "@/lib/cn";
 
 const ALL_QUESTIONS = staticFixedTests.flatMap((t) => t.questions);
 
@@ -51,6 +51,7 @@ export function IndefiniteTestPage() {
   const [showHistory, setShowHistory] = useState(true);
   const [initModal, setInitModal] = useState<"none" | "empty" | "few" | "timer">("none");
   const [closeDialog, setCloseDialog] = useState(false);
+  const [timerSetupOpen, setTimerSetupOpen] = useState(false);
   const [localAnswers, setLocalAnswers] = useState<Record<string, string[]>>({});
 
   const timerSecondsRef = useRef(timerSeconds);
@@ -268,6 +269,8 @@ export function IndefiniteTestPage() {
             deadlineAt={timerDeadlineAt}
             pausedRemainingMs={timerPausedMs}
             timerMode={timerMode}
+            setupOpen={timerSetupOpen}
+            onSetupOpenChange={setTimerSetupOpen}
             onStart={(mode, seconds) => {
               setTimerMode(mode);
               setTimerSeconds(seconds);
@@ -295,7 +298,7 @@ export function IndefiniteTestPage() {
             {totalAnswered > 0 && ` · ${rate}%`}
           </div>
           <span className="shrink-0 text-xs text-muted-foreground">
-            {poolQuestions.length} en pool
+            {questionIds.length} en pool
           </span>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
@@ -312,6 +315,14 @@ export function IndefiniteTestPage() {
                 align="end"
                 className="z-50 min-w-48 rounded-md border border-border bg-background p-1 shadow-md"
               >
+                <DropdownMenu.Item
+                  className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-sm hover:bg-muted"
+                  onSelect={() => setTimerSetupOpen(true)}
+                >
+                  <ClockIcon size={16} />
+                  Temporizador
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator className="my-1 h-px bg-border" />
                 <DropdownMenu.Item
                   className="flex cursor-pointer rounded px-3 py-2 text-sm hover:bg-muted"
                   onSelect={() => setShowHistory((v) => !v)}

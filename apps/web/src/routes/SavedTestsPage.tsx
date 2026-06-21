@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { units } from "@tot-opos/curriculum-data";
 import type { Test } from "@tot-opos/types";
-import { useTestsStore } from "../store/tests-store";
-import { CurriculumDisplay } from "../components/CurriculumDisplay";
-import { TestCard } from "../components/TestCard";
-import { SearchIcon } from "../components/icons";
+import { useTestsStore } from "@/store/tests-store";
+import { CurriculumDisplay } from "@/components/CurriculumDisplay";
+import { TestCard } from "@/components/TestCard";
+import { SearchIcon } from "@/components/icons";
 
 type SubTab = "all" | "curriculum";
 
@@ -18,7 +18,9 @@ export function SavedTestsPage() {
 
   const filteredTests = savedTests.filter((t) => {
     const title = t.type === "fixed" ? t.title : (t.title ?? "Test libre");
-    return title.toLowerCase().includes(search.toLowerCase());
+    const matchesSearch = title.toLowerCase().includes(search.toLowerCase());
+    const matchesMine = !onlyMine || t.metadata?.category === "Personalizado";
+    return matchesSearch && matchesMine;
   });
 
   function getTestsForUnit(unitId: string): Test[] {

@@ -1,15 +1,16 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useHistoryStore } from "../store/history-store";
-import { useTestsStore } from "../store/tests-store";
-import { formatDate, formatDateTime, formatDurationMs } from "../lib/relative-time";
-import { Button } from "../components/ui/button";
-import { CheckIcon, XIcon } from "../components/icons";
+import { fixedTests } from "@tot-opos/test-data";
+import { useHistoryStore } from "@/store/history-store";
+import { formatDate, formatDateTime, formatDurationMs } from "@/lib/relative-time";
+import { Button } from "@/components/ui/button";
+import { CheckIcon, XIcon } from "@/components/icons";
+
+const ALL_QUESTIONS = fixedTests.flatMap((t) => t.questions);
 
 export function SessionDetailPage() {
   const { sessionId } = useParams<{ sessionId: string }>();
   const navigate = useNavigate();
   const session = useHistoryStore((s) => s.indefiniteSessions.find((s) => s.id === sessionId));
-  const tests = useTestsStore((s) => s.tests);
 
   if (!session) {
     return (
@@ -21,12 +22,6 @@ export function SessionDetailPage() {
       </div>
     );
   }
-
-  const test = tests.find((t) => t.id === session.testId);
-  const allQuestions =
-    test?.type === "fixed"
-      ? test.questions
-      : [];
 
   const correctCount = session.answers.filter((a) => a.wasCorrect).length;
   const totalCount = session.answers.length;
@@ -58,7 +53,7 @@ export function SessionDetailPage() {
       <div className="space-y-2">
         <h3 className="text-sm font-semibold">Preguntas respondidas</h3>
         {session.answers.map((answer, index) => {
-          const question = allQuestions.find((q) => q.id === answer.questionId);
+          const question = ALL_QUESTIONS.find((q) => q.id === answer.questionId);
           return (
             <div key={answer.questionId} className="card flex items-start gap-3">
               <div
