@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { BookOpenIcon, HistoryIcon, PlusIcon } from "@/components/icons";
+import { IconBook2, IconHistory, IconPlus } from "@tabler/icons-react";
 
 const links = [
-  { to: "/", label: "Tests", icon: BookOpenIcon, end: true },
-  { to: "/crear", label: "Crear", icon: PlusIcon, end: false },
-  { to: "/historial", label: "Historial", icon: HistoryIcon, end: false },
+  { to: "/", label: "Tests", icon: IconBook2, end: true },
+  { to: "/crear", label: "Crear", icon: IconPlus, end: false },
+  { to: "/historial", label: "Historial", icon: IconHistory, end: false },
 ];
 
 export function NavBar() {

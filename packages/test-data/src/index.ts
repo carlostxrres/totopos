@@ -80,7 +80,7 @@ export const fixedTests: FixedTest[] = [
         prompt:
           "Segons la Llei 39/2015, quin és el termini màxim per resoldre un procediment administratiu quan la norma no en fixa cap de específic?",
         promptImage:
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BOE_logo.svg/320px-BOE_logo.svg.png",
+          "/placeholder-organigrama.svg",
         options: [
           { id: "q-bcn-004-a", text: "3 mesos", isCorrect: false },
           { id: "q-bcn-004-b", text: "6 mesos", isCorrect: true },

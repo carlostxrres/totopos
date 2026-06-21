@@ -8,7 +8,7 @@ import { useQuestionHistoryStore } from "@/store/question-history-store";
 import { resolveQuestions } from "@/lib/test-generator";
 import { CurriculumDisplay } from "@/components/CurriculumDisplay";
 import { Button } from "@/components/ui/button";
-import { SearchIcon } from "@/components/icons";
+import { IconSearch } from "@tabler/icons-react";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 
 type Step = 1 | 2;
@@ -108,7 +108,7 @@ export function CreateTestPage() {
       <div className="space-y-4 py-4">
         <div className="subheader -mx-4 px-4 py-2 space-y-2">
           <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2">
-            <SearchIcon className="shrink-0 text-muted-foreground" />
+            <IconSearch className="shrink-0 text-muted-foreground" />
             <input
               type="search"
               placeholder="Buscar unidades..."

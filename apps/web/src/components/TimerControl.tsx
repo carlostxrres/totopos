@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useRef, useState } from "react";
 import type { TimerMode } from "@tot-opos/types";
-import { PauseIcon, PlayIcon } from "@/components/icons";
+import { IconPlayerPause, IconPlayerPlay } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 
@@ -108,7 +108,7 @@ export function TimerControl({
           )}
           aria-label={isActive ? "Pausar temporizador" : "Reanudar temporizador"}
         >
-          {isActive ? <PauseIcon /> : <PlayIcon />}
+          {isActive ? <IconPlayerPause /> : <IconPlayerPlay />}
           <span>{remainingMs !== null ? formatCountdown(remainingMs) : "—"}</span>
         </button>
       )}

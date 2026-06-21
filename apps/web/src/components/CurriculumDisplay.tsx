@@ -2,7 +2,7 @@ import * as Checkbox from "@radix-ui/react-checkbox";
 import type { Test, Unit } from "@tot-opos/types";
 import { useMemo, useState } from "react";
 import { useCurriculumUiStore } from "@/store/curriculum-ui-store";
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "@/components/icons";
+import { IconCheck, IconChevronDown, IconChevronRight } from "@tabler/icons-react";
 import { TestCard } from "@/components/TestCard";
 import { cn } from "@/lib/cn";
 
@@ -81,7 +81,7 @@ function ReadonlyNode({
         )}
         style={{ paddingLeft: `${0.75 + depth * 1.25}rem` }}
       >
-        {isOpen ? <ChevronDownIcon /> : <ChevronRightIcon />}
+        {isOpen ? <IconChevronDown /> : <IconChevronRight />}
         <span className="text-left">{unit.name}</span>
       </button>
 
@@ -171,9 +171,9 @@ function SelectNode({
           {isLeaf ? (
             <span className="w-4 inline-block" />
           ) : isOpen ? (
-            <ChevronDownIcon />
+            <IconChevronDown />
           ) : (
-            <ChevronRightIcon />
+            <IconChevronRight />
           )}
         </button>
         <Checkbox.Root
@@ -185,7 +185,7 @@ function SelectNode({
             {isIndeterminate ? (
               <div className="h-0.5 w-2 bg-primary" />
             ) : (
-              <CheckIcon />
+              <IconCheck />
             )}
           </Checkbox.Indicator>
         </Checkbox.Root>

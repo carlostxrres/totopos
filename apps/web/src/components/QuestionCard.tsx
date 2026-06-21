@@ -1,7 +1,7 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import type { Question, QuestionHistory } from "@tot-opos/types";
-import { BookmarkFilledIcon, BookmarkIcon, CheckIcon } from "@/components/icons";
+import { IconBookmark, IconBookmarkFilled, IconCheck } from "@tabler/icons-react";
 import { formatRelativeTime } from "@/lib/relative-time";
 import { cn } from "@/lib/cn";
 
@@ -72,9 +72,9 @@ export function QuestionCard({
             aria-label={isFlagged ? "Quitar marcador" : "Marcar pregunta"}
           >
             {isFlagged ? (
-              <BookmarkFilledIcon className="text-warning-foreground" />
+              <IconBookmarkFilled className="text-warning-foreground" />
             ) : (
-              <BookmarkIcon />
+              <IconBookmark />
             )}
           </button>
         )}
@@ -147,7 +147,7 @@ export function QuestionCard({
                   className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-current"
                 >
                   <Checkbox.Indicator>
-                    <CheckIcon />
+                    <IconCheck />
                   </Checkbox.Indicator>
                 </Checkbox.Root>
                 <span>{opt.text ?? opt.image}</span>

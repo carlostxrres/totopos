@@ -15,7 +15,7 @@ import { TimerControl } from "@/components/TimerControl";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { TestCorrection } from "@/components/TestCorrection";
 import { Button } from "@/components/ui/button";
-import { BookmarkFilledIcon, CheckIcon, ClockIcon, MenuDotsIcon } from "@/components/icons";
+import { IconBookmarkFilled, IconCheck, IconClock, IconDotsVertical } from "@tabler/icons-react";
 
 export function FixedTestPage() {
   const { testId } = useParams<{ testId: string }>();
@@ -160,7 +160,7 @@ export function FixedTestPage() {
                 className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md"
                 aria-label="Más opciones"
               >
-                <MenuDotsIcon />
+                <IconDotsVertical />
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
@@ -172,7 +172,7 @@ export function FixedTestPage() {
                   className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-sm hover:bg-muted"
                   onSelect={() => setTimerSetupOpen(true)}
                 >
-                  <ClockIcon size={16} />
+                  <IconClock size={16} />
                   Temporizador
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator className="my-1 h-px bg-border" />
@@ -272,7 +272,7 @@ export function FixedTestPage() {
               <div className="space-y-2 text-sm">
                 {answeredCount === test.questions.length ? (
                   <div className="flex items-center gap-2 text-success">
-                    <CheckIcon size={14} className="shrink-0" />
+                    <IconCheck size={14} className="shrink-0" />
                     <span>Todas las preguntas respondidas</span>
                   </div>
                 ) : (
@@ -285,7 +285,7 @@ export function FixedTestPage() {
                 )}
                 {flaggedUnansweredCount > 0 && (
                   <div className="flex items-center gap-2 text-warning">
-                    <BookmarkFilledIcon size={14} className="shrink-0" />
+                    <IconBookmarkFilled size={14} className="shrink-0" />
                     <span>
                       {flaggedUnansweredCount} marcada{flaggedUnansweredCount !== 1 ? "s" : ""} sin responder
                     </span>
@@ -293,7 +293,7 @@ export function FixedTestPage() {
                 )}
                 {flaggedAnsweredCount > 0 && (
                   <div className="flex items-center gap-2 text-muted-foreground">
-                    <BookmarkFilledIcon size={14} className="shrink-0" />
+                    <IconBookmarkFilled size={14} className="shrink-0" />
                     <span>
                       {flaggedAnsweredCount} marcada{flaggedAnsweredCount !== 1 ? "s" : ""} y respondida{flaggedAnsweredCount !== 1 ? "s" : ""}
                     </span>

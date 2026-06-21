@@ -12,7 +12,7 @@ import { QuestionCard } from "@/components/QuestionCard";
 import { TimerControl } from "@/components/TimerControl";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon, ClockIcon, MenuDotsIcon } from "@/components/icons";
+import { IconChevronLeft, IconChevronRight, IconClock, IconDotsVertical } from "@tabler/icons-react";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 import { cn } from "@/lib/cn";
 
@@ -307,7 +307,7 @@ export function IndefiniteTestPage() {
                 className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md"
                 aria-label="Más opciones"
               >
-                <MenuDotsIcon />
+                <IconDotsVertical />
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
@@ -319,7 +319,7 @@ export function IndefiniteTestPage() {
                   className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-sm hover:bg-muted"
                   onSelect={() => setTimerSetupOpen(true)}
                 >
-                  <ClockIcon size={16} />
+                  <IconClock size={16} />
                   Temporizador
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator className="my-1 h-px bg-border" />
@@ -376,7 +376,7 @@ export function IndefiniteTestPage() {
       <div className={cn("flex gap-3", isCurrentAnswered ? "justify-between" : "justify-end")}>
         {currentIndex > 0 && (
           <Button variant="secondary" onClick={handlePrev} size="sm">
-            <ChevronLeftIcon className="mr-1" />
+            <IconChevronLeft className="mr-1" />
             Anterior
           </Button>
         )}
@@ -394,7 +394,7 @@ export function IndefiniteTestPage() {
         {(isCurrentAnswered || isLocked) && (
           <Button variant="primary" onClick={handleNext}>
             Siguiente pregunta
-            <ChevronRightIcon className="ml-1" />
+            <IconChevronRight className="ml-1" />
           </Button>
         )}
       </div>

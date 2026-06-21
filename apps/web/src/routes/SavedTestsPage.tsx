@@ -4,7 +4,7 @@ import type { Test } from "@tot-opos/types";
 import { useTestsStore } from "@/store/tests-store";
 import { CurriculumDisplay } from "@/components/CurriculumDisplay";
 import { TestCard } from "@/components/TestCard";
-import { SearchIcon } from "@/components/icons";
+import { IconSearch } from "@tabler/icons-react";
 
 type SubTab = "all" | "curriculum";
 
@@ -32,7 +32,7 @@ export function SavedTestsPage() {
       {/* SubHeader */}
       <div className="subheader -mx-4 px-4 py-2 space-y-2">
         <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2">
-          <SearchIcon className="shrink-0 text-muted-foreground" />
+          <IconSearch className="shrink-0 text-muted-foreground" />
           <input
             type="search"
             placeholder="Buscar tests..."

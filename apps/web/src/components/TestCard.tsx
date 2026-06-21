@@ -4,7 +4,7 @@ import { useTestsStore } from "@/store/tests-store";
 import { useTestSummary } from "@/hooks/useTestSummary";
 import { formatRelativeTime } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
-import { SaveIcon } from "@/components/icons";
+import { IconDeviceFloppy } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
 type TestCardProps = {
@@ -63,7 +63,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
           className="btn-ghost -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground"
           aria-label={test.saved ? "Quitar de guardados" : "Guardar test"}
         >
-          <SaveIcon className={test.saved ? "text-primary" : ""} />
+          <IconDeviceFloppy className={test.saved ? "text-primary" : ""} />
         </button>
       </div>
 

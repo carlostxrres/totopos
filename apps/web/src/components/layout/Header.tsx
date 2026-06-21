@@ -1,14 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { ArrowLeftIcon, BookOpenIcon, HistoryIcon, PlusIcon } from "@/components/icons";
+import { IconArrowLeft, IconBook2, IconHistory, IconPlus } from "@tabler/icons-react";
 
 type HeaderProps = {
   showBack?: boolean;
 };
 
 const navLinks = [
-  { to: "/", label: "Tests guardados", icon: BookOpenIcon, end: true },
-  { to: "/crear", label: "Crear test", icon: PlusIcon, end: false },
-  { to: "/historial", label: "Historial", icon: HistoryIcon, end: false },
+  { to: "/", label: "Tests guardados", icon: IconBook2, end: true },
+  { to: "/crear", label: "Crear test", icon: IconPlus, end: false },
+  { to: "/historial", label: "Historial", icon: IconHistory, end: false },
 ];
 
 export function Header({ showBack = false }: HeaderProps) {
@@ -24,7 +24,7 @@ export function Header({ showBack = false }: HeaderProps) {
             className="btn-ghost -ml-2 flex h-9 w-9 items-center justify-center rounded-md"
             aria-label="Volver atrás"
           >
-            <ArrowLeftIcon />
+            <IconArrowLeft />
           </button>
         )}
 

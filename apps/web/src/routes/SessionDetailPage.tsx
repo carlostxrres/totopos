@@ -3,7 +3,7 @@ import { fixedTests } from "@tot-opos/test-data";
 import { useHistoryStore } from "@/store/history-store";
 import { formatDate, formatDateTime, formatDurationMs } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
-import { CheckIcon, XIcon } from "@/components/icons";
+import { IconCheck, IconX } from "@tabler/icons-react";
 
 const ALL_QUESTIONS = fixedTests.flatMap((t) => t.questions);
 
@@ -61,7 +61,7 @@ export function SessionDetailPage() {
                   answer.wasCorrect ? "bg-success/20 text-success" : "bg-destructive/20 text-destructive"
                 }`}
               >
-                {answer.wasCorrect ? <CheckIcon /> : <XIcon />}
+                {answer.wasCorrect ? <IconCheck /> : <IconX />}
               </div>
               <div>
                 <p className="text-xs text-muted-foreground mb-0.5">Pregunta {index + 1}</p>
