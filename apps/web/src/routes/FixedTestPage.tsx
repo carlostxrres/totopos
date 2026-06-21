@@ -15,7 +15,7 @@ import { TimerControl } from "@/components/TimerControl";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { TestCorrection } from "@/components/TestCorrection";
 import { Button } from "@/components/ui/button";
-import { ClockIcon, MenuDotsIcon } from "@/components/icons";
+import { BookmarkFilledIcon, CheckIcon, ClockIcon, MenuDotsIcon } from "@/components/icons";
 
 export function FixedTestPage() {
   const { testId } = useParams<{ testId: string }>();
@@ -55,6 +55,8 @@ export function FixedTestPage() {
   const flaggedIds = new Set(progress?.flaggedQuestionIds ?? []);
   const answeredIds = new Set(Object.keys(answers));
   const answeredCount = answeredIds.size;
+  const flaggedUnansweredCount = [...flaggedIds].filter((id) => !answeredIds.has(id)).length;
+  const flaggedAnsweredCount = flaggedIds.size - flaggedUnansweredCount;
 
   // After early return, `test` is narrowed to FixedTest. Capture it so closures keep the type.
   const fixedTest = test;
@@ -231,18 +233,74 @@ export function FixedTestPage() {
           ))}
         </fieldset>
 
-        {/* Submit button — last snap point */}
+        {/* Submit — last snap point */}
         <div
           id="submit-btn"
           className="flex min-h-screen snap-start items-center justify-center md:min-h-0 md:snap-none"
         >
-          <Button
-            variant="primary"
-            onClick={handleSubmitPress}
-            className="w-full max-w-xs text-base"
-          >
-            Enviar test
-          </Button>
+          <div className="w-full max-w-xs space-y-4">
+            {/* Summary card */}
+            <div className="rounded-xl border bg-card p-5 space-y-4">
+              <h3 className="text-sm font-semibold">Resumen del test</h3>
+
+              {/* Progress bar */}
+              <div className="space-y-1.5">
+                <div className="h-2 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-primary transition-all duration-500"
+                    style={{
+                      width: `${Math.round((answeredCount / test.questions.length) * 100)}%`,
+                    }}
+                  />
+                </div>
+                <div className="flex justify-between text-xs text-muted-foreground">
+                  <span>
+                    {answeredCount} de {test.questions.length} respondidas
+                  </span>
+                  <span>
+                    {Math.round((answeredCount / test.questions.length) * 100)} %
+                  </span>
+                </div>
+              </div>
+
+              {/* Stats */}
+              <div className="space-y-2 text-sm">
+                {answeredCount === test.questions.length ? (
+                  <div className="flex items-center gap-2 text-success">
+                    <CheckIcon size={14} className="shrink-0" />
+                    <span>Todas las preguntas respondidas</span>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <span className="size-2 shrink-0 rounded-full bg-muted-foreground/40" />
+                    <span>
+                      {unansweredCount} pregunta{unansweredCount !== 1 ? "s" : ""} sin responder
+                    </span>
+                  </div>
+                )}
+                {flaggedUnansweredCount > 0 && (
+                  <div className="flex items-center gap-2 text-warning">
+                    <BookmarkFilledIcon size={14} className="shrink-0" />
+                    <span>
+                      {flaggedUnansweredCount} marcada{flaggedUnansweredCount !== 1 ? "s" : ""} sin responder
+                    </span>
+                  </div>
+                )}
+                {flaggedAnsweredCount > 0 && (
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <BookmarkFilledIcon size={14} className="shrink-0" />
+                    <span>
+                      {flaggedAnsweredCount} marcada{flaggedAnsweredCount !== 1 ? "s" : ""} y respondida{flaggedAnsweredCount !== 1 ? "s" : ""}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <Button variant="primary" onClick={handleSubmitPress} className="w-full text-base">
+              Enviar test
+            </Button>
+          </div>
         </div>
       </div>
 
