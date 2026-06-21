@@ -304,7 +304,7 @@ export function IndefiniteTestPage() {
             <DropdownMenu.Trigger asChild>
               <button
                 type="button"
-                className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md"
+                className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground"
                 aria-label="Más opciones"
               >
                 <IconDotsVertical />

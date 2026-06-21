@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { IconArrowLeft, IconBook2, IconHistory, IconPlus } from "@tabler/icons-react";
 
 type HeaderProps = {
@@ -11,8 +11,14 @@ const navLinks = [
   { to: "/historial", label: "Historial", icon: IconHistory, end: false },
 ];
 
+function isNavActive(to: string, pathname: string): boolean {
+  if (to === "/") return pathname === "/" || pathname.startsWith("/tests/");
+  return pathname === to || pathname.startsWith(`${to}/`);
+}
+
 export function Header({ showBack = false }: HeaderProps) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <header className="sticky top-0 z-40 h-14 border-b border-border bg-background/95 backdrop-blur">
@@ -21,7 +27,7 @@ export function Header({ showBack = false }: HeaderProps) {
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="btn-ghost -ml-2 flex h-9 w-9 items-center justify-center rounded-md"
+            className="btn-ghost -ml-2 flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground"
             aria-label="Volver atrás"
           >
             <IconArrowLeft />
@@ -31,22 +37,22 @@ export function Header({ showBack = false }: HeaderProps) {
         <span className="font-semibold text-primary">TotOpos</span>
 
         <nav className="ml-auto hidden items-center gap-1 md:flex">
-          {navLinks.map(({ to, label, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              className={({ isActive }) =>
-                `rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary/10 text-primary"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
-                }`
-              }
-            >
-              {label}
-            </NavLink>
-          ))}
+          {navLinks.map(({ to, label }) => {
+            const active = isNavActive(to, pathname);
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                className={
+                  active
+                    ? "rounded-md px-3 py-2 text-sm font-medium transition-colors bg-primary/10 text-primary"
+                    : "rounded-md px-3 py-2 text-sm font-medium transition-colors text-muted-foreground hover:bg-muted hover:text-foreground"
+                }
+              >
+                {label}
+              </NavLink>
+            );
+          })}
         </nav>
       </div>
     </header>
