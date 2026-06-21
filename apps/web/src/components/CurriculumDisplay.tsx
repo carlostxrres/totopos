@@ -1,10 +1,10 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import type { Test, Unit } from "@tot-opos/types";
 import { useMemo, useState } from "react";
-import { useCurriculumUiStore } from "../store/curriculum-ui-store";
-import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "./icons";
-import { TestCard } from "./TestCard";
-import { cn } from "../lib/cn";
+import { useCurriculumUiStore } from "@/store/curriculum-ui-store";
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon } from "@/components/icons";
+import { TestCard } from "@/components/TestCard";
+import { cn } from "@/lib/cn";
 
 type ReadonlyProps = {
   mode: "readonly";

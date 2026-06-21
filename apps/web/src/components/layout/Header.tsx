@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { ArrowLeftIcon, BookOpenIcon, HistoryIcon, PlusIcon } from "../icons";
+import { ArrowLeftIcon, BookOpenIcon, HistoryIcon, PlusIcon } from "@/components/icons";
 
 type HeaderProps = {
   showBack?: boolean;

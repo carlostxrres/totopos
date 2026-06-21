@@ -1,7 +1,7 @@
 import type { FixedAttempt, TestTimer } from "@tot-opos/types";
-import { useHistoryStore } from "../store/history-store";
-import { useProgressStore } from "../store/progress-store";
-import { useSessionStore } from "../store/session-store";
+import { useHistoryStore } from "@/store/history-store";
+import { useProgressStore } from "@/store/progress-store";
+import { useSessionStore } from "@/store/session-store";
 
 export type TestSummary = {
   isInProgress: boolean;

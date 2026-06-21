@@ -1,7 +1,7 @@
 import type { IndefiniteAnswer, IndefiniteSession } from "@tot-opos/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { useHistoryStore } from "./history-store";
+import { useHistoryStore } from "@/store/history-store";
 
 type SessionState = {
   sessions: Record<string, IndefiniteSession>;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useHistoryStore } from "../store/history-store";
-import { useProgressStore } from "../store/progress-store";
-import { useSessionStore } from "../store/session-store";
-import { useTestsStore } from "../store/tests-store";
-import { formatRelativeTime, formatDateTime } from "../lib/relative-time";
+import { useHistoryStore } from "@/store/history-store";
+import { useProgressStore } from "@/store/progress-store";
+import { useSessionStore } from "@/store/session-store";
+import { useTestsStore } from "@/store/tests-store";
+import { formatRelativeTime, formatDateTime } from "@/lib/relative-time";
 
 // ─── Activity heatmap ─────────────────────────────────────────────────────────
 

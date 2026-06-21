@@ -1,4 +1,4 @@
-import { cn } from "./cn";
+import { cn } from "@/lib/cn";
 
 type ClassValue = string | undefined | null | false;
 type VariantSchema = Record<string, Record<string, ClassValue>>;

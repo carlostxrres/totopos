@@ -1,9 +1,9 @@
 import * as Checkbox from "@radix-ui/react-checkbox";
 import * as RadioGroup from "@radix-ui/react-radio-group";
 import type { Question, QuestionHistory } from "@tot-opos/types";
-import { BookmarkFilledIcon, BookmarkIcon, CheckIcon } from "./icons";
-import { formatRelativeTime } from "../lib/relative-time";
-import { cn } from "../lib/cn";
+import { BookmarkFilledIcon, BookmarkIcon, CheckIcon } from "@/components/icons";
+import { formatRelativeTime } from "@/lib/relative-time";
+import { cn } from "@/lib/cn";
 
 type QuestionCardProps = {
   question: Question;

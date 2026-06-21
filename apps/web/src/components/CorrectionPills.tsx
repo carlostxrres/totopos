@@ -1,5 +1,5 @@
-import type { QuestionResult } from "../lib/scoring";
-import { cn } from "../lib/cn";
+import type { QuestionResult } from "@/lib/scoring";
+import { cn } from "@/lib/cn";
 
 type CorrectionPillsProps = {
   questionIds: string[];

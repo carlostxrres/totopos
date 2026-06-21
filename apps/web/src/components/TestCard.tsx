@@ -1,11 +1,11 @@
 import type { Test } from "@tot-opos/types";
 import { useNavigate } from "react-router-dom";
-import { useTestsStore } from "../store/tests-store";
-import { useTestSummary } from "../hooks/useTestSummary";
-import { formatRelativeTime } from "../lib/relative-time";
-import { Button } from "./ui/button";
-import { SaveIcon } from "./icons";
-import { cn } from "../lib/cn";
+import { useTestsStore } from "@/store/tests-store";
+import { useTestSummary } from "@/hooks/useTestSummary";
+import { formatRelativeTime } from "@/lib/relative-time";
+import { Button } from "@/components/ui/button";
+import { SaveIcon } from "@/components/icons";
+import { cn } from "@/lib/cn";
 
 type TestCardProps = {
   test: Test;

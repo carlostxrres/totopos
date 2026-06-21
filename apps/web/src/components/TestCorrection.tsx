@@ -1,8 +1,8 @@
 import type { FixedAttempt, FixedTest } from "@tot-opos/types";
-import type { TestResult } from "../lib/scoring";
-import { formatDateTime } from "../lib/relative-time";
-import { CorrectionPills } from "./CorrectionPills";
-import { QuestionCard } from "./QuestionCard";
+import type { TestResult } from "@/lib/scoring";
+import { formatDateTime } from "@/lib/relative-time";
+import { CorrectionPills } from "@/components/CorrectionPills";
+import { QuestionCard } from "@/components/QuestionCard";
 
 type TestCorrectionProps = {
   test: FixedTest;

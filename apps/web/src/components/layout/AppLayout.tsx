@@ -1,6 +1,6 @@
 import { Outlet, useMatch } from "react-router-dom";
-import { Header } from "./Header";
-import { NavBar } from "./NavBar";
+import { Header } from "@/components/layout/Header";
+import { NavBar } from "@/components/layout/NavBar";
 
 export function AppLayout() {
   const isTestPage = useMatch("/tests/*");

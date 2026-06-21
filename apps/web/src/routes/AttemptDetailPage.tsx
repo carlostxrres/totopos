@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useHistoryStore } from "../store/history-store";
-import { useTestsStore } from "../store/tests-store";
-import { TestCorrection } from "../components/TestCorrection";
-import { scoreTest } from "../lib/scoring";
-import { Button } from "../components/ui/button";
+import { useHistoryStore } from "@/store/history-store";
+import { useTestsStore } from "@/store/tests-store";
+import { TestCorrection } from "@/components/TestCorrection";
+import { scoreTest } from "@/lib/scoring";
+import { Button } from "@/components/ui/button";
 
 export function AttemptDetailPage() {
   const { attemptId } = useParams<{ attemptId: string }>();

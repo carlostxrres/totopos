@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { fixedTests } from "@tot-opos/test-data";
-import { AppLayout } from "./components/layout/AppLayout";
-import { useTestsStore } from "./store/tests-store";
-import { SavedTestsPage } from "./routes/SavedTestsPage";
-import { CreateTestPage } from "./routes/CreateTestPage";
-import { HistoryPage } from "./routes/HistoryPage";
-import { AttemptDetailPage } from "./routes/AttemptDetailPage";
-import { SessionDetailPage } from "./routes/SessionDetailPage";
-import { FixedTestPage } from "./routes/FixedTestPage";
-import { IndefiniteTestPage } from "./routes/IndefiniteTestPage";
+import { AppLayout } from "@/components/layout/AppLayout";
+import { useTestsStore } from "@/store/tests-store";
+import { SavedTestsPage } from "@/routes/SavedTestsPage";
+import { CreateTestPage } from "@/routes/CreateTestPage";
+import { HistoryPage } from "@/routes/HistoryPage";
+import { AttemptDetailPage } from "@/routes/AttemptDetailPage";
+import { SessionDetailPage } from "@/routes/SessionDetailPage";
+import { FixedTestPage } from "@/routes/FixedTestPage";
+import { IndefiniteTestPage } from "@/routes/IndefiniteTestPage";
 
 function DataSeeder() {
   const seedFixedTests = useTestsStore((s) => s.seedFixedTests);

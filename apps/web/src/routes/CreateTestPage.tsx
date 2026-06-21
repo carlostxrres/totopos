@@ -3,12 +3,12 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { units } from "@tot-opos/curriculum-data";
 import type { FixedTest, IndefiniteTest, IndefiniteTestFilters } from "@tot-opos/types";
-import { useTestsStore } from "../store/tests-store";
-import { useQuestionHistoryStore } from "../store/question-history-store";
-import { resolveQuestions } from "../lib/test-generator";
-import { CurriculumDisplay } from "../components/CurriculumDisplay";
-import { Button } from "../components/ui/button";
-import { SearchIcon } from "../components/icons";
+import { useTestsStore } from "@/store/tests-store";
+import { useQuestionHistoryStore } from "@/store/question-history-store";
+import { resolveQuestions } from "@/lib/test-generator";
+import { CurriculumDisplay } from "@/components/CurriculumDisplay";
+import { Button } from "@/components/ui/button";
+import { SearchIcon } from "@/components/icons";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 
 type Step = 1 | 2;

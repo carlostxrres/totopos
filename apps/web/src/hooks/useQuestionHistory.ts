@@ -1,4 +1,4 @@
-import { useQuestionHistoryStore } from "../store/question-history-store";
+import { useQuestionHistoryStore } from "@/store/question-history-store";
 
 export type QuestionHistorySummary = {
   timesAnswered: number;

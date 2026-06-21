@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { BookOpenIcon, HistoryIcon, PlusIcon } from "../icons";
+import { BookOpenIcon, HistoryIcon, PlusIcon } from "@/components/icons";
 
 const links = [
   { to: "/", label: "Tests", icon: BookOpenIcon, end: true },
