@@ -1,0 +1,18 @@
+{
+  "name": "tot-opos",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @tot-opos/web dev",
+    "build": "pnpm --filter @tot-opos/web build",
+    "test": "pnpm --filter @tot-opos/web test",
+    "lint": "biome check .",
+    "format": "biome format --write ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}

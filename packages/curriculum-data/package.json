@@ -1,0 +1,11 @@
+{
+  "name": "@tot-opos/curriculum-data",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@tot-opos/types": "workspace:*"
+  }
+}
