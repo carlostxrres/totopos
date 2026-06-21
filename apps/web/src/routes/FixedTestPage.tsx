@@ -53,7 +53,11 @@ export function FixedTestPage() {
 
   const answers = progress?.answers ?? {};
   const flaggedIds = new Set(progress?.flaggedQuestionIds ?? []);
-  const answeredIds = new Set(Object.keys(answers));
+  const answeredIds = new Set(
+    Object.entries(answers)
+      .filter(([, opts]) => opts.length > 0)
+      .map(([id]) => id),
+  );
   const answeredCount = answeredIds.size;
   const flaggedUnansweredCount = [...flaggedIds].filter((id) => !answeredIds.has(id)).length;
   const flaggedAnsweredCount = flaggedIds.size - flaggedUnansweredCount;
