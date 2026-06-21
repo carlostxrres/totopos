@@ -6,7 +6,6 @@ import { useTestSummary } from "@/hooks/useTestSummary";
 import { formatRelativeTime } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
-import { IconDeviceFloppy, IconDeviceFloppyFilled } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
 type TestCardProps = {
@@ -60,18 +59,14 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
             </span>
           )}
         </div>
-        <button
-          type="button"
+        <Button
+          variant="secondary"
+          size="sm"
           onClick={() => test.saved ? setConfirmUnsave(true) : setSaved(test.id, true)}
-          className={cn(
-            "btn-ghost -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
-            test.saved ? "text-primary hover:text-destructive" : "text-muted-foreground",
-          )}
-          aria-label={test.saved ? "Quitar de guardados" : "Guardar test"}
-          title={test.saved ? "Quitar de guardados" : "Guardar test"}
+          className={cn("shrink-0", test.saved && "text-destructive hover:text-destructive")}
         >
-          {test.saved ? <IconDeviceFloppyFilled /> : <IconDeviceFloppy />}
-        </button>
+          {test.saved ? "Quitar" : "Guardar"}
+        </Button>
       </div>
 
       <div>
