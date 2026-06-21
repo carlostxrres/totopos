@@ -43,6 +43,12 @@ function matchesSearch(unit: Unit, query: string, units: Unit[]): boolean {
   });
 }
 
+function hasAnyTests(unitId: string, units: Unit[], getTestsForUnit: (id: string) => Test[]): boolean {
+  const children = units.filter((u) => u.parentId === unitId);
+  if (children.length === 0) return getTestsForUnit(unitId).length > 0;
+  return children.some((child) => hasAnyTests(child.id, units, getTestsForUnit));
+}
+
 function getAncestorIds(unitId: string, units: Unit[]): string[] {
   const unit = units.find((u) => u.id === unitId);
   if (!unit?.parentId) return [];
@@ -69,6 +75,7 @@ function ReadonlyNode({
   const isLeaf = children.length === 0;
   const isOpen = openNodeIds.includes(unit.id);
   const tests = isLeaf ? getTestsForUnit(unit.id) : [];
+  const empty = !hasAnyTests(unit.id, units, getTestsForUnit);
 
   return (
     <div>
@@ -76,13 +83,15 @@ function ReadonlyNode({
         type="button"
         onClick={() => toggleNode(unit.id)}
         className={cn(
-          "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-muted",
-          depth === 0 && "font-semibold",
+          "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors",
+          depth === 0 ? "font-semibold" : "font-medium",
+          empty ? "text-muted-foreground/50 cursor-default hover:bg-transparent" : "hover:bg-muted",
         )}
         style={{ paddingLeft: `${0.75 + depth * 1.25}rem` }}
       >
         {isOpen ? <IconChevronDown /> : <IconChevronRight />}
         <span className="text-left">{unit.name}</span>
+        {empty && <span className="ml-auto text-xs font-normal italic">sin tests</span>}
       </button>
 
       {isOpen && (
