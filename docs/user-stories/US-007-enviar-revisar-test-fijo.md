@@ -52,6 +52,16 @@ Como **usuario opositor**, quiero **enviar el test y ver la corrección detallad
 - **Y** cada respuesta se registra en `questionHistoryStore` con `wasCorrect`
 - **Y** el progreso del test se elimina de `progressStore`
 
+### Escenario 8: Resumen antes del botón Enviar
+- **Dado que** me desplazo hasta el final del test
+- **Cuando** llego al último snap-point (snap de pantalla completa en móvil)
+- **Entonces** veo una tarjeta de resumen con:
+  - Barra de progreso (N de M respondidas + %)
+  - Indicador de preguntas sin responder, o "Todas las preguntas respondidas" en verde
+  - Preguntas marcadas sin responder (en color warning)
+  - Preguntas marcadas ya respondidas (en muted)
+- **Y** debajo el botón "Enviar test"
+
 ## Notas de implementación
 
 - `scoreTest(test, answers)` de `src/lib/scoring.ts`
@@ -59,3 +69,4 @@ Como **usuario opositor**, quiero **enviar el test y ver la corrección detallad
 - Orden de comprobación al enviar: primero "marcadas sin responder", luego "sin responder sin marcar"
 - `progressStore.clear(testId)` elimina el entry completo tras el envío
 - El botón "Enviar" es el último snap-point en móvil (ocupa viewport completo)
+- `answeredIds` excluye respuestas con array vacío (`opts.length > 0`) para que "Borrar respuesta" descuente correctamente del contador

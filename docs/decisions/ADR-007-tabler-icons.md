@@ -9,22 +9,9 @@ La implementación inicial usaba SVGs inline en `src/components/icons.tsx`. Esto
 
 ## Decisión
 
-Adoptar `@tabler/icons-react` como biblioteca de iconos. El archivo `src/components/icons.tsx` actúa como barrel de re-exports que mapea los nombres locales del proyecto a los nombres de Tabler:
+Adoptar `@tabler/icons-react` como biblioteca de iconos e importar los componentes directamente en cada archivo consumidor usando los nombres nativos de Tabler (`IconArrowLeft`, `IconCheck`, etc.).
 
-```ts
-export { IconArrowLeft as ArrowLeftIcon, IconBookmark as BookmarkIcon, ... } from "@tabler/icons-react";
-```
-
-Esto permite cambiar la biblioteca en el futuro sin tocar ningún otro archivo.
-
-**Mapeo de nombres relevante:**
-| Nombre local | Tabler |
-|---|---|
-| `MenuDotsIcon` | `IconDotsVertical` |
-| `BookOpenIcon` | `IconBook2` |
-| `PauseIcon` | `IconPlayerPause` |
-| `PlayIcon` | `IconPlayerPlay` |
-| `SaveIcon` | `IconDeviceFloppy` |
+El barrel intermedio `src/components/icons.tsx` fue eliminado: añadía una capa de indirección sin beneficio real, dificultaba el autocompletado del IDE y ocultaba el nombre real del icono al lector del código.
 
 ## Consecuencias
 

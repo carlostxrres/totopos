@@ -31,7 +31,7 @@ Como **usuario opositor**, quiero **responder todas las preguntas de un test fij
 ### Escenario 4: Borrar respuesta
 - **Dado que** he respondido una pregunta
 - **Cuando** pulso "Borrar respuesta"
-- **Entonces** la pregunta queda sin respuesta y el pastillo vuelve a gris
+- **Entonces** la pregunta queda sin respuesta, el pastillo vuelve a gris y el contador de respondidas disminuye
 
 ### Escenario 5: Marcar pregunta con bookmark
 - **Dado que** estoy respondiendo
@@ -40,8 +40,13 @@ Como **usuario opositor**, quiero **responder todas las preguntas de un test fij
 
 ### Escenario 6: ProgressPills — pregunta activa
 - **Dado que** estoy haciendo scroll por las preguntas
-- **Cuando** una pregunta supera el 50% de visibilidad en el viewport
-- **Entonces** su pastillo en ProgressPills muestra el borde destacado de "activa"
+- **Cuando** una o más preguntas superan el 50% de visibilidad en el viewport
+- **Entonces** sus pastillos en ProgressPills son más altos que los demás (h-5 → h-8), con transición de rebote (spring cubic-bezier); puede haber varias activas simultáneamente
+
+### Escenario 9: Número de pregunta
+- **Dado que** estoy respondiendo un test fijo
+- **Cuando** veo el enunciado de cada pregunta
+- **Entonces** aparece su número antes del texto en gris claro (ej. "2. En quants districtes...")
 
 ### Escenario 7: Navegar con los pastillos
 - **Cuando** hago click en un pastillo de ProgressPills

@@ -29,9 +29,9 @@ Como **usuario opositor**, quiero **explorar mis tests organizados en el árbol 
 - **Entonces** muestra un chip "Unidad pura" diferenciado
 
 ### Escenario 4: Nodo sin tests
-- **Dado que** una unit no tiene tests guardados asociados
-- **Cuando** expando ese nodo hoja
-- **Entonces** no se muestra ninguna TestCard (el acordeón queda vacío)
+- **Dado que** una unit (o rama entera del árbol) no tiene tests guardados
+- **Entonces** el nodo aparece en gris claro (`muted-foreground/50`), sin efecto hover, con la etiqueta "sin tests" en cursiva a la derecha — sin necesidad de expandirlo para descubrir que está vacío
+- Si se expande de todas formas, el nodo hoja muestra "Sin tests guardados en esta unidad."
 
 ### Escenario 5: Estado abierto/cerrado persistido
 - **Dado que** he expandido varios nodos del árbol
