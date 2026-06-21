@@ -1,10 +1,12 @@
 import type { Test } from "@tot-opos/types";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTestsStore } from "@/store/tests-store";
 import { useTestSummary } from "@/hooks/useTestSummary";
 import { formatRelativeTime } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
-import { IconDeviceFloppy } from "@tabler/icons-react";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { IconDeviceFloppy, IconDeviceFloppyFilled } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
 type TestCardProps = {
@@ -16,6 +18,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
   const navigate = useNavigate();
   const setSaved = useTestsStore((s) => s.setSaved);
   const summary = useTestSummary(test.id, test.type);
+  const [confirmUnsave, setConfirmUnsave] = useState(false);
 
   const questionCount =
     test.type === "fixed" ? test.questions.length : "Variable";
@@ -59,11 +62,15 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
         </div>
         <button
           type="button"
-          onClick={() => setSaved(test.id, !test.saved)}
-          className="btn-ghost -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-muted-foreground"
+          onClick={() => test.saved ? setConfirmUnsave(true) : setSaved(test.id, true)}
+          className={cn(
+            "btn-ghost -mr-1 -mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-md",
+            test.saved ? "text-primary hover:text-destructive" : "text-muted-foreground",
+          )}
           aria-label={test.saved ? "Quitar de guardados" : "Guardar test"}
+          title={test.saved ? "Quitar de guardados" : "Guardar test"}
         >
-          <IconDeviceFloppy className={test.saved ? "text-primary" : ""} />
+          {test.saved ? <IconDeviceFloppyFilled /> : <IconDeviceFloppy />}
         </button>
       </div>
 
@@ -92,6 +99,16 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
       <Button variant="primary" onClick={handleStart} className="w-full">
         {summary.isInProgress ? "Continuar" : "Comenzar"}
       </Button>
+
+      <ConfirmDialog
+        open={confirmUnsave}
+        onOpenChange={setConfirmUnsave}
+        title="¿Quitar de guardados?"
+        description="El test dejará de aparecer en tu lista. Puedes volver a guardarlo desde la búsqueda por temario."
+        confirmLabel="Quitar"
+        onConfirm={() => setSaved(test.id, false)}
+        variant="destructive"
+      />
     </div>
   );
 }
