@@ -1,23 +1,23 @@
-import { cn } from "../lib/cn";
+import { cn } from "@/lib/cn";
 
 type ProgressPillsProps = {
   questionIds: string[];
   answeredIds: Set<string>;
   flaggedIds: Set<string>;
-  activeId: string | null;
+  activeIds: Set<string>;
 };
 
-export function ProgressPills({ questionIds, answeredIds, flaggedIds, activeId }: ProgressPillsProps) {
+export function ProgressPills({ questionIds, answeredIds, flaggedIds, activeIds }: ProgressPillsProps) {
   function scrollTo(id: string) {
     document.getElementById(`question-${id}`)?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
-    <div className="flex flex-wrap gap-1">
+    <div className="flex flex-wrap items-end gap-1">
       {questionIds.map((id, index) => {
         const isAnswered = answeredIds.has(id);
         const isFlagged = flaggedIds.has(id);
-        const isActive = activeId === id;
+        const isActive = activeIds.has(id);
 
         return (
           <button
@@ -29,15 +29,16 @@ export function ProgressPills({ questionIds, answeredIds, flaggedIds, activeId }
           >
             <span
               className={cn(
-                "flex h-5 w-5 items-center justify-center rounded-sm text-[10px] font-medium transition-colors",
+                "flex w-5 items-center justify-center rounded-sm text-[10px] font-medium",
+                "transition-[height] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                isActive ? "h-8" : "h-5",
                 isAnswered ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground",
-                isActive && "ring-2 ring-primary ring-offset-1 ring-offset-background",
               )}
             >
               {index + 1}
             </span>
             {isFlagged && (
-              <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-warning" />
+              <span className="absolute -bottom-1 left-0 right-0 h-2 bg-warning" />
             )}
           </button>
         );

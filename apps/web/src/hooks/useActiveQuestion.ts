@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export function useActiveQuestion(questionIds: string[]): string | null {
-  const [activeId, setActiveId] = useState<string | null>(null);
+export function useActiveQuestion(questionIds: string[]): Set<string> {
+  const [activeIds, setActiveIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const elements = questionIds
@@ -20,7 +20,7 @@ export function useActiveQuestion(questionIds: string[]): string | null {
             intersecting.delete(rawId);
           }
         }
-        setActiveId(questionIds.find((id) => intersecting.has(id)) ?? null);
+        setActiveIds(new Set(intersecting));
       },
       { threshold: 0.5 },
     );
@@ -33,5 +33,5 @@ export function useActiveQuestion(questionIds: string[]): string | null {
     };
   }, [questionIds]);
 
-  return activeId;
+  return activeIds;
 }
