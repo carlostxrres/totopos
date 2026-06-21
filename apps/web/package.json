@@ -19,6 +19,7 @@
     "@radix-ui/react-radio-group": "^1.2.3",
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tooltip": "^1.2.0",
+    "@tabler/icons-react": "^3.44.0",
     "@tot-opos/curriculum-data": "workspace:*",
     "@tot-opos/test-data": "workspace:*",
     "@tot-opos/types": "workspace:*",
