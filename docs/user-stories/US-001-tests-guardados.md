@@ -30,8 +30,8 @@ Como **usuario opositor**, quiero **ver mis tests guardados en una lista y filtr
 
 ### Escenario 4: Checkbox "Solo mis tests"
 - **Dado que** veo el SubHeader de la pestaña
-- **Cuando** marco o desmarco el checkbox "Solo mis tests"
-- **Entonces** en Fase 1 el comportamiento no cambia (siempre muestra todos); el estado se persiste en localStorage
+- **Cuando** marco el checkbox "Solo mis tests"
+- **Entonces** solo se muestran los tests con `metadata.category === "Personalizado"` (tests creados por el usuario, no los tests de demostración precargados)
 
 ## Notas de implementación
 
@@ -39,4 +39,5 @@ Como **usuario opositor**, quiero **ver mis tests guardados en una lista y filtr
 - Sub-tab activo: "Mostrar todo" (el otro es "Buscar por temario", ver US-002)
 - Componente de lista: `TestCard` (uno por test)
 - Store: `useTestsStore` — filtrar `tests.filter(t => t.saved)`
-- El checkbox "Solo mis tests" persiste en `useCurriculumUiStore` o estado local con `localStorage`
+- Tests personalizados: `metadata.category === "Personalizado"` (asignado en `CreateTestPage`)
+- Tests precargados: `metadata.category` diferente (ej. "Ajuntament de Barcelona", "Temario General")

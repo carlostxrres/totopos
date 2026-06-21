@@ -18,6 +18,11 @@ Como **usuario opositor**, quiero **configurar un temporizador por pregunta en e
 - **Cuando** aparece el modal de inicio de sesión
 - **Entonces** puedo elegir "Sin temporizador", "Blando" o "Duro" e introducir los segundos (input de segundos, default 60)
 
+### Escenario 1b: Abrir configuración del timer durante la sesión
+- **Dado que** hay una sesión activa
+- **Cuando** abro el menú (⋮) y selecciono "Temporizador"
+- **Entonces** se abre el mismo modal de configuración del timer
+
 ### Escenario 2: Timer se reinicia en cada pregunta nueva
 - **Dado que** el timer está activo y avanzo a la siguiente pregunta no respondida
 - **Cuando** aparece la nueva pregunta
@@ -47,6 +52,8 @@ Como **usuario opositor**, quiero **configurar un temporizador por pregunta en e
 
 - El timer por pregunta **no** se persiste en ningún store (se reinicia en cada pregunta)
 - El valor de segundos configurado se guarda en el estado local del componente `IndefiniteTestPage`
-- Componente: `TimerControl` (en el SubHeader de `IndefiniteTestPage`)
+- El trigger de configuración está en el **DropdownMenu** (`⋮`), no como botón suelto en el SubHeader
+- Cuando el timer está activo/pausado se muestra el chip de cuenta atrás en el SubHeader; click = pausa/reanuda
+- Componente: `TimerControl` (en el SubHeader de `IndefiniteTestPage`, controlado con `setupOpen`/`onSetupOpenChange`)
 - Al navegar hacia atrás: pausar/detener el timer mientras se está en modo lectura
 - Timer duro: la pregunta "expira" sin responder → no cuenta para las estadísticas de la sesión

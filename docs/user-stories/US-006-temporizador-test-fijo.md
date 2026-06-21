@@ -14,8 +14,8 @@ Como **usuario opositor**, quiero **configurar un temporizador opcional para el 
 ## Criterios de aceptación
 
 ### Escenario 1: Abrir configuración del timer
-- **Dado que** no hay timer activo
-- **Cuando** pulso el icono de reloj en el SubHeader
+- **Dado que** estoy en un test fijo
+- **Cuando** abro el menú (⋮) y selecciono "Temporizador"
 - **Entonces** se abre el modal con las opciones: "Sin temporizador", "Blando" y "Duro"
 
 ### Escenario 2: Timer blando activo
@@ -54,8 +54,10 @@ Como **usuario opositor**, quiero **configurar un temporizador opcional para el 
 
 ## Notas de implementación
 
-- Componente: `TimerControl` (en el SubHeader de `FixedTestPage`)
+- El trigger de configuración está en el **DropdownMenu** (`⋮`), no como botón suelto en el SubHeader
+- Cuando el timer está activo/pausado se muestra el chip de cuenta atrás (⏸/▶ + MM:SS) en el SubHeader; click = pausa/reanuda
+- Componente: `TimerControl` (en el SubHeader de `FixedTestPage`, controlado con `setupOpen`/`onSetupOpenChange`)
 - Store: `useProgressStore` — `startTimer`, `pauseTimer`, `resumeTimer`
 - `deadlineAt`: ISO datetime absoluto. Al pausar: `pausedRemainingMs = new Date(deadlineAt).getTime() - Date.now()`
-- El componente hace `setInterval` de 1 segundo y calcula `remaining = new Date(deadlineAt).getTime() - Date.now()`
+- El componente hace `setInterval` de 500ms y calcula `remaining = new Date(deadlineAt).getTime() - Date.now()`
 - Default de minutos: `suggestedMinuteLimit` del test, o bien `n_preguntas × 0.5` si no existe
