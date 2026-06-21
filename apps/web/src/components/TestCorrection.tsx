@@ -47,10 +47,11 @@ export function TestCorrection({ test, attempt, result }: TestCorrectionProps) {
 
       {/* Questions */}
       <div className="space-y-4">
-        {test.questions.map((question) => (
+        {test.questions.map((question, index) => (
           <div key={question.id} id={`question-${question.id}`}>
             <QuestionCard
               question={question}
+              questionNumber={index + 1}
               selectedOptionIds={attempt.answers[question.id] ?? []}
               onChange={() => {}}
               showCorrection

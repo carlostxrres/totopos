@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 
 type QuestionCardProps = {
   question: Question;
+  questionNumber?: number;
   selectedOptionIds: string[];
   onChange: (optionIds: string[]) => void;
   showCorrection: boolean;
@@ -25,6 +26,7 @@ function OptionClass(_optionId: string, isCorrect: boolean, selected: boolean, s
 
 export function QuestionCard({
   question,
+  questionNumber,
   selectedOptionIds,
   onChange,
   showCorrection,
@@ -56,7 +58,12 @@ export function QuestionCard({
     <div className="card space-y-4" style={{ scrollSnapAlign: "start" }}>
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
-        <p className="text-sm font-medium leading-relaxed">{question.prompt}</p>
+        <p className="text-sm font-medium leading-relaxed">
+          {questionNumber !== undefined && (
+            <span className="text-muted-foreground">{questionNumber}.{" "}</span>
+          )}
+          {question.prompt}
+        </p>
         {onToggleFlag && (
           <button
             type="button"

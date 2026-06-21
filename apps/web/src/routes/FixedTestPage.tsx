@@ -223,10 +223,11 @@ export function FixedTestPage() {
       {/* Questions */}
       <div className="space-y-4 mt-4">
         <fieldset disabled={isLocked} className="space-y-4">
-          {test.questions.map((question) => (
+          {test.questions.map((question, index) => (
             <div key={question.id} id={`question-${question.id}`}>
               <QuestionCard
                 question={question}
+                questionNumber={index + 1}
                 selectedOptionIds={answers[question.id] ?? []}
                 onChange={(ids) => setAnswer(testId!, question.id, ids)}
                 showCorrection={false}
