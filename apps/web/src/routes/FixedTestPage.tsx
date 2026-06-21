@@ -2,20 +2,20 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import type { FixedAttempt, TimerMode } from "@tot-opos/types";
-import { useTestsStore } from "../store/tests-store";
-import { useProgressStore } from "../store/progress-store";
-import { useHistoryStore } from "../store/history-store";
-import { useQuestionHistoryStore } from "../store/question-history-store";
-import { useActiveQuestion } from "../hooks/useActiveQuestion";
-import { useScrollSnap } from "../hooks/useScrollSnap";
-import { scoreTest } from "../lib/scoring";
-import { QuestionCard } from "../components/QuestionCard";
-import { ProgressPills } from "../components/ProgressPills";
-import { TimerControl } from "../components/TimerControl";
-import { ConfirmDialog } from "../components/ConfirmDialog";
-import { TestCorrection } from "../components/TestCorrection";
-import { Button } from "../components/ui/button";
-import { MenuDotsIcon } from "../components/icons";
+import { useTestsStore } from "@/store/tests-store";
+import { useProgressStore } from "@/store/progress-store";
+import { useHistoryStore } from "@/store/history-store";
+import { useQuestionHistoryStore } from "@/store/question-history-store";
+import { useActiveQuestion } from "@/hooks/useActiveQuestion";
+import { useScrollSnap } from "@/hooks/useScrollSnap";
+import { scoreTest } from "@/lib/scoring";
+import { QuestionCard } from "@/components/QuestionCard";
+import { ProgressPills } from "@/components/ProgressPills";
+import { TimerControl } from "@/components/TimerControl";
+import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { TestCorrection } from "@/components/TestCorrection";
+import { Button } from "@/components/ui/button";
+import { ClockIcon, MenuDotsIcon } from "@/components/icons";
 
 export function FixedTestPage() {
   const { testId } = useParams<{ testId: string }>();
@@ -33,13 +33,14 @@ export function FixedTestPage() {
   const [submitDialog, setSubmitDialog] = useState<"unanswered" | "flagged" | null>(null);
   const [resetDialog, setResetDialog] = useState(false);
   const [hardExpired, setHardExpired] = useState(false);
+  const [timerSetupOpen, setTimerSetupOpen] = useState(false);
 
   useEffect(() => {
     if (testId) touchOpened(testId);
   }, [testId, touchOpened]);
 
   const questionIds = test?.type === "fixed" ? test.questions.map((q) => q.id) : [];
-  const activeId = useActiveQuestion(questionIds);
+  const activeIds = useActiveQuestion(questionIds);
   useScrollSnap(!showCorrection);
 
   if (!test || test.type !== "fixed") {
@@ -125,6 +126,8 @@ export function FixedTestPage() {
             timerMode={timer?.mode}
             suggestedMinutes={test.suggestedMinuteLimit}
             questionCount={test.questions.length}
+            setupOpen={timerSetupOpen}
+            onSetupOpenChange={setTimerSetupOpen}
             onStart={(mode: TimerMode, minutes: number) => startTimer(testId!, mode, minutes)}
             onPause={() => pauseTimer(testId!)}
             onResume={() => resumeTimer(testId!)}
@@ -136,7 +139,7 @@ export function FixedTestPage() {
               questionIds={questionIds}
               answeredIds={answeredIds}
               flaggedIds={flaggedIds}
-              activeId={activeId}
+              activeIds={activeIds}
             />
           </div>
 
@@ -157,8 +160,16 @@ export function FixedTestPage() {
             <DropdownMenu.Portal>
               <DropdownMenu.Content
                 align="end"
-                className="z-50 min-w-40 rounded-md border border-border bg-background p-1 shadow-md"
+                className="z-50 min-w-44 rounded-md border border-border bg-background p-1 shadow-md"
               >
+                <DropdownMenu.Item
+                  className="flex cursor-pointer items-center gap-2 rounded px-3 py-2 text-sm hover:bg-muted"
+                  onSelect={() => setTimerSetupOpen(true)}
+                >
+                  <ClockIcon size={16} />
+                  Temporizador
+                </DropdownMenu.Item>
+                <DropdownMenu.Separator className="my-1 h-px bg-border" />
                 <DropdownMenu.Item
                   className="flex cursor-pointer rounded px-3 py-2 text-sm hover:bg-muted"
                   onSelect={() => window.scrollTo({ top: 0, behavior: "smooth" })}

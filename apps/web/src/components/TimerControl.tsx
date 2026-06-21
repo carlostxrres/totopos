@@ -1,17 +1,19 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useEffect, useRef, useState } from "react";
 import type { TimerMode } from "@tot-opos/types";
-import { ClockIcon, PauseIcon, PlayIcon } from "./icons";
-import { Button } from "./ui/button";
-import { cn } from "../lib/cn";
+import { PauseIcon, PlayIcon } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/cn";
 
 type TimerControlProps = {
   mode: "fixed" | "indefinite";
   deadlineAt?: string;
   pausedRemainingMs?: number;
-  timerMode?: TimerMode; // used externally to show state
+  timerMode?: TimerMode;
   suggestedMinutes?: number;
   questionCount?: number;
+  setupOpen: boolean;
+  onSetupOpenChange: (open: boolean) => void;
   onStart: (mode: TimerMode, value: number) => void;
   onPause?: () => void;
   onResume?: () => void;
@@ -32,12 +34,13 @@ export function TimerControl({
   timerMode: _timerMode,
   suggestedMinutes,
   questionCount,
+  setupOpen,
+  onSetupOpenChange,
   onStart,
   onPause,
   onResume,
   onExpire,
 }: TimerControlProps) {
-  const [open, setOpen] = useState(false);
   const [selectedMode, setSelectedMode] = useState<TimerMode | "none">("none");
   const [inputValue, setInputValue] = useState(
     mode === "fixed"
@@ -82,50 +85,36 @@ export function TimerControl({
     const val = parseInt(inputValue, 10);
     if (isNaN(val) || val <= 0) return;
     onStart(selectedMode, val);
-    setOpen(false);
+    onSetupOpenChange(false);
   }
 
   const defaultMinutes = suggestedMinutes ?? (questionCount ? Math.round(questionCount * 0.5) : 30);
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => {
-          if (isActive && onPause) {
-            onPause();
-          } else if (isPaused && onResume) {
-            onResume();
-          } else {
-            setOpen(true);
-          }
-        }}
-        className={cn(
-          "flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors",
-          isWarning
-            ? "bg-warning/20 text-warning-foreground"
-            : isActive || isPaused
-              ? "bg-muted text-foreground"
-              : "text-muted-foreground hover:bg-muted",
-        )}
-        aria-label={isActive ? "Pausar temporizador" : isPaused ? "Reanudar temporizador" : "Configurar temporizador"}
-      >
-        {isActive ? (
-          <>
-            <PauseIcon />
-            <span>{remainingMs !== null ? formatCountdown(remainingMs) : "—"}</span>
-          </>
-        ) : isPaused ? (
-          <>
-            <PlayIcon />
-            <span>{remainingMs !== null ? formatCountdown(remainingMs) : "—"}</span>
-          </>
-        ) : (
-          <ClockIcon />
-        )}
-      </button>
+      {/* Countdown chip — only shown when timer is active or paused */}
+      {(isActive || isPaused) && (
+        <button
+          type="button"
+          onClick={() => {
+            if (isActive && onPause) onPause();
+            else if (isPaused && onResume) onResume();
+          }}
+          className={cn(
+            "flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors",
+            isWarning
+              ? "bg-warning/20 text-warning-foreground"
+              : "bg-muted text-foreground",
+          )}
+          aria-label={isActive ? "Pausar temporizador" : "Reanudar temporizador"}
+        >
+          {isActive ? <PauseIcon /> : <PlayIcon />}
+          <span>{remainingMs !== null ? formatCountdown(remainingMs) : "—"}</span>
+        </button>
+      )}
 
-      <Dialog.Root open={open} onOpenChange={setOpen}>
+      {/* Setup dialog — triggered from DropdownMenu via setupOpen prop */}
+      <Dialog.Root open={setupOpen} onOpenChange={onSetupOpenChange}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg">
@@ -137,7 +126,6 @@ export function TimerControl({
                   key={opt}
                   className={cn(
                     "option cursor-pointer",
-                    selectedMode === opt && "option[data-state=checked]",
                     selectedMode === opt ? "border-primary bg-primary/10" : "",
                   )}
                 >
@@ -194,7 +182,7 @@ export function TimerControl({
             )}
 
             <div className="flex justify-end gap-3">
-              <Button variant="secondary" onClick={() => setOpen(false)}>
+              <Button variant="secondary" onClick={() => onSetupOpenChange(false)}>
                 Cancelar
               </Button>
               <Button
@@ -217,3 +205,4 @@ export function TimerControl({
     </>
   );
 }
+
