@@ -11,6 +11,7 @@ import { AttemptDetailPage } from "@/routes/AttemptDetailPage";
 import { SessionDetailPage } from "@/routes/SessionDetailPage";
 import { FixedTestPage } from "@/routes/FixedTestPage";
 import { IndefiniteTestPage } from "@/routes/IndefiniteTestPage";
+import { StatsPage } from "@/routes/StatsPage";
 
 function DataSeeder() {
   const seedFixedTests = useTestsStore((s) => s.seedFixedTests);
@@ -38,6 +39,7 @@ export default function App() {
           <Route index element={<SavedTestsPage />} />
           <Route path="crear" element={<CreateTestPage />} />
           <Route path="historial" element={<HistoryPage />} />
+          <Route path="estadisticas" element={<StatsPage />} />
           <Route path="historial/sesion/:sessionId" element={<SessionDetailPage />} />
           <Route path="historial/:attemptId" element={<AttemptDetailPage />} />
           <Route path="tests/fixed/:testId" element={<FixedTestPage />} />

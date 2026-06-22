@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useHistoryStore } from "@/store/history-store";
 import { useProgressStore } from "@/store/progress-store";
 import { useSessionStore } from "@/store/session-store";
@@ -183,6 +183,15 @@ export function HistoryPage() {
 
   return (
     <div className="space-y-8 py-4">
+      {/* Quick link to stats */}
+      <Link
+        to="/estadisticas"
+        className="card flex items-center justify-between hover:bg-muted transition-colors"
+      >
+        <span className="text-sm font-medium">Estadísticas por unidad</span>
+        <span className="text-xs text-muted-foreground">Ver →</span>
+      </Link>
+
       {/* Heatmap */}
       <section>
         <h2 className="mb-3 text-sm font-semibold">Actividad</h2>
