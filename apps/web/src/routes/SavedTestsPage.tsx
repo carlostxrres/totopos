@@ -24,7 +24,7 @@ export function SavedTestsPage() {
   });
 
   function getTestsForUnit(unitId: string): Test[] {
-    return savedTests.filter((t) => t.unitIds.includes(unitId));
+    return filteredTests.filter((t) => t.unitIds.includes(unitId));
   }
 
   return (
