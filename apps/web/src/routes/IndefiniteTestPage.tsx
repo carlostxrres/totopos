@@ -51,11 +51,25 @@ export function IndefiniteTestPage() {
   const [showHistory, setShowHistory] = useState(true);
   const [initModal, setInitModal] = useState<"none" | "empty" | "few" | "timer">("none");
   const [closeDialog, setCloseDialog] = useState(false);
+  const [exitDialog, setExitDialog] = useState(false);
   const [timerSetupOpen, setTimerSetupOpen] = useState(false);
   const [localAnswers, setLocalAnswers] = useState<Record<string, string[]>>({});
 
   const timerSecondsRef = useRef(timerSeconds);
   timerSecondsRef.current = timerSeconds;
+
+  // Intercept browser back button while a session is active
+  useEffect(() => {
+    if (!activeSession) return;
+    window.history.pushState(null, "");
+    function handlePopstate() {
+      setExitDialog(true);
+      window.history.pushState(null, "");
+    }
+    window.addEventListener("popstate", handlePopstate);
+    return () => window.removeEventListener("popstate", handlePopstate);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeSession?.id]);
 
   // On mount: check session state
   useEffect(() => {
@@ -410,6 +424,54 @@ export function IndefiniteTestPage() {
           navigate("/historial");
         }}
       />
+
+      {/* Exit dialog: shown when pressing the browser back button */}
+      <Dialog.Root open={exitDialog} onOpenChange={setExitDialog}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
+            <Dialog.Title className="font-semibold">¿Salir del test?</Dialog.Title>
+            <Dialog.Description asChild>
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  Tu progreso se conservará. Puedes continuar desde aquí cuando quieras.
+                </p>
+                {totalAnswered > 0 && (
+                  <div className="rounded-md bg-muted p-3 text-sm space-y-1">
+                    <p className="font-medium">Esta sesión</p>
+                    <p className="text-muted-foreground">
+                      {totalAnswered} respondidas · {correctCount} correctas · {totalAnswered - correctCount} incorrectas · {rate}% acierto
+                    </p>
+                  </div>
+                )}
+              </div>
+            </Dialog.Description>
+            <div className="flex gap-3">
+              <Button
+                variant="secondary"
+                className="flex-1"
+                onClick={() => {
+                  setExitDialog(false);
+                  navigate(-1);
+                }}
+              >
+                Pausar y salir
+              </Button>
+              <Button
+                variant="primary"
+                className="flex-1"
+                onClick={() => {
+                  setExitDialog(false);
+                  if (testId) closeSession(testId);
+                  navigate("/historial");
+                }}
+              >
+                Cerrar sesión
+              </Button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
