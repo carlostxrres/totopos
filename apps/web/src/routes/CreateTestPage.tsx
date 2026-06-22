@@ -152,21 +152,19 @@ export function CreateTestPage() {
         <span className="text-sm text-muted-foreground">
           {availableQuestions.length} preguntas disponibles
         </span>
-        <Button variant="primary" size="sm" onClick={() => setModalOpen(true)}>
-          Crear test
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" size="sm" onClick={() => setStep(1)}>
+            ← Unidades
+          </Button>
+          <Button variant="primary" size="sm" onClick={() => setModalOpen(true)}>
+            Crear test
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-6">
         <div>
-          <h2 className="mb-1 text-base font-semibold">Paso 2 de 2: configuración</h2>
-          <button
-            type="button"
-            onClick={() => setStep(1)}
-            className="text-xs text-primary underline"
-          >
-            ← Volver a seleccionar unidades
-          </button>
+          <h2 className="text-base font-semibold">Paso 2 de 2: configuración</h2>
         </div>
 
         {/* Type */}
