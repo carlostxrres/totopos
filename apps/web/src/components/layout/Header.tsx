@@ -1,5 +1,5 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { IconArrowLeft, IconBook2, IconHistory, IconMoon, IconPlus, IconSun } from "@tabler/icons-react";
+import { IconArrowLeft, IconBook2, IconHistory, IconMoon, IconPlus, IconSettings, IconSun } from "@tabler/icons-react";
 import { useThemeStore } from "@/store/theme-store";
 
 type HeaderProps = {
@@ -66,6 +66,18 @@ export function Header({ showBack = false }: HeaderProps) {
             );
           })}
         </nav>
+
+        <NavLink
+          to="/ajustes"
+          className={({ isActive }) =>
+            `flex h-9 w-9 items-center justify-center rounded-md transition-colors ${
+              isActive ? "text-primary" : "text-muted-foreground hover:bg-muted"
+            }`
+          }
+          aria-label="Ajustes"
+        >
+          <IconSettings size={18} />
+        </NavLink>
       </div>
     </header>
   );

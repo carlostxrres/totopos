@@ -7,8 +7,9 @@ export function AppLayout() {
   const isAttemptDetail = useMatch("/historial/:attemptId");
   const isSessionDetail = useMatch("/historial/sesion/:sessionId");
   const isStatsPage = useMatch("/estadisticas");
+  const isSettingsPage = useMatch("/ajustes");
 
-  const showBack = !!(isTestPage || isAttemptDetail || isSessionDetail || isStatsPage);
+  const showBack = !!(isTestPage || isAttemptDetail || isSessionDetail || isStatsPage || isSettingsPage);
 
   return (
     <div className="min-h-screen">
