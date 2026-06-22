@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { fixedTests } from "@tot-opos/test-data";
 import { AppLayout } from "@/components/layout/AppLayout";
 import { useTestsStore } from "@/store/tests-store";
+import { useThemeStore } from "@/store/theme-store";
 import { SavedTestsPage } from "@/routes/SavedTestsPage";
 import { CreateTestPage } from "@/routes/CreateTestPage";
 import { HistoryPage } from "@/routes/HistoryPage";
@@ -19,10 +20,19 @@ function DataSeeder() {
   return null;
 }
 
+function ThemeApplier() {
+  const isDark = useThemeStore((s) => s.isDark);
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
+  return null;
+}
+
 export default function App() {
   return (
     <BrowserRouter>
       <DataSeeder />
+      <ThemeApplier />
       <Routes>
         <Route element={<AppLayout />}>
           <Route index element={<SavedTestsPage />} />

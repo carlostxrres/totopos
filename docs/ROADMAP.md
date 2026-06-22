@@ -30,6 +30,7 @@ Todo en el cliente. Datos estáticos en paquetes npm del monorepo. Persistencia 
 | E3: Test fijo       | [US-005](user-stories/US-005-responder-test-fijo.md), [US-006](user-stories/US-006-temporizador-test-fijo.md), [US-007](user-stories/US-007-enviar-revisar-test-fijo.md)      | pendiente |
 | E4: Test libre      | [US-008](user-stories/US-008-sesion-test-libre.md), [US-009](user-stories/US-009-confirmar-respuesta-test-libre.md), [US-010](user-stories/US-010-temporizador-test-libre.md) | pendiente |
 | E5: Historial       | [US-011](user-stories/US-011-historial-actividad.md), [US-012](user-stories/US-012-detalle-intento-fijo.md), [US-013](user-stories/US-013-detalle-sesion-libre.md)            | pendiente |
+| E6: UX adicional    | [US-014](user-stories/US-014-modo-oscuro.md), [US-015](user-stories/US-015-redo-fallos.md), [US-016](user-stories/US-016-estadisticas-unidad.md), [US-017](user-stories/US-017-exportar-importar.md), [US-018](user-stories/US-018-metricas-globales.md), [US-019](user-stories/US-019-navegador-preguntas.md), [US-020](user-stories/US-020-ordenar-filtrar-tests.md), [US-021](user-stories/US-021-resumen-salir-indefinite.md), [US-022](user-stories/US-022-preview-testcard.md) | pendiente |
 
 ---
 
@@ -47,8 +48,6 @@ Compartir tests, estadísticas agregadas, notificaciones de repaso, versionado d
 
 - **Backend:** autenticación, catálogo en servidor, API REST, sincronización de historial entre dispositivos
 - **Versionado de temario:** mecanismo para que cambios en el árbol de Units no rompan el historial de intentos anteriores
-- **Redo de fallos (US-F2-001):** generar un test libre automático con las preguntas falladas recientemente
-- **Estadísticas por unidad:** rendimiento del usuario desglosado por tema/bloque
 - **Notificaciones de repaso:** recordatorio cuando llevan X días sin repasar una unidad
 - **Social:** compartir tests, estadísticas agregadas, valoraciones de tests
 
