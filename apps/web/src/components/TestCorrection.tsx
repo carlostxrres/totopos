@@ -6,6 +6,7 @@ import { useTestsStore } from "@/store/tests-store";
 import { CorrectionPills } from "@/components/CorrectionPills";
 import { QuestionCard } from "@/components/QuestionCard";
 import { Button } from "@/components/ui/button";
+import PluralizedNoun from "./PluralizedNoun";
 
 type TestCorrectionProps = {
   test: FixedTest;
@@ -71,7 +72,13 @@ export function TestCorrection({ test, attempt, result }: TestCorrectionProps) {
       {/* Redo failed questions */}
       {failedQuestions.length > 0 && (
         <Button variant="secondary" onClick={handleRedoFailed} className="w-full">
-          Repasar {failedQuestions.length} pregunta{failedQuestions.length !== 1 ? "s" : ""} fallada{failedQuestions.length !== 1 ? "s" : ""}
+          Crear test de repaso —{" "}
+          <PluralizedNoun
+            count={failedQuestions.length}
+            singular="pregunta fallada"
+            plural="preguntas falladas"
+            showNumberSingular
+          />
         </Button>
       )}
 

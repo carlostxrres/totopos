@@ -3,7 +3,7 @@ import { units } from "@tot-opos/curriculum-data";
 import type { Unit } from "@tot-opos/types";
 import { fixedTests } from "@tot-opos/test-data";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
-import { IconSearch } from "@tabler/icons-react";
+import { IconSearch, IconCheck, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 import { formatRelativeTime } from "@/lib/relative-time";
 
@@ -193,7 +193,13 @@ export function QuestionsPage() {
                     <>
                       <span>{timesAnswered} {timesAnswered === 1 ? "vez" : "veces"}</span>
                       {lastEntry && (
-                        <span>Última: {formatRelativeTime(lastEntry.answeredAt)} — {lastEntry.wasCorrect ? "✓ correcta" : "✗ incorrecta"}</span>
+                        <span className="flex items-center gap-1">
+                          Última: {formatRelativeTime(lastEntry.answeredAt)}
+                          {lastEntry.wasCorrect
+                            ? <IconCheck size={12} className="inline text-success" />
+                            : <IconX size={12} className="inline text-destructive" />
+                          }
+                        </span>
                       )}
                       {rate !== null && (
                         <span
