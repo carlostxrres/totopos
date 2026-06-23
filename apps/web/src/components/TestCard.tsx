@@ -7,16 +7,15 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useTestsStore } from "@/store/tests-store";
 import { useTestSummary } from "@/hooks/useTestSummary";
 import { useHistoryStore } from "@/store/history-store";
-import { formatRelativeTime, formatDate } from "@/lib/relative-time";
+import { formatRelativeTime } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { TestCardDetails } from "@/components/TestCardDetails";
 import PluralizedNoun from "@/components/PluralizedNoun";
 import {
-  IconCheck,
   IconChevronDown,
   IconChevronUp,
   IconDots,
-  IconX,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
@@ -186,62 +185,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
 
       {/* Preview panel */}
       {expanded && (
-        <div className="space-y-3 border-t border-border pt-3">
-          {unitNames.length > 0 && (
-            <div>
-              <p className="mb-1.5 text-xs font-medium text-muted-foreground">Unidades cubiertas</p>
-              <div className="flex flex-wrap gap-1">
-                {unitNames.map((name) => (
-                  <span
-                    key={name}
-                    className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
-                  >
-                    {name}
-                  </span>
-                ))}
-                {test.unitIds.length > 5 && (
-                  <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
-                    +{test.unitIds.length - 5} más
-                  </span>
-                )}
-              </div>
-            </div>
-          )}
-
-          {recentAttempts.length > 0 && (
-            <div>
-              <p className="mb-1.5 text-xs font-medium text-muted-foreground">Últimos intentos</p>
-              <div className="space-y-1">
-                {test.type === "fixed"
-                  ? (recentAttempts as typeof fixedAttempts).map((a) => (
-                      <div key={a.id} className="flex items-center justify-between text-xs">
-                        <span className="text-muted-foreground">{formatDate(a.completedAt)}</span>
-                        <span className={`flex items-center gap-0.5 font-medium ${a.passed ? "text-success" : "text-destructive"}`}>
-                          {a.maxScore > 0 ? Math.round((a.score / a.maxScore) * 100) : 0}%
-                          {a.passed ? <IconCheck size={12} /> : <IconX size={12} />}
-                        </span>
-                      </div>
-                    ))
-                  : (recentAttempts as typeof indefiniteSessions).map((s) => {
-                      const correct = s.answers.filter((a) => a.wasCorrect).length;
-                      const rate = s.answers.length > 0 ? Math.round((correct / s.answers.length) * 100) : 0;
-                      return (
-                        <div key={s.id} className="flex items-center justify-between text-xs">
-                          <span className="text-muted-foreground">{formatDate(s.startedAt)}</span>
-                          <span className="text-muted-foreground">
-                            {s.answers.length} resp. · {rate}%
-                          </span>
-                        </div>
-                      );
-                    })}
-              </div>
-            </div>
-          )}
-
-          {recentAttempts.length === 0 && (
-            <p className="text-xs text-muted-foreground italic">Sin intentos anteriores.</p>
-          )}
-        </div>
+        <TestCardDetails test={test} unitNames={unitNames} recentAttempts={recentAttempts} />
       )}
 
       <Button variant="primary" onClick={handleStart} className="w-full">

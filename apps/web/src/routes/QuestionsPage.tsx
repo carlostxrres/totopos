@@ -3,18 +3,14 @@ import { units } from "@tot-opos/curriculum-data";
 import type { Unit } from "@tot-opos/types";
 import { fixedTests } from "@tot-opos/test-data";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
-import { IconSearch, IconCheck, IconX } from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
+import { QuestionRow } from "@/components/QuestionRow";
 import PluralizedNoun from "@/components/PluralizedNoun";
 import { cn } from "@/lib/cn";
-import { formatRelativeTime } from "@/lib/relative-time";
 
 const ALL_QUESTIONS = fixedTests.flatMap((t) => t.questions);
 
 type FilterStatus = "all" | "new" | "correct" | "incorrect";
-
-function unitName(unitId: string): string {
-  return units.find((u) => u.id === unitId)?.name ?? unitId;
-}
 
 function getUnitOptions(): { id: string; name: string; depth: number }[] {
   const result: { id: string; name: string; depth: number }[] = [];
@@ -160,72 +156,9 @@ export function QuestionsPage() {
             No hay preguntas con estos filtros.
           </p>
         ) : (
-          filteredQuestions.map((q) => {
-            const history = historyByQuestionId[q.id];
-            const timesAnswered = history?.entries.length ?? 0;
-            const lastEntry = history?.entries[0];
-            const successCount = history?.entries.filter((e) => e.wasCorrect).length ?? 0;
-            const rate = timesAnswered > 0 ? Math.round((successCount / timesAnswered) * 100) : null;
-
-            return (
-              <div key={q.id} className="card space-y-2">
-                {/* Unit chips */}
-                <div className="flex flex-wrap gap-1">
-                  {q.unitIds.map((uid) => (
-                    <span
-                      key={uid}
-                      className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
-                    >
-                      {unitName(uid)}
-                    </span>
-                  ))}
-                  <span
-                    className={cn(
-                      "ml-auto inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium",
-                      q.type === "single"
-                        ? "bg-primary/10 text-primary"
-                        : "bg-success/10 text-success",
-                    )}
-                  >
-                    {q.type === "single" ? "Única" : "Múltiple"}
-                  </span>
-                </div>
-
-                {/* Prompt */}
-                <p className="text-sm leading-snug line-clamp-3">{q.prompt}</p>
-
-                {/* History stats */}
-                <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                  {timesAnswered === 0 ? (
-                    <span>Sin responder</span>
-                  ) : (
-                    <>
-                      <span><PluralizedNoun count={timesAnswered} singular="vez" plural="veces" showNumberSingular /></span>
-                      {lastEntry && (
-                        <span className="flex items-center gap-1">
-                          Última: {formatRelativeTime(lastEntry.answeredAt)}
-                          {lastEntry.wasCorrect
-                            ? <IconCheck size={12} className="inline text-success" />
-                            : <IconX size={12} className="inline text-destructive" />
-                          }
-                        </span>
-                      )}
-                      {rate !== null && (
-                        <span
-                          className={cn(
-                            "font-medium",
-                            rate >= 70 ? "text-success" : rate >= 50 ? "text-warning" : "text-destructive",
-                          )}
-                        >
-                          {rate}% acierto
-                        </span>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })
+          filteredQuestions.map((q) => (
+            <QuestionRow key={q.id} question={q} history={historyByQuestionId[q.id]} />
+          ))
         )}
       </div>
     </div>

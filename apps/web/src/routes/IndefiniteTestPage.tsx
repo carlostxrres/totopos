@@ -1,4 +1,3 @@
-import * as Dialog from "@radix-ui/react-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useEffect, useRef, useState } from "react";
 import { useBlocker, useNavigate, useParams } from "react-router-dom";
@@ -12,6 +11,10 @@ import { QuestionCard } from "@/components/QuestionCard";
 import { TimerControl } from "@/components/TimerControl";
 import { TimerSetupModal } from "@/components/TimerSetupModal";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { EmptyPoolDialog } from "@/components/EmptyPoolDialog";
+import { FewQuestionsDialog } from "@/components/FewQuestionsDialog";
+import { IndefiniteEndOfPoolScreen } from "@/components/IndefiniteEndOfPoolScreen";
+import { IndefiniteExitDialog } from "@/components/IndefiniteExitDialog";
 import { Button } from "@/components/ui/button";
 import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconDotsVertical, IconX } from "@tabler/icons-react";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
@@ -63,7 +66,6 @@ export function IndefiniteTestPage() {
   const timerSecondsRef = useRef(timerSeconds);
   timerSecondsRef.current = timerSeconds;
 
-  // Block all SPA navigation while a session is active and show the exit dialog
   const blocker = useBlocker(!!activeSession);
   useEffect(() => {
     if (blocker.state === "blocked") {
@@ -71,19 +73,16 @@ export function IndefiniteTestPage() {
     }
   }, [blocker.state]);
 
-  // On mount: check session state
   useEffect(() => {
     if (!test || test.type !== "indefinite" || !testId) {
       return;
     }
 
     if (activeSession) {
-      // Resume session
       setCurrentIndex(activeSession.answers.length);
       return;
     }
 
-    // Resolve questions and decide modal
     const pool = resolveQuestions(ALL_QUESTIONS, test.filters, historyByQuestionId, new Date(), units);
     setPoolQuestions(pool);
 
@@ -97,20 +96,17 @@ export function IndefiniteTestPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [testId]);
 
-  // Reset timer on each new unanswered question
   useEffect(() => {
     if (!timerMode) {
       return;
     }
     const answeredInSession = activeSession?.answers.length ?? 0;
     if (currentIndex >= answeredInSession) {
-      // New question — reset timer
       const deadline = new Date(Date.now() + timerSecondsRef.current * 1000).toISOString();
       setTimerDeadlineAt(deadline);
       setTimerPausedMs(undefined);
       setTimerExpired(false);
     } else {
-      // Reviewing old question — stop timer
       setTimerDeadlineAt(undefined);
       setTimerPausedMs(undefined);
     }
@@ -138,7 +134,34 @@ export function IndefiniteTestPage() {
     setCurrentIndex(0);
   }
 
-  // Current question
+  // ── Init modals ─────────────────────────────────────────────────────────────
+
+  if (initModal === "empty") {
+    return <EmptyPoolDialog onBack={() => navigate(-1)} />;
+  }
+
+  if (initModal === "few") {
+    return (
+      <FewQuestionsDialog
+        count={poolQuestions.length}
+        onBack={() => navigate(-1)}
+        onContinue={() => setInitModal("timer")}
+      />
+    );
+  }
+
+  if (initModal === "timer") {
+    return (
+      <TimerSetupModal
+        onStart={startNewSession}
+        onSkip={() => startNewSession()}
+        onCancel={() => navigate(-1)}
+      />
+    );
+  }
+
+  // ── Current question ─────────────────────────────────────────────────────────
+
   const questionIds = activeSession ? activeSession.questionIds : poolQuestions.map((q) => q.id);
   const currentQuestionId = questionIds[currentIndex];
   const currentQuestion = ALL_QUESTIONS.find((q) => q.id === currentQuestionId);
@@ -153,6 +176,10 @@ export function IndefiniteTestPage() {
     : (localAnswers[currentQuestionId ?? ""] ?? []);
 
   const isLocked = timerMode === "hard" && timerExpired && !isCurrentAnswered;
+
+  const correctCount = activeSession?.answers.filter((a) => a.wasCorrect).length ?? 0;
+  const totalAnswered = activeSession?.answers.length ?? 0;
+  const rate = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
 
   function handleConfirm() {
     if (!currentQuestionId || !testId || !currentQuestion) {
@@ -185,101 +212,20 @@ export function IndefiniteTestPage() {
     }
   }
 
-  const correctCount = activeSession?.answers.filter((a) => a.wasCorrect).length ?? 0;
-  const totalAnswered = activeSession?.answers.length ?? 0;
-  const rate = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
-
-  // ── Modals ──────────────────────────────────────────────────────────────────
-
-  if (initModal === "empty") {
-    return (
-      <Dialog.Root open onOpenChange={() => navigate(-1)}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
-            <Dialog.Title className="font-semibold">Sin preguntas disponibles</Dialog.Title>
-            <Dialog.Description className="text-sm text-muted-foreground">
-              No hay preguntas disponibles con los filtros de este test.
-            </Dialog.Description>
-            <Button variant="secondary" onClick={() => navigate(-1)} className="w-full">
-              Volver
-            </Button>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    );
-  }
-
-  if (initModal === "few") {
-    return (
-      <Dialog.Root open>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
-            <Dialog.Title className="font-semibold">Pocas preguntas disponibles</Dialog.Title>
-            <Dialog.Description className="text-sm text-muted-foreground">
-              Solo hay {poolQuestions.length} preguntas disponibles con estos filtros. ¿Quieres continuar?
-            </Dialog.Description>
-            <div className="flex gap-3">
-              <Button variant="secondary" onClick={() => navigate(-1)} className="flex-1">
-                Volver
-              </Button>
-              <Button variant="primary" onClick={() => setInitModal("timer")} className="flex-1">
-                Continuar
-              </Button>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-    );
-  }
-
-  if (initModal === "timer") {
-    return (
-      <TimerSetupModal
-        onStart={startNewSession}
-        onSkip={() => startNewSession()}
-        onCancel={() => navigate(-1)}
-      />
-    );
-  }
-
   // ── End of pool ──────────────────────────────────────────────────────────────
 
   if (isAtEnd) {
     return (
-      <div className="py-8 space-y-6">
-        <div className="card text-center space-y-2">
-          <p className="text-lg font-semibold">No quedan más preguntas disponibles</p>
-          <p className="text-sm text-muted-foreground">Has llegado al final del pool de preguntas.</p>
-        </div>
-        <div className="card space-y-2">
-          <h3 className="text-sm font-semibold">Resultados de esta sesión</h3>
-          <div className="flex gap-4 text-sm">
-            <span>{totalAnswered} respondidas</span>
-            <span className="text-success">{correctCount} correctas</span>
-            <span className="text-destructive">{totalAnswered - correctCount} incorrectas</span>
-            <span className="font-medium">{rate}% acierto</span>
-          </div>
-        </div>
-        <div className="flex gap-3">
-          <Button variant="secondary" onClick={() => setCurrentIndex(0)} className="flex-1">
-            Revisar
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => {
-              if (testId) {
-                closeSession(testId);
-              }
-              navigate("/historial");
-            }}
-            className="flex-1"
-          >
-            Cerrar sesión
-          </Button>
-        </div>
-      </div>
+      <IndefiniteEndOfPoolScreen
+        totalAnswered={totalAnswered}
+        correctCount={correctCount}
+        rate={rate}
+        onReview={() => setCurrentIndex(0)}
+        onClose={() => {
+          if (testId) closeSession(testId);
+          navigate("/historial");
+        }}
+      />
     );
   }
 
@@ -287,7 +233,6 @@ export function IndefiniteTestPage() {
 
   return (
     <div className="space-y-4 py-4">
-      {/* SubHeader */}
       <div className="subheader -mx-4 px-4 py-2 space-y-1">
         <div className="flex items-center gap-2">
           <TimerControl
@@ -383,14 +328,12 @@ export function IndefiniteTestPage() {
         </div>
       </div>
 
-      {/* Timer expired (hard) */}
       {isLocked && (
         <div role="alert" className="rounded-md bg-destructive/10 p-3 text-sm text-destructive text-center font-medium">
           ¡Tiempo agotado! Esta pregunta no se registrará.
         </div>
       )}
 
-      {/* Question */}
       {currentQuestion && (
         <QuestionCard
           question={currentQuestion}
@@ -406,7 +349,6 @@ export function IndefiniteTestPage() {
         />
       )}
 
-      {/* Controls */}
       <div className={cn("flex gap-3", isCurrentAnswered ? "justify-between" : "justify-end")}>
         {currentIndex > 0 && (
           <Button variant="secondary" onClick={handlePrev} size="sm">
@@ -440,70 +382,30 @@ export function IndefiniteTestPage() {
         description="Se guardará tu progreso en el historial. ¿Quieres cerrar la sesión?"
         confirmLabel="Cerrar sesión"
         onConfirm={() => {
-          if (testId) {
-            closeSession(testId);
-          }
+          if (testId) closeSession(testId);
           navigate("/historial");
         }}
       />
 
-      {/* Exit dialog: shown on any navigation while a session is active */}
-      <Dialog.Root
+      <IndefiniteExitDialog
         open={exitDialog}
         onOpenChange={(open) => {
-          if (!open) {
-            blocker.reset?.();
-          }
+          if (!open) blocker.reset?.();
           setExitDialog(open);
         }}
-      >
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
-            <Dialog.Title className="font-semibold">¿Salir del test?</Dialog.Title>
-            <Dialog.Description asChild>
-              <div className="space-y-3">
-                <p className="text-sm text-muted-foreground">
-                  Tu progreso se conservará. Puedes continuar desde aquí cuando quieras.
-                </p>
-                {totalAnswered > 0 && (
-                  <div className="rounded-md bg-muted p-3 text-sm space-y-1">
-                    <p className="font-medium">Esta sesión</p>
-                    <p className="text-muted-foreground">
-                      {totalAnswered} respondidas · {correctCount} correctas · {totalAnswered - correctCount} incorrectas · {rate}% acierto
-                    </p>
-                  </div>
-                )}
-              </div>
-            </Dialog.Description>
-            <div className="flex gap-3">
-              <Button
-                variant="secondary"
-                className="flex-1"
-                onClick={() => {
-                  setExitDialog(false);
-                  blocker.proceed?.();
-                }}
-              >
-                Pausar y salir
-              </Button>
-              <Button
-                variant="primary"
-                className="flex-1"
-                onClick={() => {
-                  setExitDialog(false);
-                  if (testId) {
-                    closeSession(testId);
-                  }
-                  blocker.proceed?.();
-                }}
-              >
-                Cerrar sesión
-              </Button>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+        totalAnswered={totalAnswered}
+        correctCount={correctCount}
+        rate={rate}
+        onPauseAndExit={() => {
+          setExitDialog(false);
+          blocker.proceed?.();
+        }}
+        onCloseSession={() => {
+          setExitDialog(false);
+          if (testId) closeSession(testId);
+          blocker.proceed?.();
+        }}
+      />
     </div>
   );
 }
