@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { IconMoon, IconSun } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { useThemeStore } from "@/store/theme-store";
@@ -69,7 +68,9 @@ export function SettingsPage() {
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file) {
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (ev) => {
       const json = ev.target?.result as string;
@@ -96,21 +97,13 @@ export function SettingsPage() {
 
       {/* Appearance */}
       <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Apariencia</h2>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm">{isDark ? "Modo oscuro" : "Modo claro"}</p>
-            <p className="text-xs text-muted-foreground">Cambia el tema de la aplicación</p>
-          </div>
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted transition-colors"
-            aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-          >
-            {isDark ? <IconSun size={18} /> : <IconMoon size={18} />}
-          </button>
-        </div>
+        <h2 className="text-sm font-semibold">Tema</h2>
+        <p className="text-sm text-muted-foreground">
+          Cambia el tema de la aplicación
+        </p>
+        <Button variant="secondary" onClick={toggleTheme}>
+          {isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+        </Button>
       </section>
 
       {/* Export */}
