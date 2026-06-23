@@ -100,8 +100,8 @@ export function SavedTestsPage() {
             className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
           />
         </div>
-        <div className="flex items-center justify-between">
-          <div className="flex gap-1">
+        <div className="flex flex-col gap-2">
+          <div className="flex gap-4 justify-around">
             {(["all", "curriculum"] as const).map((tab) => (
               <button
                 key={tab}
@@ -117,7 +117,7 @@ export function SavedTestsPage() {
               </button>
             ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-4 justify-end h-6">
             {subTab === "all" && (
               <select
                 value={sortOrder}
