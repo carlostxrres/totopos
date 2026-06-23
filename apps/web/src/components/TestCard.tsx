@@ -8,6 +8,7 @@ import { useHistoryStore } from "@/store/history-store";
 import { formatRelativeTime, formatDate } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import PluralizedNoun from "@/components/PluralizedNoun";
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
@@ -102,7 +103,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
         )}
         {scoreDisplay && <span>{scoreDisplay}</span>}
         {summary.timesDone > 0 && (
-          <span>{summary.timesDone} {summary.timesDone === 1 ? "vez" : "veces"} realizado</span>
+          <span><PluralizedNoun count={summary.timesDone} singular="vez realizado" plural="veces realizado" /></span>
         )}
       </div>
 

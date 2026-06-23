@@ -9,6 +9,7 @@ import { resolveQuestions } from "@/lib/test-generator";
 import { CurriculumDisplay } from "@/components/CurriculumDisplay";
 import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
+import PluralizedNoun from "@/components/PluralizedNoun";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 
 type Step = 1 | 2;
@@ -119,7 +120,7 @@ export function CreateTestPage() {
           </div>
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground">
-              {selectedUnits.length} {selectedUnits.length === 1 ? "unidad seleccionada" : "unidades seleccionadas"}
+              <PluralizedNoun count={selectedUnits.length} singular="unidad seleccionada" plural="unidades seleccionadas" />
             </span>
             <Button
               variant="primary"

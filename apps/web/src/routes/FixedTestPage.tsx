@@ -16,6 +16,7 @@ import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { TestCorrection } from "@/components/TestCorrection";
 import { Button } from "@/components/ui/button";
 import { IconBookmarkFilled, IconCheck, IconClock, IconDotsVertical } from "@tabler/icons-react";
+import PluralizedNoun from "@/components/PluralizedNoun";
 
 export function FixedTestPage() {
   const { testId } = useParams<{ testId: string }>();
@@ -279,7 +280,7 @@ export function FixedTestPage() {
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <span className="size-2 shrink-0 rounded-full bg-muted-foreground/40" />
                     <span>
-                      {unansweredCount} pregunta{unansweredCount !== 1 ? "s" : ""} sin responder
+                      <PluralizedNoun count={unansweredCount} singular="pregunta sin responder" plural="preguntas sin responder" />
                     </span>
                   </div>
                 )}
@@ -287,7 +288,7 @@ export function FixedTestPage() {
                   <div className="flex items-center gap-2 text-warning">
                     <IconBookmarkFilled size={14} className="shrink-0" />
                     <span>
-                      {flaggedUnansweredCount} marcada{flaggedUnansweredCount !== 1 ? "s" : ""} sin responder
+                      <PluralizedNoun count={flaggedUnansweredCount} singular="marcada sin responder" plural="marcadas sin responder" />
                     </span>
                   </div>
                 )}
@@ -295,7 +296,7 @@ export function FixedTestPage() {
                   <div className="flex items-center gap-2 text-muted-foreground">
                     <IconBookmarkFilled size={14} className="shrink-0" />
                     <span>
-                      {flaggedAnsweredCount} marcada{flaggedAnsweredCount !== 1 ? "s" : ""} y respondida{flaggedAnsweredCount !== 1 ? "s" : ""}
+                      <PluralizedNoun count={flaggedAnsweredCount} singular="marcada y respondida" plural="marcadas y respondidas" />
                     </span>
                   </div>
                 )}

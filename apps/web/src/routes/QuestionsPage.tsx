@@ -4,6 +4,7 @@ import type { Unit } from "@tot-opos/types";
 import { fixedTests } from "@tot-opos/test-data";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
 import { IconSearch, IconCheck, IconX } from "@tabler/icons-react";
+import PluralizedNoun from "@/components/PluralizedNoun";
 import { cn } from "@/lib/cn";
 import { formatRelativeTime } from "@/lib/relative-time";
 
@@ -141,7 +142,7 @@ export function QuestionsPage() {
 
       {/* Count */}
       <p className="text-xs text-muted-foreground">
-        {filteredQuestions.length} pregunta{filteredQuestions.length !== 1 ? "s" : ""} encontrada{filteredQuestions.length !== 1 ? "s" : ""}
+        <PluralizedNoun count={filteredQuestions.length} singular="pregunta encontrada" plural="preguntas encontradas" />
       </p>
 
       {/* Question list */}
@@ -191,7 +192,7 @@ export function QuestionsPage() {
                     <span>Sin responder</span>
                   ) : (
                     <>
-                      <span>{timesAnswered} {timesAnswered === 1 ? "vez" : "veces"}</span>
+                      <span><PluralizedNoun count={timesAnswered} singular="vez" plural="veces" showNumberSingular /></span>
                       {lastEntry && (
                         <span className="flex items-center gap-1">
                           Última: {formatRelativeTime(lastEntry.answeredAt)}
