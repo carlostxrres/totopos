@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer base {
+  *, *::before, *::after {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+  }
+
   :root {
     --background:             98% 0 0;
     --foreground:             20% 0 0;
