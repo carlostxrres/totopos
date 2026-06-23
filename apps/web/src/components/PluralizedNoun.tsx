@@ -6,7 +6,7 @@ type Props = {
     showNumberPlural?: boolean; // Whether to show the number in plural ("2 questions")
 }
 
-export default function ({
+export default function PluralizedNoun({
     count,
     singular,
     plural,

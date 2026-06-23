@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { units } from "@tot-opos/curriculum-data";
-import type { Test } from "@tot-opos/types";
+import type { FixedAttempt, IndefiniteSession, Test, TestProgress } from "@tot-opos/types";
 import { useTestsStore } from "@/store/tests-store";
 import { useHistoryStore } from "@/store/history-store";
 import { useProgressStore } from "@/store/progress-store";
@@ -11,6 +11,47 @@ import { IconSearch } from "@tabler/icons-react";
 
 type SubTab = "all" | "curriculum";
 type SortOrder = "recent" | "oldest" | "name" | "score";
+
+function lastActivityDate(
+  test: Test,
+  fixedAttempts: FixedAttempt[],
+  indefiniteSessions: IndefiniteSession[],
+  progressByTestId: Record<string, TestProgress>,
+  activeSessions: Record<string, IndefiniteSession>,
+): string | undefined {
+  if (test.type === "fixed") {
+    const progress = progressByTestId[test.id];
+    const attempt = fixedAttempts.filter((a) => a.testId === test.id)[0];
+    const dates = [progress?.lastOpenedAt, attempt?.completedAt].filter(Boolean) as string[];
+    return dates.sort().reverse()[0];
+  }
+  const session = activeSessions[test.id];
+  const completed = indefiniteSessions.filter((s) => s.testId === test.id)[0];
+  const dates = [session?.startedAt, completed?.startedAt].filter(Boolean) as string[];
+  return dates.sort().reverse()[0];
+}
+
+function bestScore(
+  test: Test,
+  fixedAttempts: FixedAttempt[],
+  indefiniteSessions: IndefiniteSession[],
+): number | undefined {
+  if (test.type === "fixed") {
+    return fixedAttempts
+      .filter((a) => a.testId === test.id)
+      .reduce<number | undefined>((acc, a) => {
+        const pct = a.maxScore > 0 ? (a.score / a.maxScore) * 100 : 0;
+        return acc === undefined || pct > acc ? pct : acc;
+      }, undefined);
+  }
+  const sessions = indefiniteSessions.filter((s) => s.testId === test.id);
+  const last = sessions[0];
+  if (!last) {
+    return undefined;
+  }
+  const correct = last.answers.filter((a) => a.wasCorrect).length;
+  return last.answers.length > 0 ? (correct / last.answers.length) * 100 : 0;
+}
 
 export function SavedTestsPage() {
   const [subTab, setSubTab] = useState<SubTab>("all");
@@ -32,36 +73,6 @@ export function SavedTestsPage() {
     return matchesSearch && matchesMine;
   });
 
-  function lastActivityDate(test: Test): string | undefined {
-    if (test.type === "fixed") {
-      const progress = progressByTestId[test.id];
-      const attempt = fixedAttempts.filter((a) => a.testId === test.id)[0];
-      const dates = [progress?.lastOpenedAt, attempt?.completedAt].filter(Boolean) as string[];
-      return dates.sort().reverse()[0];
-    }
-    const session = activeSessions[test.id];
-    const completed = indefiniteSessions.filter((s) => s.testId === test.id)[0];
-    const dates = [session?.startedAt, completed?.startedAt].filter(Boolean) as string[];
-    return dates.sort().reverse()[0];
-  }
-
-  function bestScore(test: Test): number | undefined {
-    if (test.type === "fixed") {
-      const best = fixedAttempts
-        .filter((a) => a.testId === test.id)
-        .reduce<number | undefined>((acc, a) => {
-          const pct = a.maxScore > 0 ? (a.score / a.maxScore) * 100 : 0;
-          return acc === undefined || pct > acc ? pct : acc;
-        }, undefined);
-      return best;
-    }
-    const sessions = indefiniteSessions.filter((s) => s.testId === test.id);
-    const last = sessions[0];
-    if (!last) return undefined;
-    const correct = last.answers.filter((a) => a.wasCorrect).length;
-    return last.answers.length > 0 ? (correct / last.answers.length) * 100 : 0;
-  }
-
   const sortedTests = useMemo(() => {
     return [...filteredTests].sort((a, b) => {
       if (sortOrder === "name") {
@@ -70,15 +81,14 @@ export function SavedTestsPage() {
         return nameA.localeCompare(nameB, "es");
       }
       if (sortOrder === "score") {
-        const scoreA = bestScore(a) ?? -1;
-        const scoreB = bestScore(b) ?? -1;
+        const scoreA = bestScore(a, fixedAttempts, indefiniteSessions) ?? -1;
+        const scoreB = bestScore(b, fixedAttempts, indefiniteSessions) ?? -1;
         return scoreB - scoreA;
       }
-      const dateA = lastActivityDate(a) ?? "0";
-      const dateB = lastActivityDate(b) ?? "0";
+      const dateA = lastActivityDate(a, fixedAttempts, indefiniteSessions, progressByTestId, activeSessions) ?? "0";
+      const dateB = lastActivityDate(b, fixedAttempts, indefiniteSessions, progressByTestId, activeSessions) ?? "0";
       return sortOrder === "recent" ? dateB.localeCompare(dateA) : dateA.localeCompare(dateB);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredTests, sortOrder, fixedAttempts, indefiniteSessions, progressByTestId, activeSessions]);
 
   function getTestsForUnit(unitId: string): Test[] {

@@ -61,7 +61,7 @@ export function QuestionCard({
   }
 
   return (
-    <div className="card space-y-4" style={{ scrollSnapAlign: "start" }}>
+    <div className="card snap-start space-y-4">
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <p className="text-sm font-medium leading-relaxed">

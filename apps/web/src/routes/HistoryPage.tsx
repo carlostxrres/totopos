@@ -138,7 +138,10 @@ function ActivityHeatmap() {
   const indefiniteSessions = useHistoryStore((s) => s.indefiniteSessions);
   const [tooltip, setTooltip] = useState<{ key: string; x: number; y: number } | null>(null);
 
-  const heatmap = buildHeatmap(fixedAttempts, indefiniteSessions);
+  const heatmap = useMemo(
+    () => buildHeatmap(fixedAttempts, indefiniteSessions),
+    [fixedAttempts, indefiniteSessions],
+  );
 
   const WEEKS = 16;
   const today = new Date();

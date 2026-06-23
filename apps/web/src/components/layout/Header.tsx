@@ -22,38 +22,40 @@ function isNavActive(to: string, accepted: string[] | undefined, pathname: strin
 }
 
 interface ButtonNextToTitleProps extends PropsWithChildren {
-  nav: number;
+  onClick: () => void;
+}
+
+function ButtonNextToTitle({ children, onClick }: ButtonNextToTitleProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="btn-ghost -ml-2 flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground"
+      aria-label="Volver atrás"
+    >
+      {children}
+    </button>
+  );
 }
 
 export function Header({ showBack = false }: HeaderProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const ButtonNextToTitle = ({ children, nav }: ButtonNextToTitleProps) => (
-    <button
-      type="button"
-      onClick={() => navigate(nav)}
-      className="btn-ghost -ml-2 flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground"
-      aria-label="Volver atrás"
-    >
-      {children}
-    </button>
-  )
-
   return (
     <header className="sticky top-0 z-40 h-14 border-b border-border bg-background/95 backdrop-blur">
 
       <div className="flex h-full items-center gap-2 px-4 justify-between">
         <div className="flex items-center gap-2 px-4">
-          {showBack ?
-            <ButtonNextToTitle nav={-1}>
+          {showBack ? (
+            <ButtonNextToTitle onClick={() => navigate(-1)}>
               <IconArrowLeft size={24} />
             </ButtonNextToTitle>
-            :
-            <ButtonNextToTitle nav={0}>
+          ) : (
+            <ButtonNextToTitle onClick={() => navigate(0)}>
               <Logo size={24} />
             </ButtonNextToTitle>
-          }
+          )}
 
           <span className="font-semibold text-primary">TotOpos</span>
         </div>
