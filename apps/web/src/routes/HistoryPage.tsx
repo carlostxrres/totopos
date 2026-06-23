@@ -245,16 +245,22 @@ export function HistoryPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const inProgressFixed = Object.entries(progressByTestId).map(([testId, progress]) => ({
-    testId,
-    progress,
-    test: tests.find((t) => t.id === testId),
-  })).filter(({ test }) => !!test);
+  type InProgressItem =
+    | { kind: "fixed"; testId: string; progress: typeof progressByTestId[string]; test: typeof tests[number]; sortDate: string }
+    | { kind: "indefinite"; session: typeof activeSessions[string]; test: typeof tests[number]; sortDate: string };
 
-  const inProgressIndefinite = Object.values(activeSessions).map((session) => ({
-    session,
-    test: tests.find((t) => t.id === session.testId),
-  })).filter(({ test }) => !!test);
+  const inProgressItems: InProgressItem[] = [
+    ...Object.entries(progressByTestId).flatMap(([testId, progress]) => {
+      const test = tests.find((t) => t.id === testId);
+      if (!test) return [];
+      return [{ kind: "fixed" as const, testId, progress, test, sortDate: progress.lastOpenedAt }];
+    }),
+    ...Object.values(activeSessions).flatMap((session) => {
+      const test = tests.find((t) => t.id === session.testId);
+      if (!test) return [];
+      return [{ kind: "indefinite" as const, session, test, sortDate: session.startedAt }];
+    }),
+  ].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
 
   const completedItems = [
     ...fixedAttempts.map((a) => ({ type: "fixed" as const, date: a.completedAt, data: a })),
@@ -282,42 +288,46 @@ export function HistoryPage() {
       </section>
 
       {/* In progress */}
-      {(inProgressFixed.length > 0 || inProgressIndefinite.length > 0) && (
+      {inProgressItems.length > 0 && (
         <section>
           <h2 className="mb-3 text-sm font-semibold">En progreso</h2>
           <div className="space-y-2">
-            {inProgressFixed.map(({ testId, progress, test }) => {
-              if (!test || test.type !== "fixed") return null;
-              const answered = Object.keys(progress.answers).length;
-              const total = test.questions.length;
+            {inProgressItems.map((item) => {
+              if (item.kind === "fixed") {
+                const { testId, progress, test } = item;
+                if (test.type !== "fixed") return null;
+                const answered = Object.keys(progress.answers).length;
+                const total = test.questions.length;
+                return (
+                  <button
+                    key={testId}
+                    type="button"
+                    onClick={() => navigate(`/tests/fixed/${testId}`)}
+                    className="card w-full text-left hover:bg-muted transition-colors"
+                  >
+                    <p className="text-sm font-medium">{test.title}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {answered} / {total} respondidas ({total > 0 ? Math.round((answered / total) * 100) : 0}%) ·{" "}
+                      Abierto {formatRelativeTime(progress.lastOpenedAt)}
+                    </p>
+                  </button>
+                );
+              }
+              const { session, test } = item;
               return (
                 <button
-                  key={testId}
+                  key={session.id}
                   type="button"
-                  onClick={() => navigate(`/tests/fixed/${testId}`)}
+                  onClick={() => navigate(`/tests/indefinite/${session.testId}`)}
                   className="card w-full text-left hover:bg-muted transition-colors"
                 >
-                  <p className="text-sm font-medium">{test.title}</p>
+                  <p className="text-sm font-medium">{test.type === "indefinite" ? (test.title ?? "Test libre") : "Test libre"}</p>
                   <p className="text-xs text-muted-foreground">
-                    {answered} / {total} respondidas ({total > 0 ? Math.round((answered / total) * 100) : 0}%) ·{" "}
-                    Abierto {formatRelativeTime(progress.lastOpenedAt)}
+                    {session.answers.length} respondidas · Iniciado {formatRelativeTime(session.startedAt)}
                   </p>
                 </button>
               );
             })}
-            {inProgressIndefinite.map(({ session, test }) => (
-              <button
-                key={session.id}
-                type="button"
-                onClick={() => navigate(`/tests/indefinite/${session.testId}`)}
-                className="card w-full text-left hover:bg-muted transition-colors"
-              >
-                <p className="text-sm font-medium">{test?.type === "indefinite" ? (test.title ?? "Test libre") : "Test libre"}</p>
-                <p className="text-xs text-muted-foreground">
-                  {session.answers.length} respondidas · Iniciado {formatRelativeTime(session.startedAt)}
-                </p>
-              </button>
-            ))}
           </div>
         </section>
       )}
