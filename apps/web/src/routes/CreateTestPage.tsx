@@ -35,6 +35,7 @@ export function CreateTestPage() {
   const [questionMode, setQuestionMode] = useState<QuestionMode>("all");
   const [failedDays, setFailedDays] = useState(7);
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+  const [testName, setTestName] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const [duplicateTestId, setDuplicateTestId] = useState<string | null>(null);
 
@@ -57,12 +58,13 @@ export function CreateTestPage() {
   const maxQuestions = availableQuestions.length;
 
   function buildTest(saved: boolean): FixedTest | IndefiniteTest {
+    const trimmedName = testName.trim();
     if (testType === "fixed") {
       const selected = availableQuestions.slice(0, numberOfQuestions);
       return {
         id: crypto.randomUUID(),
         type: "fixed",
-        title: `Test fijo — ${new Date().toLocaleDateString("es")}`,
+        title: trimmedName || `Test fijo — ${new Date().toLocaleDateString("es")}`,
         questions: selected,
         unitIds: selectedUnits,
         saved,
@@ -73,6 +75,7 @@ export function CreateTestPage() {
     return {
       id: crypto.randomUUID(),
       type: "indefinite",
+      title: trimmedName || undefined,
       unitIds: selectedUnits,
       saved,
       filters,
@@ -290,6 +293,27 @@ export function CreateTestPage() {
             </p>
           </div>
         )}
+
+        {/* Test name */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium" htmlFor="test-name">
+            Nombre del test
+          </label>
+          <input
+            id="test-name"
+            type="text"
+            placeholder={
+              testType === "fixed"
+                ? `Test fijo — ${new Date().toLocaleDateString("es")}`
+                : "Test libre"
+            }
+            value={testName}
+            onChange={(e) => setTestName(e.target.value)}
+            maxLength={80}
+            className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground"
+          />
+          <p className="text-xs text-muted-foreground">Opcional. Si lo dejas vacío se usará el nombre por defecto.</p>
+        </div>
       </div>
 
       <TestPreviewDialog

@@ -1,7 +1,9 @@
 import type { Test } from "@tot-opos/types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { units } from "@tot-opos/curriculum-data";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as Dialog from "@radix-ui/react-dialog";
 import { useTestsStore } from "@/store/tests-store";
 import { useTestSummary } from "@/hooks/useTestSummary";
 import { useHistoryStore } from "@/store/history-store";
@@ -9,7 +11,13 @@ import { formatRelativeTime, formatDate } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import PluralizedNoun from "@/components/PluralizedNoun";
-import { IconCheck, IconChevronDown, IconChevronUp, IconX } from "@tabler/icons-react";
+import {
+  IconCheck,
+  IconChevronDown,
+  IconChevronUp,
+  IconDots,
+  IconX,
+} from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
 type TestCardProps = {
@@ -20,11 +28,26 @@ type TestCardProps = {
 export function TestCard({ test, chipLabel }: TestCardProps) {
   const navigate = useNavigate();
   const setSaved = useTestsStore((s) => s.setSaved);
+  const renameTest = useTestsStore((s) => s.renameTest);
   const summary = useTestSummary(test.id, test.type);
   const fixedAttempts = useHistoryStore((s) => s.fixedAttempts);
   const indefiniteSessions = useHistoryStore((s) => s.indefiniteSessions);
   const [confirmUnsave, setConfirmUnsave] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const [renameOpen, setRenameOpen] = useState(false);
+  const [renameValue, setRenameValue] = useState("");
+  const renameInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (renameOpen) {
+      const currentTitle =
+        test.type === "fixed"
+          ? test.title
+          : (test.title ?? "");
+      setRenameValue(currentTitle);
+      setTimeout(() => renameInputRef.current?.select(), 0);
+    }
+  }, [renameOpen, test]);
 
   const unitNames = test.unitIds
     .map((id) => units.find((u) => u.id === id)?.name ?? id)
@@ -55,6 +78,14 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
     navigate(path);
   }
 
+  function handleRenameConfirm() {
+    const trimmed = renameValue.trim();
+    if (trimmed) {
+      renameTest(test.id, trimmed);
+    }
+    setRenameOpen(false);
+  }
+
   return (
     <div className="card flex flex-col gap-3">
       <div className="flex items-start justify-between gap-2">
@@ -75,14 +106,45 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
             </span>
           )}
         </div>
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => test.saved ? setConfirmUnsave(true) : setSaved(test.id, true)}
-          className={cn("shrink-0", test.saved && "text-destructive hover:text-destructive")}
-        >
-          {test.saved ? "Quitar" : "Guardar"}
-        </Button>
+
+        <DropdownMenu.Root>
+          <DropdownMenu.Trigger asChild>
+            <button
+              type="button"
+              aria-label="Opciones del test"
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            >
+              <IconDots size={16} />
+            </button>
+          </DropdownMenu.Trigger>
+
+          <DropdownMenu.Portal>
+            <DropdownMenu.Content
+              align="end"
+              sideOffset={4}
+              className="z-50 min-w-[9rem] rounded-md border border-border bg-background py-1 shadow-md"
+            >
+              <DropdownMenu.Item
+                onSelect={() =>
+                  test.saved ? setConfirmUnsave(true) : setSaved(test.id, true)
+                }
+                className={cn(
+                  "flex cursor-pointer select-none items-center px-3 py-1.5 text-sm outline-none transition-colors hover:bg-muted",
+                  test.saved && "text-destructive",
+                )}
+              >
+                {test.saved ? "Quitar" : "Guardar"}
+              </DropdownMenu.Item>
+
+              <DropdownMenu.Item
+                onSelect={() => setRenameOpen(true)}
+                className="flex cursor-pointer select-none items-center px-3 py-1.5 text-sm outline-none transition-colors hover:bg-muted"
+              >
+                Renombrar
+              </DropdownMenu.Item>
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        </DropdownMenu.Root>
       </div>
 
       <div>
@@ -190,6 +252,41 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
         onConfirm={() => setSaved(test.id, false)}
         variant="destructive"
       />
+
+      {/* Rename dialog */}
+      <Dialog.Root open={renameOpen} onOpenChange={setRenameOpen}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
+            <Dialog.Title className="text-base font-semibold">Renombrar test</Dialog.Title>
+            <input
+              ref={renameInputRef}
+              type="text"
+              value={renameValue}
+              onChange={(e) => setRenameValue(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") handleRenameConfirm();
+                if (e.key === "Escape") setRenameOpen(false);
+              }}
+              maxLength={80}
+              placeholder="Nombre del test"
+              className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-muted-foreground"
+            />
+            <div className="flex justify-end gap-3">
+              <Button variant="secondary" onClick={() => setRenameOpen(false)}>
+                Cancelar
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleRenameConfirm}
+                disabled={!renameValue.trim()}
+              >
+                Guardar
+              </Button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
     </div>
   );
 }
