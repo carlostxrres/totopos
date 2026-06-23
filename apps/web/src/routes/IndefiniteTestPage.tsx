@@ -1,7 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useBlocker, useNavigate, useParams } from "react-router-dom";
 import type { IndefiniteAnswer, TimerMode } from "@tot-opos/types";
 import { units } from "@tot-opos/curriculum-data";
 import { useTestsStore } from "@/store/tests-store";
@@ -58,18 +58,11 @@ export function IndefiniteTestPage() {
   const timerSecondsRef = useRef(timerSeconds);
   timerSecondsRef.current = timerSeconds;
 
-  // Intercept browser back button while a session is active
+  // Block all SPA navigation while a session is active and show the exit dialog
+  const blocker = useBlocker(!!activeSession);
   useEffect(() => {
-    if (!activeSession) return;
-    window.history.pushState(null, "");
-    function handlePopstate() {
-      setExitDialog(true);
-      window.history.pushState(null, "");
-    }
-    window.addEventListener("popstate", handlePopstate);
-    return () => window.removeEventListener("popstate", handlePopstate);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeSession?.id]);
+    if (blocker.state === "blocked") setExitDialog(true);
+  }, [blocker.state]);
 
   // On mount: check session state
   useEffect(() => {
@@ -425,8 +418,14 @@ export function IndefiniteTestPage() {
         }}
       />
 
-      {/* Exit dialog: shown when pressing the browser back button */}
-      <Dialog.Root open={exitDialog} onOpenChange={setExitDialog}>
+      {/* Exit dialog: shown on any navigation while a session is active */}
+      <Dialog.Root
+        open={exitDialog}
+        onOpenChange={(open) => {
+          if (!open) blocker.reset?.();
+          setExitDialog(open);
+        }}
+      >
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
           <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
@@ -452,7 +451,7 @@ export function IndefiniteTestPage() {
                 className="flex-1"
                 onClick={() => {
                   setExitDialog(false);
-                  navigate(-1);
+                  blocker.proceed?.();
                 }}
               >
                 Pausar y salir
@@ -463,7 +462,7 @@ export function IndefiniteTestPage() {
                 onClick={() => {
                   setExitDialog(false);
                   if (testId) closeSession(testId);
-                  navigate("/historial");
+                  blocker.proceed?.();
                 }}
               >
                 Cerrar sesión
