@@ -16,6 +16,7 @@ type TestsState = {
   tests: Test[];
   addTest: (test: Test) => void;
   setSaved: (testId: string, saved: boolean) => void;
+  renameTest: (testId: string, title: string) => void;
   findByFilters: (filters: IndefiniteTestFilters) => IndefiniteTest | undefined;
   seedFixedTests: (tests: Test[]) => void;
 };
@@ -33,6 +34,11 @@ export const useTestsStore = create<TestsState>()(
       setSaved: (testId, saved) =>
         set((state) => ({
           tests: state.tests.map((t) => (t.id === testId ? { ...t, saved } : t)),
+        })),
+
+      renameTest: (testId, title) =>
+        set((state) => ({
+          tests: state.tests.map((t) => (t.id === testId ? { ...t, title } : t)),
         })),
 
       findByFilters: (filters) => {
