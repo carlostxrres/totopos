@@ -51,6 +51,13 @@ Como **usuario opositor**, quiero **configurar el tipo, filtros y número de pre
 - **Entonces** aparece la pregunta "¿Continuar o empezar de nuevo?"
 - **Y** el usuario puede elegir continuar (reanuda) o empezar de nuevo (llama a `reset`)
 
+### Escenario 8: Dar nombre al test al crearlo
+- **Dado que** estoy en el Paso 2 de Crear test
+- **Cuando** escribo un nombre en el campo "Nombre del test" (opcional)
+- **Entonces** el test se crea con ese nombre como `title`
+- **Y cuando** dejo el campo vacío
+- **Entonces** el test usa el nombre por defecto (`Test fijo — <fecha>` o `Test libre`)
+
 ## Notas de implementación
 
 - Ruta: `/crear` → `CreateTestPage`

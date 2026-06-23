@@ -41,4 +41,4 @@ Como **usuario opositor**, quiero **ver mis tests guardados en una lista y filtr
 - Store: `useTestsStore` — filtrar `tests.filter(t => t.saved)`
 - Tests personalizados: `metadata.category === "Personalizado"` (asignado en `CreateTestPage`)
 - Tests precargados: `metadata.category` diferente (ej. "Ajuntament de Barcelona", "Temario General")
-- Botón guardar/quitar en `TestCard`: texto "Guardar" (secundario, acción inmediata) / "Quitar" (destructivo, abre `ConfirmDialog` antes de ejecutar)
+- Menú de opciones en `TestCard`: botón `···` abre un `DropdownMenu` con "Guardar" / "Quitar" (abre `ConfirmDialog` antes de ejecutar) y "Renombrar" (ver US-023)
