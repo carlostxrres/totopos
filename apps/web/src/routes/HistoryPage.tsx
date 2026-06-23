@@ -145,6 +145,9 @@ function ActivityHeatmap() {
   for (let i = 0; i < WEEKS * 7; i++) {
     const d = new Date(startDate);
     d.setDate(startDate.getDate() + i);
+    if (d > today) {
+      break;
+    }
     days.push(d);
   }
 
