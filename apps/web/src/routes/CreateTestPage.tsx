@@ -1,4 +1,3 @@
-import * as Dialog from "@radix-ui/react-dialog";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { units } from "@tot-opos/curriculum-data";
@@ -7,6 +6,7 @@ import { useTestsStore } from "@/store/tests-store";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
 import { resolveQuestions } from "@/lib/test-generator";
 import { CurriculumDisplay } from "@/components/CurriculumDisplay";
+import { TestPreviewDialog } from "@/components/TestPreviewDialog";
 import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
 import PluralizedNoun from "@/components/PluralizedNoun";
@@ -292,51 +292,23 @@ export function CreateTestPage() {
         )}
       </div>
 
-      {/* Create modal */}
-      <Dialog.Root open={modalOpen} onOpenChange={setModalOpen}>
-        <Dialog.Portal>
-          <Dialog.Overlay className="fixed inset-0 z-50 bg-black/50" />
-          <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-full max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-background p-6 shadow-lg space-y-4">
-            <Dialog.Title className="text-base font-semibold">Crear test</Dialog.Title>
-
-            <div className="text-sm text-muted-foreground space-y-1">
-              <p><strong>Tipo:</strong> {testType === "fixed" ? "Test fijo" : "Test libre"}</p>
-              <p><strong>Unidades:</strong> {selectedUnits.length} seleccionadas</p>
-              <p><strong>Preguntas disponibles:</strong> {availableQuestions.length}</p>
-              {testType === "fixed" && <p><strong>Preguntas en el test:</strong> {numberOfQuestions}</p>}
-              {excludeDays && <p><strong>Excluir respondidas en:</strong> {excludeDaysValue} días</p>}
-              {questionMode !== "all" && (
-                <p><strong>Selección:</strong> {questionMode === "new-only" ? "Solo nuevas" : `Falladas en ${failedDays} días`}</p>
-              )}
-            </div>
-
-            {duplicateTestId && (
-              <p className="rounded-md bg-warning/10 p-3 text-sm text-warning-foreground">
-                Ya existe un test con estos parámetros.{" "}
-                <button
-                  type="button"
-                  className="underline"
-                  onClick={() => {
-                    setModalOpen(false);
-                    navigate(`/tests/${testType}/${duplicateTestId}`);
-                  }}
-                >
-                  Ir al test
-                </button>
-              </p>
-            )}
-
-            <div className="flex flex-col gap-2">
-              <Button variant="secondary" onClick={handleSave} className="w-full">
-                Guardar test
-              </Button>
-              <Button variant="primary" onClick={handleStart} className="w-full">
-                Comenzar test
-              </Button>
-            </div>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
+      <TestPreviewDialog
+        open={modalOpen}
+        onOpenChange={setModalOpen}
+        title="Crear test"
+        summaryItems={[
+          { label: "Tipo", value: testType === "fixed" ? "Test fijo" : "Test libre" },
+          { label: "Unidades", value: `${selectedUnits.length} seleccionadas` },
+          { label: "Preguntas disponibles", value: availableQuestions.length },
+          ...(testType === "fixed" ? [{ label: "Preguntas en el test", value: numberOfQuestions }] : []),
+          ...(excludeDays ? [{ label: "Excluir respondidas en", value: `${excludeDaysValue} días` }] : []),
+          ...(questionMode !== "all" ? [{ label: "Selección", value: questionMode === "new-only" ? "Solo nuevas" : `Falladas en ${failedDays} días` }] : []),
+        ]}
+        duplicateTestId={duplicateTestId}
+        duplicateTestPath={duplicateTestId ? `/tests/${testType}/${duplicateTestId}` : undefined}
+        onSave={handleSave}
+        onStart={handleStart}
+      />
 
     </div>
   );

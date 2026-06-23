@@ -40,6 +40,11 @@ export function FixedTestPage() {
     if (testId) touchOpened(testId);
   }, [testId, touchOpened]);
 
+  useEffect(() => {
+    setShowCorrection(false);
+    setAttempt(null);
+  }, [testId]);
+
   const questionIds = test?.type === "fixed" ? test.questions.map((q) => q.id) : [];
   const activeIds = useActiveQuestion(questionIds);
   useScrollSnap(!showCorrection);
