@@ -165,7 +165,12 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
         )}
         {scoreDisplay && <span>{scoreDisplay}</span>}
         {summary.timesDone > 0 && (
-          <span><PluralizedNoun count={summary.timesDone} singular="vez realizado" plural="veces realizado" /></span>
+          <span><PluralizedNoun
+            count={summary.timesDone}
+            singular="vez"
+            plural="veces"
+            showNumberSingular={true}
+          /> realizado</span>
         )}
       </div>
 
