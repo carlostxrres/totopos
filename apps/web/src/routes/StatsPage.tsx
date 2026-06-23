@@ -25,7 +25,9 @@ function computeStats(
     const history = historyByQuestionId[q.id];
     if (history && history.entries.length > 0) {
       answered++;
-      if (history.entries[0].wasCorrect) correct++;
+      if (history.entries[0].wasCorrect) {
+        correct++;
+      }
     }
   }
   return { total: questions.length, answered, correct };
@@ -38,7 +40,9 @@ function aggregateStats(
 ): UnitStats {
   const direct = computeStats(unitId, historyByQuestionId);
   const children = allUnits.filter((u) => u.parentId === unitId);
-  if (children.length === 0) return direct;
+  if (children.length === 0) {
+    return direct;
+  }
   const childStats = children.map((c) => aggregateStats(c.id, allUnits, historyByQuestionId));
   return childStats.reduce(
     (acc, s) => ({
@@ -51,7 +55,9 @@ function aggregateStats(
 }
 
 function StatsBadge({ stats }: { stats: UnitStats }) {
-  if (stats.total === 0) return null;
+  if (stats.total === 0) {
+    return null;
+  }
   const rate = stats.answered > 0 ? Math.round((stats.correct / stats.answered) * 100) : 0;
   const coverage = Math.round((stats.answered / stats.total) * 100);
 
@@ -159,7 +165,9 @@ export function StatsPage() {
       const history = historyByQuestionId[q.id];
       if (history && history.entries.length > 0) {
         answered++;
-        if (history.entries[0].wasCorrect) correct++;
+        if (history.entries[0].wasCorrect) {
+          correct++;
+        }
       }
     }
     return { total, answered, correct };

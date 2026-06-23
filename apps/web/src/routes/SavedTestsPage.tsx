@@ -1,5 +1,4 @@
 import { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { units } from "@tot-opos/curriculum-data";
 import type { Test } from "@tot-opos/types";
 import { useTestsStore } from "@/store/tests-store";
@@ -144,13 +143,13 @@ export function SavedTestsPage() {
       </div>
 
       {/* Quick access to question browser */}
-      <Link
+      {/* <Link
         to="/preguntas"
         className="card flex items-center justify-between hover:bg-muted transition-colors"
       >
         <span className="text-sm font-medium">Banco de preguntas</span>
         <span className="text-xs text-muted-foreground">Explorar →</span>
-      </Link>
+      </Link> */}
 
       {/* Content */}
       {subTab === "all" ? (

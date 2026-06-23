@@ -35,7 +35,9 @@ function getDescendantIds(unitId: string, units: Unit[]): string[] {
 }
 
 function matchesSearch(unit: Unit, query: string, units: Unit[]): boolean {
-  if (unit.name.toLowerCase().includes(query.toLowerCase())) return true;
+  if (unit.name.toLowerCase().includes(query.toLowerCase())) {
+    return true;
+  }
   const descendants = getDescendantIds(unit.id, units).slice(1);
   return descendants.some((id) => {
     const u = units.find((u) => u.id === id);
@@ -45,13 +47,17 @@ function matchesSearch(unit: Unit, query: string, units: Unit[]): boolean {
 
 function hasAnyTests(unitId: string, units: Unit[], getTestsForUnit: (id: string) => Test[]): boolean {
   const children = units.filter((u) => u.parentId === unitId);
-  if (children.length === 0) return getTestsForUnit(unitId).length > 0;
+  if (children.length === 0) {
+    return getTestsForUnit(unitId).length > 0;
+  }
   return children.some((child) => hasAnyTests(child.id, units, getTestsForUnit));
 }
 
 function getAncestorIds(unitId: string, units: Unit[]): string[] {
   const unit = units.find((u) => u.id === unitId);
-  if (!unit?.parentId) return [];
+  if (!unit?.parentId) {
+    return [];
+  }
   return [unit.parentId, ...getAncestorIds(unit.parentId, units)];
 }
 
@@ -245,7 +251,9 @@ export function CurriculumDisplay(props: CurriculumDisplayProps) {
   const query = props.searchQuery?.trim() ?? "";
 
   const expandedBySearch = useMemo(() => {
-    if (!query) return new Set<string>();
+    if (!query) {
+      return new Set<string>();
+    }
     const toExpand = new Set<string>();
     for (const unit of props.units) {
       if (unit.name.toLowerCase().includes(query.toLowerCase())) {

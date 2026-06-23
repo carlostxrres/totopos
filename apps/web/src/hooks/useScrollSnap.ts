@@ -3,7 +3,9 @@ import { useEffect } from "react";
 export function useScrollSnap(enabled: boolean) {
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    if (!enabled || !isMobile) return;
+    if (!enabled || !isMobile) {
+      return;
+    }
 
     const html = document.documentElement;
     const prevScrollSnapType = html.style.scrollSnapType;

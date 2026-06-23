@@ -31,12 +31,16 @@ export function IndefiniteTestPage() {
   const activeSession = testId ? sessions[testId] : undefined;
 
   const [poolQuestions, setPoolQuestions] = useState(() => {
-    if (!test || test.type !== "indefinite") return [];
+    if (!test || test.type !== "indefinite") {
+      return [];
+    }
     return resolveQuestions(ALL_QUESTIONS, test.filters, historyByQuestionId, new Date(), units);
   });
 
   const [currentIndex, setCurrentIndex] = useState(() => {
-    if (!activeSession) return 0;
+    if (!activeSession) {
+      return 0;
+    }
     return activeSession.answers.length;
   });
 
@@ -61,12 +65,16 @@ export function IndefiniteTestPage() {
   // Block all SPA navigation while a session is active and show the exit dialog
   const blocker = useBlocker(!!activeSession);
   useEffect(() => {
-    if (blocker.state === "blocked") setExitDialog(true);
+    if (blocker.state === "blocked") {
+      setExitDialog(true);
+    }
   }, [blocker.state]);
 
   // On mount: check session state
   useEffect(() => {
-    if (!test || test.type !== "indefinite" || !testId) return;
+    if (!test || test.type !== "indefinite" || !testId) {
+      return;
+    }
 
     if (activeSession) {
       // Resume session
@@ -90,7 +98,9 @@ export function IndefiniteTestPage() {
 
   // Reset timer on each new unanswered question
   useEffect(() => {
-    if (!timerMode) return;
+    if (!timerMode) {
+      return;
+    }
     const answeredInSession = activeSession?.answers.length ?? 0;
     if (currentIndex >= answeredInSession) {
       // New question — reset timer
@@ -114,7 +124,9 @@ export function IndefiniteTestPage() {
   }
 
   function startNewSession(mode?: TimerMode, seconds?: number) {
-    if (!testId) return;
+    if (!testId) {
+      return;
+    }
     const ids = poolQuestions.map((q) => q.id);
     startSession(testId, ids, test!.title);
     if (mode) {
@@ -142,7 +154,9 @@ export function IndefiniteTestPage() {
   const isLocked = timerMode === "hard" && timerExpired && !isCurrentAnswered;
 
   function handleConfirm() {
-    if (!currentQuestionId || !testId || !currentQuestion) return;
+    if (!currentQuestionId || !testId || !currentQuestion) {
+      return;
+    }
     const selectedIds = localAnswers[currentQuestionId] ?? [];
     const correctIds = currentQuestion.options.filter((o) => o.isCorrect).map((o) => o.id);
     const wasCorrect =
@@ -165,7 +179,9 @@ export function IndefiniteTestPage() {
   }
 
   function handlePrev() {
-    if (currentIndex > 0) setCurrentIndex((i) => i - 1);
+    if (currentIndex > 0) {
+      setCurrentIndex((i) => i - 1);
+    }
   }
 
   const correctCount = activeSession?.answers.filter((a) => a.wasCorrect).length ?? 0;
@@ -252,7 +268,9 @@ export function IndefiniteTestPage() {
           <Button
             variant="primary"
             onClick={() => {
-              if (testId) closeSession(testId);
+              if (testId) {
+                closeSession(testId);
+              }
               navigate("/historial");
             }}
             className="flex-1"
@@ -297,7 +315,9 @@ export function IndefiniteTestPage() {
             }}
             onExpire={() => {
               setTimerDeadlineAt(undefined);
-              if (timerMode === "hard") setTimerExpired(true);
+              if (timerMode === "hard") {
+                setTimerExpired(true);
+              }
             }}
           />
           <div className="flex flex-1 items-center gap-1 text-xs text-muted-foreground">
@@ -419,7 +439,9 @@ export function IndefiniteTestPage() {
         description="Se guardará tu progreso en el historial. ¿Quieres cerrar la sesión?"
         confirmLabel="Cerrar sesión"
         onConfirm={() => {
-          if (testId) closeSession(testId);
+          if (testId) {
+            closeSession(testId);
+          }
           navigate("/historial");
         }}
       />
@@ -428,7 +450,9 @@ export function IndefiniteTestPage() {
       <Dialog.Root
         open={exitDialog}
         onOpenChange={(open) => {
-          if (!open) blocker.reset?.();
+          if (!open) {
+            blocker.reset?.();
+          }
           setExitDialog(open);
         }}
       >
@@ -467,7 +491,9 @@ export function IndefiniteTestPage() {
                 className="flex-1"
                 onClick={() => {
                   setExitDialog(false);
-                  if (testId) closeSession(testId);
+                  if (testId) {
+                    closeSession(testId);
+                  }
                   blocker.proceed?.();
                 }}
               >
@@ -553,8 +579,11 @@ function TimerSetupModal({ onStart, onSkip, onCancel }: TimerSetupModalProps) {
             <Button
               variant="primary"
               onClick={() => {
-                if (selectedMode === "none") onSkip();
-                else onStart(selectedMode, seconds);
+                if (selectedMode === "none") {
+                  onSkip();
+                } else {
+                  onStart(selectedMode, seconds);
+                }
               }}
               className="flex-1"
             >

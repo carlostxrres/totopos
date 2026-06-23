@@ -17,10 +17,16 @@ type QuestionCardProps = {
   questionHistory?: QuestionHistory;
 };
 
-function OptionClass(_optionId: string, isCorrect: boolean, selected: boolean, showCorrection: boolean) {
-  if (!showCorrection) return "option";
-  if (isCorrect) return "option option-correct";
-  if (selected && !isCorrect) return "option option-incorrect";
+function getOptionClass(_optionId: string, isCorrect: boolean, selected: boolean, showCorrection: boolean) {
+  if (!showCorrection) {
+    return "option";
+  }
+  if (isCorrect) {
+    return "option option-correct";
+  }
+  if (selected && !isCorrect) {
+    return "option option-incorrect";
+  }
   return "option opacity-60";
 }
 
@@ -120,7 +126,7 @@ export function QuestionCard({
                 key={opt.id}
                 value={opt.id}
                 className={cn(
-                  OptionClass(opt.id, opt.isCorrect, selectedOptionIds.includes(opt.id), showCorrection),
+                  getOptionClass(opt.id, opt.isCorrect, selectedOptionIds.includes(opt.id), showCorrection),
                   "text-left",
                 )}
                 data-state={selectedOptionIds.includes(opt.id) ? "checked" : "unchecked"}
@@ -138,7 +144,7 @@ export function QuestionCard({
               <label
                 key={opt.id}
                 className={cn(
-                  OptionClass(opt.id, opt.isCorrect, selectedOptionIds.includes(opt.id), showCorrection),
+                  getOptionClass(opt.id, opt.isCorrect, selectedOptionIds.includes(opt.id), showCorrection),
                 )}
               >
                 <Checkbox.Root

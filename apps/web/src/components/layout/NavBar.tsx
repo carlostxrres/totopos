@@ -8,7 +8,9 @@ const links = [
 ];
 
 function isNavActive(to: string, pathname: string): boolean {
-  if (to === "/") return pathname === "/" || pathname.startsWith("/tests/");
+  if (to === "/") {
+    return pathname === "/" || pathname.startsWith("/tests/");
+  }
   return pathname === to || pathname.startsWith(`${to}/`);
 }
 

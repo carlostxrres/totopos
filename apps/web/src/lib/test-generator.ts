@@ -33,7 +33,9 @@ export function resolveQuestions(
     const cutoff = now.getTime() - filters.excludeAnsweredInLastDays * 24 * 60 * 60 * 1000;
     pool = pool.filter((q) => {
       const history = questionHistories[q.id];
-      if (!history) return true;
+      if (!history) {
+        return true;
+      }
       return !history.entries.some((e) => new Date(e.answeredAt).getTime() >= cutoff);
     });
   }
@@ -48,11 +50,15 @@ export function resolveQuestions(
     const cutoff = now.getTime() - days * 24 * 60 * 60 * 1000;
     pool = pool.filter((q) => {
       const history = questionHistories[q.id];
-      if (!history) return false;
+      if (!history) {
+        return false;
+      }
       const recentEntries = history.entries.filter(
         (e) => new Date(e.answeredAt).getTime() >= cutoff,
       );
-      if (recentEntries.length === 0) return false;
+      if (recentEntries.length === 0) {
+        return false;
+      }
       return !recentEntries[0].wasCorrect;
     });
   }

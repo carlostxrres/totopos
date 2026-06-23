@@ -56,15 +56,23 @@ export function QuestionsPage() {
         : new Set(getAllDescendantIds(filterUnit, units));
 
     return ALL_QUESTIONS.filter((q) => {
-      if (unitIds && !q.unitIds.some((id) => unitIds.has(id))) return false;
+      if (unitIds && !q.unitIds.some((id) => unitIds.has(id))) {
+        return false;
+      }
 
       const history = historyByQuestionId[q.id];
       const timesAnswered = history?.entries.length ?? 0;
       const lastWasCorrect = history?.entries[0]?.wasCorrect;
 
-      if (filterStatus === "new" && timesAnswered > 0) return false;
-      if (filterStatus === "correct" && lastWasCorrect !== true) return false;
-      if (filterStatus === "incorrect" && lastWasCorrect !== false) return false;
+      if (filterStatus === "new" && timesAnswered > 0) {
+        return false;
+      }
+      if (filterStatus === "correct" && lastWasCorrect !== true) {
+        return false;
+      }
+      if (filterStatus === "incorrect" && lastWasCorrect !== false) {
+        return false;
+      }
 
       if (search) {
         const q2 = search.toLowerCase();

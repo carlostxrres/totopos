@@ -56,14 +56,18 @@ export function TimerControl({
   const isWarning = remainingMs !== null && remainingMs > 0 && remainingMs < warningThreshold;
 
   useEffect(() => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
 
     if (deadlineAt) {
       const tick = () => {
         const ms = new Date(deadlineAt).getTime() - Date.now();
         setRemainingMs(ms);
         if (ms <= 0) {
-          if (intervalRef.current) clearInterval(intervalRef.current);
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+          }
           onExpire?.();
         }
       };
@@ -76,14 +80,20 @@ export function TimerControl({
     }
 
     return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
   }, [deadlineAt, pausedRemainingMs, onExpire]);
 
   function handleStart() {
-    if (selectedMode === "none") return;
+    if (selectedMode === "none") {
+      return;
+    }
     const val = parseInt(inputValue, 10);
-    if (isNaN(val) || val <= 0) return;
+    if (isNaN(val) || val <= 0) {
+      return;
+    }
     onStart(selectedMode, val);
     onSetupOpenChange(false);
   }
@@ -97,8 +107,11 @@ export function TimerControl({
         <button
           type="button"
           onClick={() => {
-            if (isActive && onPause) onPause();
-            else if (isPaused && onResume) onResume();
+            if (isActive && onPause) {
+              onPause();
+            } else if (isPaused && onResume) {
+              onResume();
+            }
           }}
           className={cn(
             "flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium transition-colors",

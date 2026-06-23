@@ -19,7 +19,9 @@ export function cva(
     const classes: ClassValue[] = [base];
     for (const [key, map] of Object.entries(config.variants)) {
       const value = props?.[key] ?? config.defaultVariants?.[key];
-      if (value && map[value]) classes.push(map[value]);
+      if (value && map[value]) {
+        classes.push(map[value]);
+      }
     }
     if (props?.className) classes.push(props.className);
     return cn(...classes);

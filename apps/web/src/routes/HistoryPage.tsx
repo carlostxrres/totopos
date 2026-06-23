@@ -42,7 +42,9 @@ function GlobalKPIs() {
     for (const history of Object.values(historyByQuestionId)) {
       for (const entry of history.entries) {
         answered++;
-        if (entry.wasCorrect) correct++;
+        if (entry.wasCorrect) {
+          correct++;
+        }
         activityDays.add(entry.answeredAt.slice(0, 10));
       }
     }
@@ -99,9 +101,13 @@ function buildHeatmap(
   }
 
   function bump(key: string, correct: boolean) {
-    if (!map[key]) map[key] = { total: 0, correct: 0 };
+    if (!map[key]) {
+      map[key] = { total: 0, correct: 0 };
+    }
     map[key].total++;
-    if (correct) map[key].correct++;
+    if (correct) {
+      map[key].correct++;
+    }
   }
 
   for (const attempt of fixedAttempts) {
@@ -156,11 +162,19 @@ function ActivityHeatmap() {
   const maxCorrect = Math.max(1, ...Object.values(heatmap).map((v) => v.correct));
 
   function cellColor(correct: number) {
-    if (correct === 0) return "bg-muted";
+    if (correct === 0) {
+      return "bg-muted";
+    }
     const intensity = correct / maxCorrect;
-    if (intensity < 0.25) return "bg-success/20";
-    if (intensity < 0.5) return "bg-success/40";
-    if (intensity < 0.75) return "bg-success/70";
+    if (intensity < 0.25) {
+      return "bg-success/20";
+    }
+    if (intensity < 0.5) {
+      return "bg-success/40";
+    }
+    if (intensity < 0.75) {
+      return "bg-success/70";
+    }
     return "bg-success";
   }
 
@@ -255,12 +269,16 @@ export function HistoryPage() {
   const inProgressItems: InProgressItem[] = [
     ...Object.entries(progressByTestId).flatMap(([testId, progress]) => {
       const test = tests.find((t) => t.id === testId);
-      if (!test) return [];
+      if (!test) {
+        return [];
+      }
       return [{ kind: "fixed" as const, testId, progress, test, sortDate: progress.lastOpenedAt }];
     }),
     ...Object.values(activeSessions).flatMap((session) => {
       const test = tests.find((t) => t.id === session.testId);
-      if (!test) return [];
+      if (!test) {
+        return [];
+      }
       return [{ kind: "indefinite" as const, session, test, sortDate: session.startedAt }];
     }),
   ].sort((a, b) => b.sortDate.localeCompare(a.sortDate));
@@ -298,7 +316,9 @@ export function HistoryPage() {
             {inProgressItems.map((item) => {
               if (item.kind === "fixed") {
                 const { testId, progress, test } = item;
-                if (test.type !== "fixed") return null;
+                if (test.type !== "fixed") {
+                  return null;
+                }
                 const answered = Object.keys(progress.answers).length;
                 const total = test.questions.length;
                 return (
