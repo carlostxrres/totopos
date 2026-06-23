@@ -241,11 +241,11 @@ export function FixedTestPage() {
         {/* Submit — last snap point */}
         <div
           id="submit-btn"
-          className="flex min-h-screen snap-start items-center justify-center md:min-h-0 md:snap-none"
+          className="flex min-h-screen snap-start items-center justify-center md:min-h-0 md:snap-none card"
         >
-          <div className="w-full max-w-xs space-y-4">
+          <div className="w-full space-y-4">
             {/* Summary card */}
-            <div className="rounded-xl border bg-card p-5 space-y-4">
+            <div className="bg-card p-5 space-y-4">
               <h3 className="text-sm font-semibold">Resumen del test</h3>
 
               {/* Progress bar */}
