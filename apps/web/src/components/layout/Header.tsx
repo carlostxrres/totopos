@@ -1,6 +1,5 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { IconArrowLeft, IconBook2, IconHistory, IconMoon, IconPlus, IconSettings, IconSun } from "@tabler/icons-react";
-import { useThemeStore } from "@/store/theme-store";
+import { IconArrowLeft, IconBook2, IconHistory, IconPlus, IconSettings } from "@tabler/icons-react";
 import Logo from "@/components/Logo"
 import { type PropsWithChildren } from "react"
 
@@ -29,8 +28,6 @@ interface ButtonNextToTitleProps extends PropsWithChildren {
 export function Header({ showBack = false }: HeaderProps) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const isDark = useThemeStore((s) => s.isDark);
-  const toggleTheme = useThemeStore((s) => s.toggle);
 
   const ButtonNextToTitle = ({ children, nav }: ButtonNextToTitleProps) => (
     <button
@@ -82,14 +79,6 @@ export function Header({ showBack = false }: HeaderProps) {
         </nav>
 
         <div className="flex items-center gap-2 px-4">
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="ml-auto flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:bg-muted md:ml-0"
-            aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-          >
-            {isDark ? <IconSun size={18} /> : <IconMoon size={18} />}
-          </button>
           <NavLink
             to="/ajustes"
             className={({ isActive }) =>

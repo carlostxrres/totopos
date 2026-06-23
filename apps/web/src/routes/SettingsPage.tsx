@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
+import { IconMoon, IconSun } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { useThemeStore } from "@/store/theme-store";
 
 const STORE_KEYS = [
   "tot-opos:tests",
@@ -62,6 +64,8 @@ export function SettingsPage() {
   const [importStatus, setImportStatus] = useState<"idle" | "ok" | "error">("idle");
   const [importError, setImportError] = useState("");
   const [clearDialog, setClearDialog] = useState(false);
+  const isDark = useThemeStore((s) => s.isDark);
+  const toggleTheme = useThemeStore((s) => s.toggle);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -89,6 +93,25 @@ export function SettingsPage() {
         <h1 className="text-lg font-semibold">Ajustes</h1>
         <p className="text-sm text-muted-foreground">Gestión de datos y preferencias.</p>
       </div>
+
+      {/* Appearance */}
+      <section className="space-y-3">
+        <h2 className="text-sm font-semibold">Apariencia</h2>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-sm">{isDark ? "Modo oscuro" : "Modo claro"}</p>
+            <p className="text-xs text-muted-foreground">Cambia el tema de la aplicación</p>
+          </div>
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground hover:bg-muted transition-colors"
+            aria-label={isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+          >
+            {isDark ? <IconSun size={18} /> : <IconMoon size={18} />}
+          </button>
+        </div>
+      </section>
 
       {/* Export */}
       <section className="space-y-3">
