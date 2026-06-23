@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import { useMemo } from "react";
 import { useHistoryStore } from "@/store/history-store";
 import { useTestsStore } from "@/store/tests-store";
 
@@ -51,7 +52,6 @@ const DAY_LABELS = ["", "Lun", "", "Mié", "", "Vie", "Dom"];
 export function ActivityHeatmap() {
   const fixedAttempts = useHistoryStore((s) => s.fixedAttempts);
   const indefiniteSessions = useHistoryStore((s) => s.indefiniteSessions);
-  const [tooltip, setTooltip] = useState<{ key: string; x: number; y: number } | null>(null);
 
   const heatmap = useMemo(
     () => buildHeatmap(fixedAttempts, indefiniteSessions),
@@ -94,12 +94,12 @@ export function ActivityHeatmap() {
   }
 
   return (
-    <div className="relative">
+    <Tooltip.Provider delayDuration={150}>
       <div className="flex gap-1">
         {/* Day labels */}
         <div className="flex flex-col gap-1 pt-5">
           {DAY_LABELS.map((label, i) => (
-            <div key={i} className="h-4 text-[10px] text-muted-foreground leading-4 w-6 text-right pr-1">
+            <div key={i} className="h-4 w-6 pr-1 text-right text-[10px] leading-4 text-muted-foreground">
               {label}
             </div>
           ))}
@@ -117,28 +117,47 @@ export function ActivityHeatmap() {
 
               return (
                 <div key={weekIdx} className="flex flex-col gap-1">
-                  <div className="h-5 text-[10px] text-muted-foreground leading-5">
-                    {showMonth
-                      ? firstDay.toLocaleDateString("es", { month: "short" })
-                      : ""}
+                  <div className="h-5 text-[10px] leading-5 text-muted-foreground">
+                    {showMonth ? firstDay.toLocaleDateString("es", { month: "short" }) : ""}
                   </div>
                   {weekDays.map((day) => {
                     const key = day.toISOString().slice(0, 10);
                     const data = heatmap[key];
-                    return (
+                    const hasData = !!data && data.total > 0;
+                    const cell = (
                       <button
-                        key={key}
                         type="button"
-                        onClick={(e) =>
-                          setTooltip(
-                            tooltip?.key === key
-                              ? null
-                              : { key, x: e.clientX, y: e.clientY },
-                          )
-                        }
                         className={`h-4 w-4 rounded-sm ${cellColor(data?.correct ?? 0)}`}
                         aria-label={key}
                       />
+                    );
+
+                    if (!hasData) {
+                      return <div key={key}>{cell}</div>;
+                    }
+
+                    return (
+                      <Tooltip.Root key={key}>
+                        <Tooltip.Trigger asChild>{cell}</Tooltip.Trigger>
+                        <Tooltip.Portal>
+                          <Tooltip.Content
+                            sideOffset={5}
+                            className="z-50 rounded-md border border-border bg-background px-2.5 py-1.5 text-xs shadow-md"
+                          >
+                            <p className="font-medium">
+                              {new Date(key).toLocaleDateString("es", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}
+                            </p>
+                            <p className="text-muted-foreground">
+                              {data.total} respuestas · {data.correct} correctas
+                            </p>
+                            <Tooltip.Arrow className="fill-border" />
+                          </Tooltip.Content>
+                        </Tooltip.Portal>
+                      </Tooltip.Root>
                     );
                   })}
                 </div>
@@ -147,14 +166,6 @@ export function ActivityHeatmap() {
           </div>
         </div>
       </div>
-
-      {tooltip && heatmap[tooltip.key] && (
-        <div className="fixed z-50 rounded-md border border-border bg-background p-2 text-xs shadow-md"
-          style={{ top: tooltip.y + 8, left: tooltip.x + 8 }}>
-          <p className="font-medium">{new Date(tooltip.key).toLocaleDateString("es", { day: "numeric", month: "long", year: "numeric" })}</p>
-          <p>{heatmap[tooltip.key].total} respuestas · {heatmap[tooltip.key].correct} correctas</p>
-        </div>
-      )}
-    </div>
+    </Tooltip.Provider>
   );
 }
