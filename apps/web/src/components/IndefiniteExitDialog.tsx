@@ -1,5 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
+import { SessionResultsSummary } from "@/components/SessionResultsSummary";
 
 type IndefiniteExitDialogProps = {
   open: boolean;
@@ -34,9 +35,7 @@ export function IndefiniteExitDialog({
               {totalAnswered > 0 && (
                 <div className="rounded-md bg-muted p-3 text-sm space-y-1">
                   <p className="font-medium">Esta sesión</p>
-                  <p className="text-muted-foreground">
-                    {totalAnswered} respondidas · {correctCount} correctas · {totalAnswered - correctCount} incorrectas · {rate}% acierto
-                  </p>
+                  <SessionResultsSummary totalAnswered={totalAnswered} correctCount={correctCount} rate={rate} />
                 </div>
               )}
             </div>

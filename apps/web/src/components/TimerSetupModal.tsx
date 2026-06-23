@@ -2,12 +2,19 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
 import type { TimerMode } from "@tot-opos/types";
 import { Button } from "@/components/ui/button";
+import { RadioOption } from "@/components/RadioOption";
 
 type TimerSetupModalProps = {
   onStart: (mode: TimerMode, seconds: number) => void;
   onSkip: () => void;
   onCancel: () => void;
 };
+
+const TIMER_OPTIONS: { value: "none" | TimerMode; label: string; description: string }[] = [
+  { value: "none", label: "Sin temporizador", description: "Sin límite de tiempo." },
+  { value: "soft", label: "Blando", description: "Pausable. Al expirar puedes confirmar igualmente." },
+  { value: "hard", label: "Duro", description: "No pausable. Al expirar se bloquea la pregunta y no se registra." },
+];
 
 export function TimerSetupModal({ onStart, onSkip, onCancel }: TimerSetupModalProps) {
   const [selectedMode, setSelectedMode] = useState<TimerMode | "none">("none");
@@ -21,35 +28,16 @@ export function TimerSetupModal({ onStart, onSkip, onCancel }: TimerSetupModalPr
           <Dialog.Title className="font-semibold">Configurar temporizador por pregunta</Dialog.Title>
 
           <div className="space-y-2">
-            {(["none", "soft", "hard"] as const).map((opt) => (
-              <label
-                key={opt}
-                className={`option cursor-pointer ${selectedMode === opt ? "border-primary bg-primary/10" : ""}`}
-              >
-                <input
-                  type="radio"
-                  name="timer"
-                  value={opt}
-                  checked={selectedMode === opt}
-                  onChange={() => setSelectedMode(opt)}
-                  className="sr-only"
-                />
-                <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current">
-                  {selectedMode === opt && <div className="h-2 w-2 rounded-full bg-current" />}
-                </div>
-                <div>
-                  <p className="text-sm font-medium">
-                    {opt === "none" ? "Sin temporizador" : opt === "soft" ? "Blando" : "Duro"}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    {opt === "none"
-                      ? "Sin límite de tiempo."
-                      : opt === "soft"
-                        ? "Pausable. Al expirar puedes confirmar igualmente."
-                        : "No pausable. Al expirar se bloquea la pregunta y no se registra."}
-                  </p>
-                </div>
-              </label>
+            {TIMER_OPTIONS.map(({ value, label, description }) => (
+              <RadioOption
+                key={value}
+                name="timer"
+                value={value}
+                checked={selectedMode === value}
+                onChange={() => setSelectedMode(value)}
+                label={label}
+                description={description}
+              />
             ))}
           </div>
 

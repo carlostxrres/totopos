@@ -7,6 +7,7 @@ import { useQuestionHistoryStore } from "@/store/question-history-store";
 import { resolveQuestions } from "@/lib/test-generator";
 import { CurriculumDisplay } from "@/components/CurriculumDisplay";
 import { TestPreviewDialog } from "@/components/TestPreviewDialog";
+import { RadioOption } from "@/components/RadioOption";
 import { Button } from "@/components/ui/button";
 import { IconSearch } from "@tabler/icons-react";
 import PluralizedNoun from "@/components/PluralizedNoun";
@@ -174,32 +175,22 @@ export function CreateTestPage() {
         {/* Type */}
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium mb-2">Tipo de test</legend>
-          {(["fixed", "indefinite"] as const).map((type) => (
-            <label
-              key={type}
-              className={`option ${testType === type ? "border-primary bg-primary/10" : ""}`}
-            >
-              <input
-                type="radio"
-                name="test-type"
-                value={type}
-                checked={testType === type}
-                onChange={() => setTestType(type)}
-                className="sr-only"
-              />
-              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current">
-                {testType === type && <div className="h-2 w-2 rounded-full bg-current" />}
-              </div>
-              <div>
-                <p className="font-medium text-sm">{type === "fixed" ? "Test fijo" : "Test libre"}</p>
-                <p className="text-xs text-muted-foreground">
-                  {type === "fixed"
-                    ? "Número fijo de preguntas, se envía al terminar."
-                    : "Sin límite de preguntas, se deja cuando quieras."}
-                </p>
-              </div>
-            </label>
-          ))}
+          <RadioOption
+            name="test-type"
+            value="fixed"
+            checked={testType === "fixed"}
+            onChange={() => setTestType("fixed")}
+            label="Test fijo"
+            description="Número fijo de preguntas, se envía al terminar."
+          />
+          <RadioOption
+            name="test-type"
+            value="indefinite"
+            checked={testType === "indefinite"}
+            onChange={() => setTestType("indefinite")}
+            label="Test libre"
+            description="Sin límite de preguntas, se deja cuando quieras."
+          />
         </fieldset>
 
         {/* Exclude answered */}
@@ -233,47 +224,41 @@ export function CreateTestPage() {
         {/* Question selection */}
         <fieldset className="space-y-2">
           <legend className="text-sm font-medium mb-2">Selección de preguntas</legend>
-          {(["all", "new-only", "failed-in-last-days"] as const).map((mode) => (
-            <label
-              key={mode}
-              className={`option ${questionMode === mode ? "border-primary bg-primary/10" : ""}`}
-            >
-              <input
-                type="radio"
-                name="question-mode"
-                value={mode}
-                checked={questionMode === mode}
-                onChange={() => setQuestionMode(mode)}
-                className="sr-only"
-              />
-              <div className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-current">
-                {questionMode === mode && <div className="h-2 w-2 rounded-full bg-current" />}
-              </div>
-              <div className="flex items-center gap-2 flex-wrap flex-1">
-                <span className="text-sm">
-                  {mode === "all"
-                    ? "Mostrar todo"
-                    : mode === "new-only"
-                      ? "Solo preguntas nuevas (nunca respondidas)"
-                      : "Solo preguntas falladas en los últimos"}
-                </span>
-                {mode === "failed-in-last-days" && (
-                  <>
-                    <input
-                      type="number"
-                      min={1}
-                      value={failedDays}
-                      onChange={(e) => setFailedDays(parseInt(e.target.value, 10) || 1)}
-                      onClick={(e) => e.stopPropagation()}
-                      disabled={questionMode !== "failed-in-last-days"}
-                      className="w-16 rounded border border-border bg-background px-2 py-0.5 text-sm disabled:opacity-50"
-                    />
-                    <span className="text-sm">días</span>
-                  </>
-                )}
-              </div>
-            </label>
-          ))}
+          <RadioOption
+            name="question-mode"
+            value="all"
+            checked={questionMode === "all"}
+            onChange={() => setQuestionMode("all")}
+            label="Mostrar todo"
+          />
+          <RadioOption
+            name="question-mode"
+            value="new-only"
+            checked={questionMode === "new-only"}
+            onChange={() => setQuestionMode("new-only")}
+            label="Solo preguntas nuevas (nunca respondidas)"
+          />
+          <RadioOption
+            name="question-mode"
+            value="failed-in-last-days"
+            checked={questionMode === "failed-in-last-days"}
+            onChange={() => setQuestionMode("failed-in-last-days")}
+            label={
+              <span className="flex items-center gap-2 flex-wrap">
+                Solo preguntas falladas en los últimos
+                <input
+                  type="number"
+                  min={1}
+                  value={failedDays}
+                  onChange={(e) => setFailedDays(parseInt(e.target.value, 10) || 1)}
+                  onClick={(e) => e.stopPropagation()}
+                  disabled={questionMode !== "failed-in-last-days"}
+                  className="w-16 rounded border border-border bg-background px-2 py-0.5 text-sm disabled:opacity-50"
+                />
+                días
+              </span>
+            }
+          />
         </fieldset>
 
         {/* Number of questions (fixed only) */}

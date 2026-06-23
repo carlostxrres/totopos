@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { SessionResultsSummary } from "@/components/SessionResultsSummary";
 
 type IndefiniteEndOfPoolScreenProps = {
   totalAnswered: number;
@@ -23,12 +24,7 @@ export function IndefiniteEndOfPoolScreen({
       </div>
       <div className="card space-y-2">
         <h3 className="text-sm font-semibold">Resultados de esta sesión</h3>
-        <div className="flex gap-4 text-sm">
-          <span>{totalAnswered} respondidas</span>
-          <span className="text-success">{correctCount} correctas</span>
-          <span className="text-destructive">{totalAnswered - correctCount} incorrectas</span>
-          <span className="font-medium">{rate}% acierto</span>
-        </div>
+        <SessionResultsSummary totalAnswered={totalAnswered} correctCount={correctCount} rate={rate} />
       </div>
       <div className="flex gap-3">
         <Button variant="secondary" onClick={onReview} className="flex-1">Revisar</Button>

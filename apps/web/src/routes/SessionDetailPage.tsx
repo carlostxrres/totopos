@@ -3,6 +3,7 @@ import { fixedTests } from "@tot-opos/test-data";
 import { useHistoryStore } from "@/store/history-store";
 import { formatDate, formatDateTime, formatDurationMs } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
+import { SessionResultsSummary } from "@/components/SessionResultsSummary";
 import { IconCheck, IconX } from "@tabler/icons-react";
 
 const ALL_QUESTIONS = fixedTests.flatMap((t) => t.questions);
@@ -42,10 +43,8 @@ export function SessionDetailPage() {
           {session.endedAt && <span>Finalizada el {formatDate(session.endedAt)}</span>}
           {duration && <span>Duración: {duration}</span>}
         </div>
-        <div className="flex gap-4 text-sm pt-1">
-          <span>{totalCount} respondidas</span>
-          <span className="text-success">{correctCount} correctas</span>
-          <span className="font-medium">{rate}% acierto</span>
+        <div className="pt-1">
+          <SessionResultsSummary totalAnswered={totalCount} correctCount={correctCount} rate={rate} />
         </div>
       </div>
 

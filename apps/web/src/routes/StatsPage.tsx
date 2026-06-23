@@ -3,7 +3,7 @@ import { units } from "@tot-opos/curriculum-data";
 import { fixedTests } from "@tot-opos/test-data";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
 import { StatsUnitNode } from "@/components/StatsUnitNode";
-import { cn } from "@/lib/cn";
+import { StatCard } from "@/components/StatCard";
 
 const ALL_QUESTIONS = fixedTests.flatMap((t) => t.questions);
 
@@ -34,6 +34,15 @@ export function StatsPage() {
   const globalRate =
     globalStats.answered > 0 ? Math.round((globalStats.correct / globalStats.answered) * 100) : 0;
 
+  const rateColor =
+    globalStats.answered === 0
+      ? "muted" as const
+      : globalRate >= 70
+        ? "success" as const
+        : globalRate >= 50
+          ? "warning" as const
+          : "destructive" as const;
+
   return (
     <div className="space-y-6 py-4">
       <div>
@@ -44,31 +53,13 @@ export function StatsPage() {
       </div>
 
       <div className="grid grid-cols-3 gap-3">
-        <div className="card text-center space-y-1">
-          <p className="text-2xl font-bold">{globalStats.total}</p>
-          <p className="text-xs text-muted-foreground">Preguntas totales</p>
-        </div>
-        <div className="card text-center space-y-1">
-          <p className="text-2xl font-bold">{globalStats.answered}</p>
-          <p className="text-xs text-muted-foreground">Respondidas</p>
-        </div>
-        <div className="card text-center space-y-1">
-          <p
-            className={cn(
-              "text-2xl font-bold",
-              globalStats.answered === 0
-                ? "text-muted-foreground"
-                : globalRate >= 70
-                  ? "text-success"
-                  : globalRate >= 50
-                    ? "text-warning"
-                    : "text-destructive",
-            )}
-          >
-            {globalStats.answered === 0 ? "—" : `${globalRate}%`}
-          </p>
-          <p className="text-xs text-muted-foreground">Acierto global</p>
-        </div>
+        <StatCard value={globalStats.total} label="Preguntas totales" />
+        <StatCard value={globalStats.answered} label="Respondidas" />
+        <StatCard
+          value={globalStats.answered === 0 ? "—" : `${globalRate}%`}
+          label="Acierto global"
+          valueColor={rateColor}
+        />
       </div>
 
       <div className="flex items-center gap-4 text-xs text-muted-foreground">

@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
+import { SettingsSection } from "@/components/SettingsSection";
 import { useThemeStore } from "@/store/theme-store";
 
 const STORE_KEYS = [
@@ -95,36 +96,25 @@ export function SettingsPage() {
         <p className="text-sm text-muted-foreground">Gestión de datos y preferencias.</p>
       </div>
 
-      {/* Appearance */}
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Tema</h2>
-        <p className="text-sm text-muted-foreground">
-          Cambia el tema de la aplicación
-        </p>
+      <SettingsSection title="Tema" description="Cambia el tema de la aplicación">
         <Button variant="secondary" onClick={toggleTheme}>
           {isDark ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
         </Button>
-      </section>
+      </SettingsSection>
 
-      {/* Export */}
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Exportar datos</h2>
-        <p className="text-sm text-muted-foreground">
-          Descarga una copia de todo tu progreso, historial y tests guardados en formato JSON.
-          Útil para hacer una copia de seguridad o transferir datos entre dispositivos.
-        </p>
+      <SettingsSection
+        title="Exportar datos"
+        description="Descarga una copia de todo tu progreso, historial y tests guardados en formato JSON. Útil para hacer una copia de seguridad o transferir datos entre dispositivos."
+      >
         <Button variant="secondary" onClick={exportData}>
           Descargar copia de seguridad
         </Button>
-      </section>
+      </SettingsSection>
 
-      {/* Import */}
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold">Importar datos</h2>
-        <p className="text-sm text-muted-foreground">
-          Restaura una copia de seguridad previamente exportada. Los datos actuales serán
-          reemplazados por los del archivo.
-        </p>
+      <SettingsSection
+        title="Importar datos"
+        description="Restaura una copia de seguridad previamente exportada. Los datos actuales serán reemplazados por los del archivo."
+      >
         <Button variant="secondary" onClick={() => fileRef.current?.click()}>
           Seleccionar archivo de backup
         </Button>
@@ -138,19 +128,17 @@ export function SettingsPage() {
         {importStatus === "error" && (
           <p className="text-sm text-destructive">{importError}</p>
         )}
-      </section>
+      </SettingsSection>
 
-      {/* Clear */}
-      <section className="space-y-3">
-        <h2 className="text-sm font-semibold text-destructive">Borrar todos los datos</h2>
-        <p className="text-sm text-muted-foreground">
-          Elimina permanentemente todo el historial, progreso y tests guardados. Esta acción no
-          se puede deshacer.
-        </p>
+      <SettingsSection
+        title="Borrar todos los datos"
+        description="Elimina permanentemente todo el historial, progreso y tests guardados. Esta acción no se puede deshacer."
+        danger
+      >
         <Button variant="secondary" onClick={() => setClearDialog(true)} className="text-destructive hover:text-destructive border-destructive/30">
           Borrar todos los datos
         </Button>
-      </section>
+      </SettingsSection>
 
       <ConfirmDialog
         open={clearDialog}

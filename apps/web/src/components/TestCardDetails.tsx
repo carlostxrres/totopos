@@ -1,6 +1,7 @@
 import type { FixedAttempt, IndefiniteSession, Test } from "@tot-opos/types";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { formatDate } from "@/lib/relative-time";
+import { UnitChip } from "@/components/UnitChip";
 
 type TestCardDetailsProps = {
   test: Test;
@@ -16,17 +17,10 @@ export function TestCardDetails({ test, unitNames, recentAttempts }: TestCardDet
           <p className="mb-1.5 text-xs font-medium text-muted-foreground">Unidades cubiertas</p>
           <div className="flex flex-wrap gap-1">
             {unitNames.map((name) => (
-              <span
-                key={name}
-                className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
-              >
-                {name}
-              </span>
+              <UnitChip key={name} label={name} />
             ))}
             {test.unitIds.length > 5 && (
-              <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
-                +{test.unitIds.length - 5} más
-              </span>
+              <UnitChip label={`+${test.unitIds.length - 5} más`} />
             )}
           </div>
         </div>

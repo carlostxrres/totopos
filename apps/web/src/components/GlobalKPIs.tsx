@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useHistoryStore } from "@/store/history-store";
 import { useQuestionHistoryStore } from "@/store/question-history-store";
+import { StatCard } from "@/components/StatCard";
 
 function computeStreak(activityDays: Set<string>): number {
   let streak = 0;
@@ -75,11 +76,7 @@ export function GlobalKPIs() {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
       {kpis.map(({ label, value, sub }) => (
-        <div key={label} className="card text-center space-y-0.5">
-          <p className="text-xs text-muted-foreground">{label}</p>
-          <p className="text-2xl font-bold leading-tight">{value}</p>
-          <p className="text-xs text-muted-foreground">{sub}</p>
-        </div>
+        <StatCard key={label} value={value} label={label} sub={sub} />
       ))}
     </div>
   );

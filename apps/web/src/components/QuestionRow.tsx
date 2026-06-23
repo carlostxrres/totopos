@@ -2,6 +2,7 @@ import type { Question, QuestionHistory } from "@tot-opos/types";
 import { units } from "@tot-opos/curriculum-data";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import PluralizedNoun from "@/components/PluralizedNoun";
+import { UnitChip } from "@/components/UnitChip";
 import { cn } from "@/lib/cn";
 import { formatRelativeTime } from "@/lib/relative-time";
 
@@ -20,12 +21,7 @@ export function QuestionRow({ question, history }: QuestionRowProps) {
     <div className="card space-y-2">
       <div className="flex flex-wrap gap-1">
         {question.unitIds.map((uid) => (
-          <span
-            key={uid}
-            className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground"
-          >
-            {units.find((u) => u.id === uid)?.name ?? uid}
-          </span>
+          <UnitChip key={uid} label={units.find((u) => u.id === uid)?.name ?? uid} />
         ))}
         <span
           className={cn(
