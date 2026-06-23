@@ -9,7 +9,7 @@ import { formatRelativeTime, formatDate } from "@/lib/relative-time";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import PluralizedNoun from "@/components/PluralizedNoun";
-import { IconChevronDown, IconChevronUp } from "@tabler/icons-react";
+import { IconCheck, IconChevronDown, IconChevronUp, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/cn";
 
 type TestCardProps = {
@@ -149,9 +149,9 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
                   ? (recentAttempts as typeof fixedAttempts).map((a) => (
                       <div key={a.id} className="flex items-center justify-between text-xs">
                         <span className="text-muted-foreground">{formatDate(a.completedAt)}</span>
-                        <span className={a.passed ? "text-success font-medium" : "text-destructive font-medium"}>
+                        <span className={`flex items-center gap-0.5 font-medium ${a.passed ? "text-success" : "text-destructive"}`}>
                           {a.maxScore > 0 ? Math.round((a.score / a.maxScore) * 100) : 0}%
-                          {a.passed ? " ✓" : " ✗"}
+                          {a.passed ? <IconCheck size={12} /> : <IconX size={12} />}
                         </span>
                       </div>
                     ))

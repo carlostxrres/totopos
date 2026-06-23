@@ -12,7 +12,7 @@ import { QuestionCard } from "@/components/QuestionCard";
 import { TimerControl } from "@/components/TimerControl";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { Button } from "@/components/ui/button";
-import { IconChevronLeft, IconChevronRight, IconClock, IconDotsVertical } from "@tabler/icons-react";
+import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconDotsVertical, IconX } from "@tabler/icons-react";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 import { cn } from "@/lib/cn";
 
@@ -300,9 +300,15 @@ export function IndefiniteTestPage() {
               if (timerMode === "hard") setTimerExpired(true);
             }}
           />
-          <div className="flex-1 text-xs text-muted-foreground">
-            {totalAnswered} resp. · {correctCount} ✓ · {totalAnswered - correctCount} ✗
-            {totalAnswered > 0 && ` · ${rate}%`}
+          <div className="flex flex-1 items-center gap-1 text-xs text-muted-foreground">
+            <span>{totalAnswered} resp.</span>
+            <span className="flex items-center gap-0.5 text-success">
+              {correctCount}<IconCheck size={11} className="inline" />
+            </span>
+            <span className="flex items-center gap-0.5 text-destructive">
+              {totalAnswered - correctCount}<IconX size={11} className="inline" />
+            </span>
+            {totalAnswered > 0 && <span>{rate}%</span>}
           </div>
           <span className="shrink-0 text-xs text-muted-foreground">
             {questionIds.length} en pool
