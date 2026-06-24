@@ -9,7 +9,7 @@ import { CurriculumDisplay } from "@/components/CurriculumDisplay";
 import { TestPreviewDialog } from "@/components/TestPreviewDialog";
 import { RadioOption } from "@/components/RadioOption";
 import { Button } from "@/components/ui/button";
-import { IconSearch } from "@tabler/icons-react";
+import { IconCheck, IconChevronLeft, IconSearch } from "@tabler/icons-react";
 import PluralizedNoun from "@/components/PluralizedNoun";
 import { fixedTests as staticFixedTests } from "@tot-opos/test-data";
 
@@ -159,7 +159,7 @@ export function CreateTestPage() {
         </span>
         <div className="flex items-center gap-2">
           <Button variant="secondary" size="sm" onClick={() => setStep(1)}>
-            ← Unidades
+            <IconChevronLeft size={16} /> Unidades
           </Button>
           <Button variant="primary" size="sm" onClick={() => setModalOpen(true)}>
             Crear test
@@ -203,7 +203,7 @@ export function CreateTestPage() {
               className="sr-only"
             />
             <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border border-current ${excludeDays ? "bg-primary" : ""}`}>
-              {excludeDays && <span className="text-[10px] text-primary-foreground">✓</span>}
+              {excludeDays && <IconCheck size={16} className="text-primary-foreground" />}
             </div>
             <div className="flex items-center gap-2 flex-1 flex-wrap">
               <span className="text-sm">Excluir preguntas respondidas en los últimos</span>

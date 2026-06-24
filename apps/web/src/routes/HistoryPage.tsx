@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { IconChevronRight } from "@tabler/icons-react";
 import { useHistoryStore } from "@/store/history-store";
 import { useProgressStore } from "@/store/progress-store";
 import { useSessionStore } from "@/store/session-store";
@@ -53,7 +54,7 @@ export function HistoryPage() {
         className="card flex items-center justify-between hover:bg-muted transition-colors"
       >
         <span className="text-sm font-medium">Estadísticas por unidad</span>
-        <span className="text-xs text-muted-foreground">Ver →</span>
+        <span className="flex items-center gap-1 text-xs text-muted-foreground">Ver <IconChevronRight size={16} /></span>
       </Link>
 
       <section>
