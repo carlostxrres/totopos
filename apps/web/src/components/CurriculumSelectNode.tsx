@@ -59,6 +59,7 @@ export function CurriculumSelectNode({ unit, units, depth, selected, onChange, f
           )}
         </button>
         <Checkbox.Root
+          id={`checkbox-${unit.id}`}
           checked={isIndeterminate ? "indeterminate" : isFullySelected}
           onCheckedChange={(val) => handleCheck(val === true)}
           className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-muted-foreground data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=indeterminate]:border-primary"
@@ -71,7 +72,12 @@ export function CurriculumSelectNode({ unit, units, depth, selected, onChange, f
             )}
           </Checkbox.Indicator>
         </Checkbox.Root>
-        <span className={cn("text-sm", depth === 0 && "font-semibold")}>{unit.name}</span>
+        <label
+          htmlFor={`checkbox-${unit.id}`}
+          className={cn("text-sm cursor-pointer select-none flex-1", depth === 0 && "font-semibold")}
+        >
+          {unit.name}
+        </label>
       </div>
 
       {isOpen && !isLeaf && (
