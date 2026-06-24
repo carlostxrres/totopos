@@ -57,6 +57,7 @@ export function SavedTestsPage() {
   const [subTab, setSubTab] = useState<SubTab>("all");
   const [search, setSearch] = useState("");
   const [onlyMine, setOnlyMine] = useState(false);
+  const [showFullNames, setShowFullNames] = useState(false);
   const [sortOrder, setSortOrder] = useState<SortOrder>("recent");
 
   const tests = useTestsStore((s) => s.tests);
@@ -139,6 +140,17 @@ export function SavedTestsPage() {
                 <option value="score">Mejor nota</option>
               </select>
             )}
+            {subTab === "curriculum" && (
+              <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <input
+                  type="checkbox"
+                  checked={showFullNames}
+                  onChange={(e) => setShowFullNames(e.target.checked)}
+                  className="rounded border-border"
+                />
+                Nombre completo
+              </label>
+            )}
             <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <input
                 type="checkbox"
@@ -183,6 +195,7 @@ export function SavedTestsPage() {
           mode="readonly"
           units={units}
           getTestsForUnit={getTestsForUnit}
+          showFullNames={showFullNames}
         />
       )}
     </div>

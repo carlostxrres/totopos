@@ -10,9 +10,10 @@ type Props = {
   units: Unit[];
   depth: number;
   getTestsForUnit: (unitId: string) => Test[];
+  showFullNames?: boolean;
 };
 
-export function CurriculumReadonlyNode({ unit, units, depth, getTestsForUnit }: Props) {
+export function CurriculumReadonlyNode({ unit, units, depth, getTestsForUnit, showFullNames }: Props) {
   const openNodeIds = useCurriculumUiStore((s) => s.openNodeIds);
   const toggleNode = useCurriculumUiStore((s) => s.toggleNode);
 
@@ -35,7 +36,7 @@ export function CurriculumReadonlyNode({ unit, units, depth, getTestsForUnit }: 
         style={{ paddingLeft: `${0.75 + depth * 1.25}rem` }}
       >
         {isOpen ? <IconChevronDown size={16} className="shrink-0" /> : <IconChevronRight size={16} className="shrink-0" />}
-        <span className="min-w-0 truncate text-left">{unit.name}</span>
+        <span className={cn("min-w-0 text-left", !showFullNames && "truncate")}>{unit.name}</span>
         {empty && <span className="ml-auto text-xs font-normal italic">sin tests</span>}
       </button>
 
@@ -61,6 +62,7 @@ export function CurriculumReadonlyNode({ unit, units, depth, getTestsForUnit }: 
                 units={units}
                 depth={depth + 1}
                 getTestsForUnit={getTestsForUnit}
+                showFullNames={showFullNames}
               />
             ))
           )}

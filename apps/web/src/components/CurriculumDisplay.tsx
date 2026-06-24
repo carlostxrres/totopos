@@ -8,6 +8,7 @@ type ReadonlyProps = {
   mode: "readonly";
   units: Unit[];
   getTestsForUnit: (unitId: string) => Test[];
+  showFullNames?: boolean;
 };
 
 type SelectProps = {
@@ -33,6 +34,7 @@ export function CurriculumDisplay(props: CurriculumDisplayProps) {
             units={props.units}
             depth={0}
             getTestsForUnit={props.getTestsForUnit}
+            showFullNames={props.showFullNames}
           />
         ))}
       </div>
