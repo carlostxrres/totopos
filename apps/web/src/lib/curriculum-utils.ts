@@ -1,10 +1,7 @@
 import type { Test, Unit } from "@tot-opos/types";
 
 export function sortUnits(units: Unit[]): Unit[] {
-  return [...units].sort((a, b) => {
-    const byName = a.name.localeCompare(b.name, "es");
-    return byName !== 0 ? byName : a.id.localeCompare(b.id);
-  });
+  return [...units].sort((a, b) => (a.order ?? Infinity) - (b.order ?? Infinity));
 }
 
 export function getDescendantIds(unitId: string, units: Unit[]): string[] {
