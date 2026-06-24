@@ -912,4 +912,1085 @@ export const fixedTests: FixedTest[] = [
       },
     ],
   },
+  {
+    id: "bcn-aux-adm-2024",
+    type: "fixed",
+    title:
+      "Auxiliar Administratiu/iva — Test de coneixements del temari (Convocatòria 2024)",
+    description:
+      "Segon exercici de la primera prova de la convocatòria de la categoria Auxiliar Administratiu/iva (subgrup C2) de l'Ajuntament de Barcelona. 40 preguntes oficials + 5 de reserva. Data de realització: 01/03/2025.",
+    saved: true,
+    suggestedMinuteLimit: 55,
+    rules: {
+      scoring: { correctPoints: 1, penaltyPerWrong: 1 / 4, passThreshold: 0.5 },
+      navigation: "free",
+    },
+    metadata: {
+      category: "Ajuntament de Barcelona",
+      subcategory: "Auxiliar Administratiu",
+      year: 2024,
+      tags: ["real", "2024", "temari", "oficial"],
+    },
+    unitIds: [
+      "bcn-t1",
+      "bcn-t2",
+      "bcn-t3",
+      "bcn-t4",
+      "bcn-t5",
+      "bcn-t6",
+      "bcn-t7",
+      "bcn-t8",
+      "bcn-t9",
+      "bcn-t10",
+      "bcn-t11",
+      "bcn-t12",
+      "bcn-t13",
+      "bcn-t14",
+      "bcn-t15",
+      "bcn-t16",
+      "bcn-t17",
+      "bcn-t19",
+      "bcn-t20",
+    ],
+    questions: [
+      // Q1
+      {
+        id: "q-2024-01",
+        type: "single",
+        prompt: "Quin és un dels valors superiors de l'ordenament jurídic espanyol?",
+        options: [
+          { id: "q-2024-01-a", text: "La igualtat.", isCorrect: true },
+          { id: "q-2024-01-b", text: "La seguretat.", isCorrect: false },
+          { id: "q-2024-01-c", text: "La prosperitat.", isCorrect: false },
+          { id: "q-2024-01-d", text: "La riquesa.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 1.1 CE proclama com a valors superiors de l'ordenament jurídic la llibertat, la justícia, la igualtat i el pluralisme polític. La seguretat, la prosperitat i la riquesa no hi figuren.",
+        unitIds: ["bcn-t1"],
+      },
+      // Q2
+      {
+        id: "q-2024-02",
+        type: "single",
+        prompt: "Quin és el termini màxim de durada de la detenció preventiva?",
+        options: [
+          { id: "q-2024-02-a", text: "24 hores.", isCorrect: false },
+          { id: "q-2024-02-b", text: "48 hores.", isCorrect: false },
+          { id: "q-2024-02-c", text: "72 hores.", isCorrect: true },
+          { id: "q-2024-02-d", text: "96 hores.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 17.2 CE estableix que la detenció preventiva no pot durar més del temps estrictament necessari, i en cap cas superar les setanta-dues hores, moment en el qual el detingut ha de ser posat en llibertat o a disposició de l'autoritat judicial.",
+        unitIds: ["bcn-t1"],
+      },
+      // Q3
+      {
+        id: "q-2024-03",
+        type: "single",
+        prompt:
+          "Quin és l'òrgan superior col·legiat que dirigeix l'acció política i l'Administració de la Generalitat?",
+        options: [
+          { id: "q-2024-03-a", text: "El Parlament.", isCorrect: false },
+          { id: "q-2024-03-b", text: "La Presidència de la Generalitat.", isCorrect: false },
+          { id: "q-2024-03-c", text: "El Govern.", isCorrect: true },
+          { id: "q-2024-03-d", text: "El Consell de Garanties Estatutàries.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 68.1 EAC estableix que el Govern és l'òrgan superior col·legiat que dirigeix l'acció política i l'Administració de la Generalitat.",
+        unitIds: ["bcn-t2"],
+      },
+      // Q4
+      {
+        id: "q-2024-04",
+        type: "single",
+        prompt:
+          "Quin és l'òrgan fiscalitzador extern dels comptes, de la gestió econòmica i del control d'eficiència de la Generalitat?",
+        options: [
+          { id: "q-2024-04-a", text: "El Tribunal Superior de Justícia.", isCorrect: false },
+          { id: "q-2024-04-b", text: "El Consell de Garanties Estatutàries.", isCorrect: false },
+          { id: "q-2024-04-c", text: "El Consell de l'Audiovisual de Catalunya.", isCorrect: false },
+          { id: "q-2024-04-d", text: "La Sindicatura de Comptes.", isCorrect: true },
+        ],
+        explanation:
+          "L'art. 80 EAC estableix que la Sindicatura de Comptes és l'òrgan fiscalitzador extern dels comptes, de la gestió econòmica i del control d'eficiència de la Generalitat, dels ens locals i dels altres ens del sector públic de Catalunya.",
+        unitIds: ["bcn-t2"],
+      },
+      // Q5
+      {
+        id: "q-2024-05",
+        type: "single",
+        prompt: "Quin és l'òrgan jurisdiccional en què culmina l'organització judicial a Catalunya?",
+        options: [
+          { id: "q-2024-05-a", text: "El Tribunal Constitucional.", isCorrect: false },
+          { id: "q-2024-05-b", text: "El Consell de Justícia de Catalunya.", isCorrect: false },
+          {
+            id: "q-2024-05-c",
+            text: "El Tribunal Superior de Justícia de Catalunya.",
+            isCorrect: true,
+          },
+          { id: "q-2024-05-d", text: "El Tribunal Suprem.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 95.1 EAC estableix que el Tribunal Superior de Justícia de Catalunya és l'òrgan jurisdiccional en el qual culmina l'organització judicial a Catalunya.",
+        unitIds: ["bcn-t2"],
+      },
+      // Q6
+      {
+        id: "q-2024-06",
+        type: "single",
+        prompt:
+          "Quin és el percentatge mínim dels recursos ordinaris del pressupost municipal que s'ha de gestionar pels districtes segons la Carta Municipal de Barcelona?",
+        options: [
+          { id: "q-2024-06-a", text: "10%", isCorrect: false },
+          { id: "q-2024-06-b", text: "15%", isCorrect: true },
+          { id: "q-2024-06-c", text: "20%", isCorrect: false },
+          { id: "q-2024-06-d", text: "25%", isCorrect: false },
+        ],
+        explanation:
+          "La Carta Municipal de Barcelona estableix que els districtes han de gestionar com a mínim el 15% dels recursos ordinaris del pressupost municipal.",
+        unitIds: ["bcn-t3"],
+      },
+      // Q7
+      {
+        id: "q-2024-07",
+        type: "single",
+        prompt:
+          "Quin és l'òrgan de màxima representació política dels ciutadans en el govern de Barcelona?",
+        options: [
+          { id: "q-2024-07-a", text: "El Consell Municipal.", isCorrect: true },
+          { id: "q-2024-07-b", text: "Els Consells de Districte.", isCorrect: false },
+          { id: "q-2024-07-c", text: "La Comissió de Govern.", isCorrect: false },
+          { id: "q-2024-07-d", text: "L'Alcalde/essa.", isCorrect: false },
+        ],
+        explanation:
+          "Segons la normativa municipal de Barcelona, el Consell Municipal és l'òrgan de màxima representació política dels ciutadans en el govern de la ciutat.",
+        unitIds: ["bcn-t3"],
+      },
+      // Q8
+      {
+        id: "q-2024-08",
+        type: "single",
+        prompt: "Qui constitueix la Junta de Portaveus al municipi de Barcelona?",
+        options: [
+          { id: "q-2024-08-a", text: "Els regidors de districte.", isCorrect: false },
+          {
+            id: "q-2024-08-b",
+            text: "Els portaveus designats per cada grup municipal.",
+            isCorrect: true,
+          },
+          { id: "q-2024-08-c", text: "Els tinents d'alcalde.", isCorrect: false },
+          { id: "q-2024-08-d", text: "Els membres de la Comissió de Govern.", isCorrect: false },
+        ],
+        explanation:
+          "La Junta de Portaveus de l'Ajuntament de Barcelona es constitueix amb els portaveus designats per cadascun dels grups municipals presents al Consell Municipal.",
+        unitIds: ["bcn-t3"],
+      },
+      // Q9
+      {
+        id: "q-2024-09",
+        type: "single",
+        prompt:
+          "Segons la Llei 39/2015, quin és el termini general per resoldre un procediment administratiu si no s'estableix un termini específic?",
+        options: [
+          { id: "q-2024-09-a", text: "10 dies hàbils.", isCorrect: false },
+          { id: "q-2024-09-b", text: "6 mesos.", isCorrect: false },
+          { id: "q-2024-09-c", text: "3 mesos.", isCorrect: true },
+          { id: "q-2024-09-d", text: "12 mesos.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 21.3 de la Llei 39/2015 estableix que, quan la norma reguladora del procediment no fixi un termini màxim, aquest serà de tres mesos.",
+        unitIds: ["bcn-t4"],
+      },
+      // Q10
+      {
+        id: "q-2024-10",
+        type: "single",
+        prompt:
+          "Segons la llei 39/2015, en quant al còmput de terminis, sempre que aquests s'assenyalin en dies, s'entén que són dies:",
+        options: [
+          { id: "q-2024-10-a", text: "naturals.", isCorrect: false },
+          { id: "q-2024-10-b", text: "la norma no ho especifica.", isCorrect: false },
+          {
+            id: "q-2024-10-c",
+            text: "hàbils, que exclouen del còmput diumenges i festius.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-10-d",
+            text: "hàbils, que exclouen del còmput dissabtes, diumenges i festius.",
+            isCorrect: true,
+          },
+        ],
+        explanation:
+          "L'art. 30.2 de la Llei 39/2015 estableix que, sempre que els terminis s'assenyalin en dies, s'entén que es tracta de dies hàbils, excloent-ne els dissabtes, els diumenges i els festius.",
+        unitIds: ["bcn-t4"],
+      },
+      // Q11
+      {
+        id: "q-2024-11",
+        type: "single",
+        prompt:
+          "Els actes de les administracions públiques són nuls de ple dret en el cas següent, entre d'altres (assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-11-a",
+            text: "En el cas que lesionin els drets i les llibertats susceptibles d'empara constitucional.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-11-b",
+            text: "En el cas que estiguin signat per un òrgan que no compleix el criteri de paritat de gènere.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-11-c",
+            text: "En el cas que tinguin un contingut poc raonable.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-11-d",
+            text: "En el cas que siguin constitutius d'incompliment de recomanacions organitzatives de l'òrgan que els ha dictat.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 47.1.a) de la Llei 39/2015 estableix que els actes de les administracions públiques són nuls de ple dret quan lesionin els drets i les llibertats susceptibles d'empara constitucional.",
+        unitIds: ["bcn-t5"],
+      },
+      // Q12
+      {
+        id: "q-2024-12",
+        type: "single",
+        prompt:
+          "Els actes de les administracions públiques subjectes al dret administratiu es presumeixen vàlids i produeixen efectes, llevat que aquests disposin una altra cosa, des de el següent moment:",
+        options: [
+          {
+            id: "q-2024-12-a",
+            text: "Des de la data en que les persones interessades emetin un acusament de rebut.",
+            isCorrect: false,
+          },
+          { id: "q-2024-12-b", text: "Des de la data en què es dictin.", isCorrect: true },
+          {
+            id: "q-2024-12-c",
+            text: "Des de el dia en que es va iniciar l'expedient.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-12-d",
+            text: "Des de que l'acte es publica als diaris oficials.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 38 de la Llei 39/2015 estableix que els actes de les administracions públiques subjectes al dret administratiu es presumiran vàlids i produiran efecte des de la data en la qual es dictin.",
+        unitIds: ["bcn-t5"],
+      },
+      // Q13
+      {
+        id: "q-2024-13",
+        type: "single",
+        prompt: "Segons l'ordenança fiscal, l'Impost sobre Vehicles de Tracció Mecànica:",
+        options: [
+          { id: "q-2024-13-a", text: "Grava la transmissió de vehicles.", isCorrect: false },
+          {
+            id: "q-2024-13-b",
+            text: "Grava la titularitat dels vehicles de tracció mecànica aptes per a circular per les vies públiques, qualsevol que en sigui la classe i categoria.",
+            isCorrect: true,
+          },
+          { id: "q-2024-13-c", text: "Grava la matriculació de vehicles.", isCorrect: false },
+          {
+            id: "q-2024-13-d",
+            text: "Grava la circulació de vehicles per les vies de Barcelona.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'IVTM és un tribut directe que grava la titularitat dels vehicles de tracció mecànica aptes per circular per les vies públiques (art. 92 TRLHL), independentment de la seva classe o categoria.",
+        unitIds: ["bcn-t6"],
+      },
+      // Q14
+      {
+        id: "q-2024-14",
+        type: "single",
+        prompt: "Què grava l'impost sobre activitats econòmiques (IAE)?",
+        options: [
+          {
+            id: "q-2024-14-a",
+            text: "L'activitat empresarial realitzada dins d'un municipi.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-14-b",
+            text: "Els beneficis econòmics de les empreses.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-14-c",
+            text: "La possessió d'un vehicle destinat a una activitat econòmica.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-14-d",
+            text: "L'increment de valor dels terrenys urbans fruit d'activitat empresarial immobiliària.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'IAE és un tribut directe, el fet imposable del qual el constitueix el mer exercici en territori nacional d'activitats empresarials, professionals o artístiques, independentment del benefici obtingut.",
+        unitIds: ["bcn-t6"],
+      },
+      // Q15
+      {
+        id: "q-2024-15",
+        type: "single",
+        prompt: "Què són les taxes municipals?",
+        options: [
+          {
+            id: "q-2024-15-a",
+            text: "Són els tributs exigits sense contraprestació.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-15-b",
+            text: "Els tributs, el fet imposable dels quals consisteix en la utilització privativa o l'aprofitament especial del domini públic, la prestació de serveis o la realització d'activitats en règim de dret públic.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-15-c",
+            text: "Els tributs que graven el valor del terrenys, la titularitat dels vehicles i la transmissió de terrenys de naturalesa urbana.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-15-d",
+            text: "Són els tributs, el fet imposable dels quals consisteix en l'obtenció per l'obligat tributari d'un benefici o d'un augment de valor dels seus béns.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 2.2.a) de la Llei General Tributària defineix les taxes com els tributs el fet imposable dels quals consisteix en la utilització privativa o l'aprofitament especial del domini públic, o en la prestació de serveis o realització d'activitats en règim de dret públic.",
+        unitIds: ["bcn-t6"],
+      },
+      // Q16
+      {
+        id: "q-2024-16",
+        type: "single",
+        prompt: "La Subvenció és un mitja de l'activitat administrativa:",
+        options: [
+          { id: "q-2024-16-a", text: "de Contractació.", isCorrect: false },
+          { id: "q-2024-16-b", text: "de Policia.", isCorrect: false },
+          { id: "q-2024-16-c", text: "Sancionadora.", isCorrect: false },
+          { id: "q-2024-16-d", text: "de Foment.", isCorrect: true },
+        ],
+        explanation:
+          "La subvenció és l'instrument paradigmàtic de l'activitat de foment de l'Administració, mitjançant el qual s'incentiva una conducta privada que es considera d'interès general, sense imposar-la coactivament.",
+        unitIds: ["bcn-t7"],
+      },
+      // Q17
+      {
+        id: "q-2024-17",
+        type: "single",
+        prompt:
+          "Segons la llei 38/2003, de 17 de novembre, General de Subvencions, quin és el termini màxim per resoldre i notificar la resolució del procediment? El termini es computarà a partir de la publicació de la corresponent convocatòria. (Assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-17-a",
+            text: "No pot excedir els sis mesos, llevat que una norma amb rang de llei estableixi un termini més gran o així estigui previst a la normativa de la Unió Europea.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-17-b",
+            text: "No pot excedir els nou mesos, llevat que una norma amb rang de llei estableixi un termini més gran o així estigui previst a la normativa de la Unió Europea.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-17-c",
+            text: "No pot excedir els dotze mesos, llevat que una norma amb rang de llei estableixi un termini més gran o així estigui previst a la normativa de la Unió Europea.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-17-d",
+            text: "no pot excedir els divuit mesos, llevat que una norma amb rang de llei estableixi un termini més gran o així estigui previst a la normativa de la Unió Europea.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 25.4 de la Llei 38/2003 General de Subvencions estableix que el termini màxim per resoldre i notificar la resolució del procediment de concessió de subvencions no podrà excedir sis mesos, excepte que una norma amb rang de llei estableixi un termini major.",
+        unitIds: ["bcn-t7"],
+      },
+      // Q18
+      {
+        id: "q-2024-18",
+        type: "single",
+        prompt:
+          "Segons el III Pla d'igualtat d'oportunitats entre dones i homes de l'Ajuntament de Barcelona, una de les funcions de la Comissió Paritària de Seguiment del Pla d'Igualtat és:",
+        options: [
+          {
+            id: "q-2024-18-a",
+            text: "Fer propostes sobre les mesures que s'han de dur a terme en el Pla d'igualtat.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-18-b",
+            text: "Acompanyar i impulsar la implementació del Pla d'igualtat, informar i assessorar sobre la forma i/o aplicació de les mesures i vigilar-ne l'acompliment.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-18-c",
+            text: "Obtenir informació anual sobre l'evolució global dels Plans d'Igualtat.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-18-d",
+            text: "Emetre informes valoratius sobre el grau d'execució de les mesures del Pla d'igualtat i dels seus resultats, que tindran caràcter preceptiu i vinculant.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "Segons el III Pla d'igualtat de l'Ajuntament de Barcelona, la Comissió Paritària de Seguiment té entre les seves funcions obtenir informació anual sobre l'evolució global dels Plans d'Igualtat.",
+        unitIds: ["bcn-t8"],
+      },
+      // Q19
+      {
+        id: "q-2024-19",
+        type: "single",
+        prompt:
+          "Segons l'article 3 de la Llei 4/2023, de 28 de febrer, per a la igualtat real i efectiva de les persones trans i per a la garantia dels drets de les persones LGTBI, tota actitud, conducta o discurs de rebuig cap a les persones bisexuals s'anomena:",
+        options: [
+          { id: "q-2024-19-a", text: "Transfòbia.", isCorrect: false },
+          { id: "q-2024-19-b", text: "LGTBI-fòbia.", isCorrect: false },
+          { id: "q-2024-19-c", text: "Homofòbia.", isCorrect: false },
+          { id: "q-2024-19-d", text: "Bifòbia.", isCorrect: true },
+        ],
+        explanation:
+          "L'art. 3 de la Llei 4/2023 defineix la bifòbia com tota actitud, conducta o discurs de rebuig, discriminació o violència cap a les persones bisexuals per raó de la seva orientació sexual.",
+        unitIds: ["bcn-t8"],
+      },
+      // Q20
+      {
+        id: "q-2024-20",
+        type: "single",
+        prompt:
+          "Quin principi estableix que les dades personals han de ser adequades, pertinents i limitades al que és necessari en relació amb els fins per als quals són tractades?",
+        options: [
+          {
+            id: "q-2024-20-a",
+            text: "Principi de minimització de les dades.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-20-b",
+            text: "Principi de limitació del termini de conservació.",
+            isCorrect: false,
+          },
+          { id: "q-2024-20-c", text: "Principi d'exactitud.", isCorrect: false },
+          {
+            id: "q-2024-20-d",
+            text: "Principi de licitud, lleialtat i transparència.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 5.1.c) del RGPD estableix el principi de minimització de dades: les dades personals han de ser adequades, pertinents i limitades al que és necessari en relació amb els fins per als quals es tracten.",
+        unitIds: ["bcn-t9"],
+      },
+      // Q21
+      {
+        id: "q-2024-21",
+        type: "single",
+        prompt:
+          "Són funcionaris interins els que, per raons expressament justificades de necessitat i urgència, són nomenats com a tals quan es doni la circumstància següent, entre d'altres (assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-21-a",
+            text: "L'excés o l'acumulació de tasques per un termini màxim de tres mesos, dins d'un període de dotze mesos.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-21-b",
+            text: "L'existència de places vacants quan no sigui possible la seva cobertura per personal eventual o personal laboral.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-21-c",
+            text: "La substitució transitòria dels titulars, per temps estrictament necessari.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-21-d",
+            text: "L'execució de programes de caràcter temporal, que no poden tenir una durada superior a dos anys, ampliable fins a sis mesos més per les lleis de funció pública que es dictin en desplegament d'aquest Estatut.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 10.1 del TREBEP estableix que la substitució transitòria dels titulars és una de les circumstàncies que justifica el nomenament de funcionaris interins. L'opció A és incorrecta (el TREBEP estableix 6 mesos, no 3); la B és incorrecta (la cobertura és per funcionaris de carrera, no eventual/laboral); la D és incorrecta en la durada.",
+        unitIds: ["bcn-t10"],
+      },
+      // Q22
+      {
+        id: "q-2024-22",
+        type: "single",
+        prompt: "Un dels drets individuals exercit col·lectivament dels empleats públics és el següent:",
+        options: [
+          {
+            id: "q-2024-22-a",
+            text: "A la llibertat d'expressió dins dels límits de l'ordenament jurídic.",
+            isCorrect: false,
+          },
+          { id: "q-2024-22-b", text: "A la lliure associació professional.", isCorrect: false },
+          {
+            id: "q-2024-22-c",
+            text: "A la inamovibilitat en la condició de funcionari de carrera.",
+            isCorrect: false,
+          },
+          { id: "q-2024-22-d", text: "A la llibertat sindical.", isCorrect: true },
+        ],
+        explanation:
+          "L'art. 15 del TREBEP estableix els drets individuals exercits col·lectivament, entre els quals figura la llibertat sindical. La inamovibilitat i la llibertat d'expressió són drets individuals; la lliure associació professional és diferent de la llibertat sindical.",
+        unitIds: ["bcn-t10"],
+      },
+      // Q23
+      {
+        id: "q-2024-23",
+        type: "single",
+        prompt:
+          "Segons el Reial decret legislatiu 5/2015, de 30 d'octubre, pel qual s'aprova el text refós de la Llei de l'Estatut bàsic de l'empleat públic, quins són alguns dels fonaments d'actuació? (assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-23-a",
+            text: "Drets limitats de l'empleat públic a les vacances anuals i a la jornada laboral.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-23-b",
+            text: "Igualtat, mèrit i capacitat en l'accés i en la promoció professional.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-23-c",
+            text: "Drets limitats de l'empleat públic a la protecció en cas d'accident laboral.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-23-d",
+            text: "Desenvolupament i qualificació professional puntual dels empleats públics, fora de la jornada laboral.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 1.3 del TREBEP estableix com a fonaments d'actuació, entre d'altres, la igualtat, el mèrit i la capacitat en l'accés i en la promoció professional dels empleats públics.",
+        unitIds: ["bcn-t10"],
+      },
+      // Q24
+      {
+        id: "q-2024-24",
+        type: "single",
+        prompt:
+          "D'acord amb el TREBEP, quina és la descripció d'una de les modalitats de la carrera professional dels funcionaris de carrera? (Assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-24-a",
+            text: "Promoció interna horitzontal, que consisteix en l'accés a cossos o escales del mateix subgrup professional.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-24-b",
+            text: "Carrera horitzontal, que consisteix en la progressió de grau, categoria, esglaó o altres conceptes anàlegs, i implica canvi de de lloc de treball.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-24-c",
+            text: "Promoció interna vertical, que consisteix en l'ascens en l'estructura de llocs de treball pels procediments de provisió.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-24-d",
+            text: "Carrera vertical que consisteix en l'ascens des d'un cos o escala d'un subgrup, o grup de classificació professional en el supòsit que aquest no tingui subgrup, a un altre de superior.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 18.3 del TREBEP defineix la promoció interna horitzontal com l'accés a cossos o escales del mateix subgrup professional. La carrera horitzontal (art. 17.a) NO implica canvi de lloc de treball; les altres opcions contenen errors en la definició.",
+        unitIds: ["bcn-t11"],
+      },
+      // Q25
+      {
+        id: "q-2024-25",
+        type: "single",
+        prompt:
+          "Els funcionaris de carrera, quan de temps han d'haver prestat serveis efectius en qualsevol de les administracions públiques per sol·licitar l'excedència voluntària per interès particular?",
+        options: [
+          {
+            id: "q-2024-25-a",
+            text: "Al ser funcionari de carrera no és necessari computar temps efectiu.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-25-b",
+            text: "Durant un període mínim de cinc anys immediatament anteriors.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-25-c",
+            text: "Durant un període mínim de dos anys immediatament anteriors.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-25-d",
+            text: "Durant un període mínim de dos anys ininterromputs de prestació.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 89.2 del TREBEP estableix que per sol·licitar l'excedència voluntària per interès particular cal haver prestat serveis efectius en qualsevol administració pública durant un període mínim de cinc anys immediatament anteriors.",
+        unitIds: ["bcn-t11"],
+      },
+      // Q26
+      {
+        id: "q-2024-26",
+        type: "single",
+        prompt:
+          "Les administracions públiques NO requereixen als interessats l'ús obligatori de signatura per:",
+        options: [
+          { id: "q-2024-26-a", text: "Interposar recursos.", isCorrect: false },
+          { id: "q-2024-26-b", text: "Rebre notificacions electròniques.", isCorrect: true },
+          { id: "q-2024-26-c", text: "Renunciar a drets.", isCorrect: false },
+          {
+            id: "q-2024-26-d",
+            text: "Presentar declaracions responsables o comunicacions.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 11.2 de la Llei 39/2015 estableix l'obligatorietat de signatura per a: formular sol·licituds, interposar recursos, renunciar a drets, desistir d'accions, etc. Rebre notificacions electròniques no requereix signatura per part de l'interessat.",
+        unitIds: ["bcn-t12"],
+      },
+      // Q27
+      {
+        id: "q-2024-27",
+        type: "single",
+        prompt:
+          "Els documents electrònics s'han de conservar en un format que permeti garantir....(assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-27-a",
+            text: "l'eliminació del document en el moment que indiqui la normativa.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-27-b",
+            text: "l'enviament de documentació quan necessitem disposar d'un justificant de la tramesa electrònica.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-27-c",
+            text: "l'autenticitat, la integritat i la conservació del document.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-27-d",
+            text: "la participació en la informació del document.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 17.2 de la Llei 39/2015 estableix que els documents electrònics s'han de conservar en formats que garanteixin l'autenticitat, la integritat i la conservació del document, i que permetin la seva consulta independentment del temps transcorregut.",
+        unitIds: ["bcn-t12"],
+      },
+      // Q28
+      {
+        id: "q-2024-28",
+        type: "single",
+        prompt: "Quina es la diferència entre un certificat digital i una signatura electrònica?",
+        options: [
+          {
+            id: "q-2024-28-a",
+            text: "El certificat digital no permet identificar la persona i la signatura electrònica sí que ho permet.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-28-b",
+            text: "La signatura electrònica es el conjunt de dades en forma electrònica que poden ser utilitzades com a mitja d'identificació de la persona signant, mentre que el certificat electrònic es un document signat electrònicament per un prestador de serveis de certificació que verifica la signatura i conforma la identitat de la persona.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-28-c",
+            text: "El certificat electrònic únicament serveixi per a les persones jurídiques i la signatura electrònica serveix per a persones físiques.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-28-d",
+            text: "El certificat electrònic únicament serveixi per a les persones físiques i la signatura electrònica serveix per a persones jurídiques.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "La signatura electrònica és el conjunt de dades electròniques que s'utilitzen per identificar el signant. El certificat electrònic és el document digital emès per un prestador de serveis de certificació que vincula les dades d'identitat d'una persona amb la seva clau pública, permetent verificar la signatura.",
+        unitIds: ["bcn-t12"],
+      },
+      // Q29
+      {
+        id: "q-2024-29",
+        type: "single",
+        prompt:
+          "Quin tipus de document administratiu es el certificat intern que es produeix dins les actuacions administratives i que acredita l'execució d'un tràmit, com el desglossament d'un document d'un expedient, la presa de possessió d'un funcionari, una modificació de sou, etc.",
+        options: [
+          { id: "q-2024-29-a", text: "Notificació.", isCorrect: false },
+          { id: "q-2024-29-b", text: "Diligència.", isCorrect: true },
+          { id: "q-2024-29-c", text: "Resolució.", isCorrect: false },
+          { id: "q-2024-29-d", text: "Carta.", isCorrect: false },
+        ],
+        explanation:
+          "La diligència és el document intern que acredita l'execució d'un tràmit dins les actuacions administratives, com el desglossament d'un document d'un expedient, la presa de possessió d'un funcionari o una modificació retributiva.",
+        unitIds: ["bcn-t13"],
+      },
+      // Q30
+      {
+        id: "q-2024-30",
+        type: "single",
+        prompt:
+          "D'acord la Carta de Serveis d'Atenció a la ciutadania de l'Ajuntament de Barcelona, quin dels següents NO és un canal per rebre informació i realitzar tràmits municipals?",
+        options: [
+          { id: "q-2024-30-a", text: "010 Telèfon d'Informació Ciutadana.", isCorrect: false },
+          { id: "q-2024-30-b", text: "Gaseta Municipal.", isCorrect: true },
+          { id: "q-2024-30-c", text: "Oficina Virtual de Tràmits.", isCorrect: false },
+          {
+            id: "q-2024-30-d",
+            text: "Oficines d'Atenció a la Ciutadania (OACs).",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "La Gaseta Municipal és el butlletí oficial de l'Ajuntament on es publiquen acords i actes municipals, però no és un canal per rebre informació ni realitzar tràmits de la Carta de Serveis d'Atenció a la Ciutadania.",
+        unitIds: ["bcn-t14"],
+      },
+      // Q31
+      {
+        id: "q-2024-31",
+        type: "single",
+        prompt: "La Seu Electrònica de l'Ajuntament de Barcelona és,",
+        options: [
+          {
+            id: "q-2024-31-a",
+            text: "Un espai virtual que té a disposició la ciutadania per accedir a la informació, els serveis i els tràmits de l'Ajuntament.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-31-b",
+            text: "Un taulell electrònic on s'emmagatzemen els actes administratius.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-31-c",
+            text: "El certificat electrònic municipal per a realitzar tràmits.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-31-d",
+            text: "Una oficina d'assistència en matèria de registres.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "La Seu Electrònica de l'Ajuntament de Barcelona és l'espai virtual accessible des de xarxes de telecomunicacions que posa a disposició de la ciutadania la informació, els serveis i els tràmits de l'Ajuntament, amb plena validesa jurídica.",
+        unitIds: ["bcn-t14"],
+      },
+      // Q32
+      {
+        id: "q-2024-32",
+        type: "single",
+        prompt:
+          "Indica quina de les següents afirmacions es correcta pel que fa referència als museus de la ciutat de Barcelona:",
+        options: [
+          {
+            id: "q-2024-32-a",
+            text: "L'entrada als museus es gratuïta tots els diumenges.",
+            isCorrect: false,
+          },
+          { id: "q-2024-32-b", text: "Hi ha més de 300 museus a la ciutat.", isCorrect: false },
+          {
+            id: "q-2024-32-c",
+            text: "El Museu Picasso ocupa cinc palaus al carrer Montcada.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-32-d",
+            text: "El Museu de Historia de Barcelona (MUHBA) disposa d'una única seu a la plaça del Rei.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "El Museu Picasso de Barcelona ocupa cinc palaus medievals al carrer Montcada: Palau Aguilar, Palau del Baró de Castellet, Palau Meca, Casa Mauri i Palau Finestres. El MUHBA té múltiples seus a la ciutat.",
+        unitIds: ["bcn-t15"],
+      },
+      // Q33
+      {
+        id: "q-2024-33",
+        type: "single",
+        prompt: "La Biblioteca Francesca Bonnemaison (assenyala la resposta correcta):",
+        options: [
+          {
+            id: "q-2024-33-a",
+            text: "Està ubicada al districte de Sants-Montjuic.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-33-b",
+            text: "Acull un espai de referència i un fons especialitzat en la dona i els feminismes.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-33-c",
+            text: "No es una de les Biblioteques de la ciutat de Barcelona, sinó de l'àrea metropolitana.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-33-d",
+            text: "Només programa activitats per adults.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "La Biblioteca Francesca Bonnemaison, ubicada al districte de Ciutat Vella, acull un espai de referència i un fons especialitzat en la dona i els feminismes, sent un centre de referència en documentació feminista.",
+        unitIds: ["bcn-t15"],
+      },
+      // Q34
+      {
+        id: "q-2024-34",
+        type: "single",
+        prompt: "Quin dia de l'any podem trobar als carrers de Barcelona \"l'home dels nassos\"?",
+        options: [
+          { id: "q-2024-34-a", text: "El 31 de desembre.", isCorrect: true },
+          { id: "q-2024-34-b", text: "El 24 de setembre.", isCorrect: false },
+          { id: "q-2024-34-c", text: "El 12 de febrer.", isCorrect: false },
+          { id: "q-2024-34-d", text: "El 15 d'agost.", isCorrect: false },
+        ],
+        explanation:
+          "L'home dels nassos és un personatge del folklore català que apareix el 31 de desembre (Cap d'Any), ja que en principi té tants nassos com dies queden per acabar l'any, és a dir, cap.",
+        unitIds: ["bcn-t15"],
+      },
+      // Q35
+      {
+        id: "q-2024-35",
+        type: "single",
+        prompt:
+          "Quina afirmació és CORRECTA en relació al Comitè de Seguretat i Salut, segons la Llei 31/1995, de 8 de novembre, de prevenció de riscos laborals?",
+        options: [
+          {
+            id: "q-2024-35-a",
+            text: "Es constituirà en totes les empreses o centres de treball que comptin amb més de 100 treballadors/ores.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-35-b",
+            text: "Es constituirà en totes les empreses que pertanyin al sector de la construcció.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-35-c",
+            text: "Es constituirà en totes les empreses o centres de treball que comptin amb 50 o més treballadors/ores.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-35-d",
+            text: "Es constituirà en totes les empreses.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 38.2 de la Llei 31/1995 de Prevenció de Riscos Laborals estableix que el Comitè de Seguretat i Salut es constituirà en totes les empreses o centres de treball que comptin amb 50 o més treballadors.",
+        unitIds: ["bcn-t16"],
+      },
+      // Q36
+      {
+        id: "q-2024-36",
+        type: "single",
+        prompt: "Els delegats/ades de prevenció són:",
+        options: [
+          {
+            id: "q-2024-36-a",
+            text: "Els/les representants dels treballadors/ores amb funcions específiques en matèria de prevenció de riscos en el treball.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-36-b",
+            text: "Els treballadors/ores que tenen coneixements de prevenció de riscos laborals.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-36-c",
+            text: "Els treballadors/ores amb més experiència de l'empresa.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-36-d",
+            text: "Els/les representants de l'empresa que es designen per a negociar el Conveni.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "L'art. 35.1 de la Llei 31/1995 defineix els delegats de prevenció com els representants dels treballadors amb funcions específiques en matèria de prevenció de riscos en el treball, designats pels representants del personal.",
+        unitIds: ["bcn-t16"],
+      },
+      // Q37
+      {
+        id: "q-2024-37",
+        type: "single",
+        prompt:
+          "Cóm es diu la funció que permet veure els canvis realitzats per diferents usuaris en un document Word?",
+        options: [
+          { id: "q-2024-37-a", text: "Revisió ortogràfica.", isCorrect: false },
+          { id: "q-2024-37-b", text: "Control de canvis.", isCorrect: true },
+          { id: "q-2024-37-c", text: "Comentaris.", isCorrect: false },
+          { id: "q-2024-37-d", text: "Vista de lectura.", isCorrect: false },
+        ],
+        explanation:
+          "La funció «Control de canvis» (Track Changes) de Microsoft Word permet visualitzar i gestionar les modificacions realitzades per un o més usuaris en un document, mostrant insercions, eliminacions i canvis de format.",
+        unitIds: ["bcn-t17"],
+      },
+      // Q38
+      {
+        id: "q-2024-38",
+        type: "single",
+        prompt: "Quina combinació de tecles s'utilitza per seleccionar tot el text en un document Word?",
+        options: [
+          { id: "q-2024-38-a", text: "Ctrl + E", isCorrect: true },
+          { id: "q-2024-38-b", text: "Ctrl + T", isCorrect: false },
+          { id: "q-2024-38-c", text: "Ctrl + Q", isCorrect: false },
+          { id: "q-2024-38-d", text: "Ctrl + A", isCorrect: false },
+        ],
+        explanation:
+          "En Microsoft Word en versió espanyola/catalana, la drecera Ctrl+E permet seleccionar tot el text del document (equivalent a «Seleccionar todo»). Ctrl+T aplica tabulació, Ctrl+Q elimina l'espaiat del paràgraf i Ctrl+A correspon a «Seleccionar todo» en la versió anglesa.",
+        unitIds: ["bcn-t17"],
+      },
+      // Q39
+      {
+        id: "q-2024-39",
+        type: "single",
+        prompt: "En excel Microsoft Office, que és un llibre?",
+        options: [
+          {
+            id: "q-2024-39-a",
+            text: "És un fitxer que conté un o més fulls de càlcul per ajudar a organitzar les dades.",
+            isCorrect: true,
+          },
+          {
+            id: "q-2024-39-b",
+            text: "És una eina avançada per calcular, resumir i analitzar dades que permeten veure comparacions, patrons i tendències en elles.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-39-c",
+            text: "És una eina que permet la visualització de les dades.",
+            isCorrect: false,
+          },
+          {
+            id: "q-2024-39-d",
+            text: "És una expressió que opera sobre els valors d'un rang cel·lular o d'una cèl·lula.",
+            isCorrect: false,
+          },
+        ],
+        explanation:
+          "Un llibre de treball (workbook) d'Excel és un fitxer que conté un o diversos fulls de càlcul, que permeten organitzar, emmagatzemar i analitzar dades. L'opció B descriu les taules dinàmiques; la D descriu una funció.",
+        unitIds: ["bcn-t19"],
+      },
+      // Q40
+      {
+        id: "q-2024-40",
+        type: "single",
+        prompt: "Quina és la funció de les taules dinàmiques en Excel?",
+        options: [
+          { id: "q-2024-40-a", text: "Crear gràfics.", isCorrect: false },
+          {
+            id: "q-2024-40-b",
+            text: "Resumir i analitzar grans volums de dades.",
+            isCorrect: true,
+          },
+          { id: "q-2024-40-c", text: "Dissenyar plantilles.", isCorrect: false },
+          { id: "q-2024-40-d", text: "Protegir dades.", isCorrect: false },
+        ],
+        explanation:
+          "Les taules dinàmiques (PivotTables) d'Excel permeten resumir, analitzar, explorar i presentar grans volums de dades de manera interactiva, permetent creuar variables i obtenir resums sense necessitat de fórmules complexes.",
+        unitIds: ["bcn-t20"],
+      },
+      // PREGUNTES DE RESERVA
+      // Q41
+      {
+        id: "q-2024-41",
+        type: "single",
+        prompt: "Quin és el termini de renovació dels membres del Tribunal Constitucional?",
+        options: [
+          { id: "q-2024-41-a", text: "5 anys.", isCorrect: false },
+          { id: "q-2024-41-b", text: "9 anys.", isCorrect: true },
+          { id: "q-2024-41-c", text: "7 anys.", isCorrect: false },
+          { id: "q-2024-41-d", text: "6 anys.", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 159.3 CE estableix que els membres del Tribunal Constitucional són nomenats per un període de nou anys, i el Tribunal es renova per terceres parts cada tres anys.",
+        unitIds: ["bcn-t1"],
+      },
+      // Q42
+      {
+        id: "q-2024-42",
+        type: "single",
+        prompt:
+          "Segons la llei 39/2015, quan el procediment s'hagi iniciat d'ofici, es produeix la caducitat quan no s'hagi dictat resolució des del seu inici en el transcurs de:",
+        options: [
+          { id: "q-2024-42-a", text: "1 any.", isCorrect: false },
+          { id: "q-2024-42-b", text: "6 mesos.", isCorrect: true },
+          { id: "q-2024-42-c", text: "3 mesos.", isCorrect: false },
+          { id: "q-2024-42-d", text: "15 dies", isCorrect: false },
+        ],
+        explanation:
+          "L'art. 21.2 de la Llei 39/2015 estableix que el termini màxim per resoldre i notificar la resolució expressa no pot excedir sis mesos, llevat que una norma amb rang de llei estableixi un termini superior. Superant aquest termini sense resolució en un procediment iniciat d'ofici, es produirà la caducitat (art. 25).",
+        unitIds: ["bcn-t4"],
+      },
+      // Q43
+      {
+        id: "q-2024-43",
+        type: "single",
+        prompt:
+          "El document mitjançant el qual l'Administració dóna a conèixer a la persona interessada una resolució o un acte administratiu és...:",
+        options: [
+          { id: "q-2024-43-a", text: "Un informe.", isCorrect: false },
+          { id: "q-2024-43-b", text: "Un acord.", isCorrect: false },
+          { id: "q-2024-43-c", text: "Una diligència", isCorrect: false },
+          { id: "q-2024-43-d", text: "Una notificació.", isCorrect: true },
+        ],
+        explanation:
+          "La notificació és l'acte de comunicació pel qual l'Administració posa en coneixement de la persona interessada el contingut d'una resolució o acte administratiu (arts. 40-46 Llei 39/2015).",
+        unitIds: ["bcn-t13"],
+      },
+      // Q44
+      {
+        id: "q-2024-44",
+        type: "single",
+        prompt:
+          "Quin d'aquests mètodes d'identificació NO són permesos per l'Oficina Virtual de Tràmits de l'Ajuntament de Barcelona?",
+        options: [
+          { id: "q-2024-44-a", text: "idCAT Mòbil", isCorrect: false },
+          { id: "q-2024-44-b", text: "eDNI (DNI electrònic)", isCorrect: false },
+          { id: "q-2024-44-c", text: "Cl@ve", isCorrect: false },
+          { id: "q-2024-44-d", text: "Tarjeta Sanitària Europea (TSE)", isCorrect: true },
+        ],
+        explanation:
+          "L'Oficina Virtual de Tràmits de l'Ajuntament de Barcelona admet idCAT Mòbil, eDNI i Cl@ve com a mètodes d'identificació digital. La Targeta Sanitària Europea no és un instrument d'identificació vàlid per a la realització de tràmits municipals electrònics.",
+        unitIds: ["bcn-t14"],
+      },
+      // Q45
+      {
+        id: "q-2024-45",
+        type: "single",
+        prompt: "En quin districte està ubicat el Museu d'Art contemporani de Barcelona?",
+        options: [
+          { id: "q-2024-45-a", text: "Sant Martí", isCorrect: false },
+          { id: "q-2024-45-b", text: "Sarrià-Sant Gervasi", isCorrect: false },
+          { id: "q-2024-45-c", text: "L'Eixample", isCorrect: false },
+          { id: "q-2024-45-d", text: "Ciutat Vella", isCorrect: true },
+        ],
+        explanation:
+          "El Museu d'Art Contemporani de Barcelona (MACBA) està ubicat a la plaça dels Àngels, al barri del Raval, que pertany al districte de Ciutat Vella.",
+        unitIds: ["bcn-t15"],
+      },
+    ],
+  },
 ];
