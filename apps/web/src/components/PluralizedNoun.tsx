@@ -10,7 +10,7 @@ export default function PluralizedNoun({
     count,
     singular,
     plural,
-    showNumberSingular = false,
+    showNumberSingular = true,
     showNumberPlural = true,
 }: Props) {
     const isSingular = count === 1
