@@ -34,8 +34,8 @@ export function CurriculumReadonlyNode({ unit, units, depth, getTestsForUnit }: 
         )}
         style={{ paddingLeft: `${0.75 + depth * 1.25}rem` }}
       >
-        {isOpen ? <IconChevronDown size={16} /> : <IconChevronRight size={16} />}
-        <span className="text-left">{unit.name}</span>
+        {isOpen ? <IconChevronDown size={16} className="shrink-0" /> : <IconChevronRight size={16} className="shrink-0" />}
+        <span className="min-w-0 truncate text-left">{unit.name}</span>
         {empty && <span className="ml-auto text-xs font-normal italic">sin tests</span>}
       </button>
 
