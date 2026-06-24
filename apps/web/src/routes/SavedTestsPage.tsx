@@ -100,7 +100,7 @@ export function SavedTestsPage() {
       {/* SubHeader */}
       <div className="subheader -mx-4 px-4 py-2 space-y-2">
         <div className="flex items-center gap-2 rounded-md border border-border bg-muted px-3 py-2">
-          <IconSearch className="shrink-0 text-muted-foreground" />
+          <IconSearch size={16} className="shrink-0 text-muted-foreground" />
           <input
             type="search"
             placeholder="Buscar tests..."

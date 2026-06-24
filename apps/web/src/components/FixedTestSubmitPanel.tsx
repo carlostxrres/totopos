@@ -45,7 +45,7 @@ export function FixedTestSubmitPanel({
           <div className="space-y-2 text-sm">
             {answeredCount === test.questions.length ? (
               <div className="flex items-center gap-2 text-success">
-                <IconCheck size={14} className="shrink-0" />
+                <IconCheck size={16} className="shrink-0" />
                 <span>Todas las preguntas respondidas</span>
               </div>
             ) : (
@@ -58,7 +58,7 @@ export function FixedTestSubmitPanel({
             )}
             {flaggedUnansweredCount > 0 && (
               <div className="flex items-center gap-2 text-warning">
-                <IconBookmarkFilled size={14} className="shrink-0" />
+                <IconBookmarkFilled size={16} className="shrink-0" />
                 <span>
                   <PluralizedNoun count={flaggedUnansweredCount} singular="marcada sin responder" plural="marcadas sin responder" />
                 </span>
@@ -66,7 +66,7 @@ export function FixedTestSubmitPanel({
             )}
             {flaggedAnsweredCount > 0 && (
               <div className="flex items-center gap-2 text-muted-foreground">
-                <IconBookmarkFilled size={14} className="shrink-0" />
+                <IconBookmarkFilled size={16} className="shrink-0" />
                 <span>
                   <PluralizedNoun count={flaggedAnsweredCount} singular="marcada y respondida" plural="marcadas y respondidas" />
                 </span>

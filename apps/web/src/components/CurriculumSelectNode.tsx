@@ -53,9 +53,9 @@ export function CurriculumSelectNode({ unit, units, depth, selected, onChange, f
           {isLeaf ? (
             <span className="w-4 inline-block" />
           ) : isOpen ? (
-            <IconChevronDown />
+            <IconChevronDown size={16} />
           ) : (
-            <IconChevronRight />
+            <IconChevronRight size={16} />
           )}
         </button>
         <Checkbox.Root
@@ -67,7 +67,7 @@ export function CurriculumSelectNode({ unit, units, depth, selected, onChange, f
             {isIndeterminate ? (
               <div className="h-0.5 w-2 bg-primary" />
             ) : (
-              <IconCheck />
+              <IconCheck size={16} />
             )}
           </Checkbox.Indicator>
         </Checkbox.Root>

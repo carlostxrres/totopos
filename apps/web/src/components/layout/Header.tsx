@@ -49,11 +49,11 @@ export function Header({ showBack = false }: HeaderProps) {
         <div className="flex items-center gap-2 px-4">
           {showBack ? (
             <ButtonNextToTitle onClick={() => navigate(-1)}>
-              <IconArrowLeft size={24} />
+              <IconArrowLeft size={20} />
             </ButtonNextToTitle>
           ) : (
             <ButtonNextToTitle onClick={() => navigate(0)}>
-              <Logo size={24} />
+              <Logo size={20} />
             </ButtonNextToTitle>
           )}
 
@@ -89,7 +89,7 @@ export function Header({ showBack = false }: HeaderProps) {
             }
             aria-label="Ajustes"
           >
-            <IconSettings size={18} />
+            <IconSettings size={20} />
           </NavLink>
         </div>
       </div>

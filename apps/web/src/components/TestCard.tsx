@@ -113,7 +113,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
               aria-label="Opciones del test"
               className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
-              <IconDots size={16} />
+              <IconDots size={20} />
             </button>
           </DropdownMenu.Trigger>
 
@@ -179,7 +179,7 @@ export function TestCard({ test, chipLabel }: TestCardProps) {
         onClick={() => setExpanded((v) => !v)}
         className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors -mt-1"
       >
-        {expanded ? <IconChevronUp size={14} /> : <IconChevronDown size={14} />}
+        {expanded ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
         {expanded ? "Ocultar detalles" : "Ver detalles"}
       </button>
 

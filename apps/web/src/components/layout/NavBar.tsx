@@ -30,7 +30,7 @@ export function NavBar() {
                 active ? "text-primary" : "text-muted-foreground"
               }`}
             >
-              <Icon />
+              <Icon size={20} />
               <span>{label}</span>
             </Link>
           );

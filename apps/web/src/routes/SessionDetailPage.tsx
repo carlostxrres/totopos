@@ -60,7 +60,7 @@ export function SessionDetailPage() {
                   answer.wasCorrect ? "bg-success/20 text-success" : "bg-destructive/20 text-destructive"
                 }`}
               >
-                {answer.wasCorrect ? <IconCheck /> : <IconX />}
+                {answer.wasCorrect ? <IconCheck size={16} /> : <IconX size={16} />}
               </div>
               <div>
                 <p className="text-xs text-muted-foreground mb-0.5">Pregunta {index + 1}</p>

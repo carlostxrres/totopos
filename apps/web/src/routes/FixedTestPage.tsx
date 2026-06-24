@@ -165,7 +165,7 @@ export function FixedTestPage() {
                 className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground"
                 aria-label="Más opciones"
               >
-                <IconDotsVertical />
+                <IconDotsVertical size={20} />
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>

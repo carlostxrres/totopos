@@ -36,7 +36,7 @@ export function StatsUnitNode({ unit, allUnits, depth, historyByQuestionId }: Pr
         style={{ paddingLeft: `${0.75 + depth * 1.25}rem` }}
       >
         {hasChildren ? (
-          open ? <IconChevronDown size={14} className="shrink-0 text-muted-foreground" /> : <IconChevronRight size={14} className="shrink-0 text-muted-foreground" />
+          open ? <IconChevronDown size={16} className="shrink-0 text-muted-foreground" /> : <IconChevronRight size={16} className="shrink-0 text-muted-foreground" />
         ) : (
           <span className="w-3.5 shrink-0" />
         )}

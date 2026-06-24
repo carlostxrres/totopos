@@ -47,8 +47,8 @@ export function QuestionRow({ question, history }: QuestionRowProps) {
               <span className="flex items-center gap-1">
                 Última: {formatRelativeTime(lastEntry.answeredAt)}
                 {lastEntry.wasCorrect
-                  ? <IconCheck size={12} className="inline text-success" />
-                  : <IconX size={12} className="inline text-destructive" />
+                  ? <IconCheck size={16} className="inline text-success" />
+                  : <IconX size={16} className="inline text-destructive" />
                 }
               </span>
             )}

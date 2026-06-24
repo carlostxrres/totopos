@@ -269,10 +269,10 @@ export function IndefiniteTestPage() {
           <div className="flex flex-1 items-center gap-1 text-xs text-muted-foreground">
             <span>{totalAnswered} resp.</span>
             <span className="flex items-center gap-0.5 text-success">
-              {correctCount}<IconCheck size={11} className="inline" />
+              {correctCount}<IconCheck size={16} className="inline" />
             </span>
             <span className="flex items-center gap-0.5 text-destructive">
-              {totalAnswered - correctCount}<IconX size={11} className="inline" />
+              {totalAnswered - correctCount}<IconX size={16} className="inline" />
             </span>
             {totalAnswered > 0 && <span>{rate}%</span>}
           </div>
@@ -286,7 +286,7 @@ export function IndefiniteTestPage() {
                 className="btn-ghost flex h-8 w-8 items-center justify-center rounded-md text-muted-foreground"
                 aria-label="Más opciones"
               >
-                <IconDotsVertical />
+                <IconDotsVertical size={20} />
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
@@ -352,7 +352,7 @@ export function IndefiniteTestPage() {
       <div className={cn("flex gap-3", isCurrentAnswered ? "justify-between" : "justify-end")}>
         {currentIndex > 0 && (
           <Button variant="secondary" onClick={handlePrev} size="sm">
-            <IconChevronLeft className="mr-1" />
+            <IconChevronLeft size={16} className="mr-1" />
             Anterior
           </Button>
         )}
@@ -370,7 +370,7 @@ export function IndefiniteTestPage() {
         {(isCurrentAnswered || isLocked) && (
           <Button variant="primary" onClick={handleNext}>
             Siguiente pregunta
-            <IconChevronRight className="ml-1" />
+            <IconChevronRight size={16} className="ml-1" />
           </Button>
         )}
       </div>

@@ -78,9 +78,9 @@ export function QuestionCard({
             aria-label={isFlagged ? "Quitar marcador" : "Marcar pregunta"}
           >
             {isFlagged ? (
-              <IconBookmarkFilled className="text-warning-foreground" />
+              <IconBookmarkFilled size={20} className="text-warning-foreground" />
             ) : (
-              <IconBookmark />
+              <IconBookmark size={20} />
             )}
           </button>
         )}
@@ -153,7 +153,7 @@ export function QuestionCard({
                   className="flex h-4 w-4 shrink-0 items-center justify-center rounded border border-current"
                 >
                   <Checkbox.Indicator>
-                    <IconCheck />
+                    <IconCheck size={16} />
                   </Checkbox.Indicator>
                 </Checkbox.Root>
                 <span>{opt.text ?? opt.image}</span>

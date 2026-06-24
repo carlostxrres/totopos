@@ -36,7 +36,7 @@ export function TestCardDetails({ test, unitNames, recentAttempts }: TestCardDet
                     <span className="text-muted-foreground">{formatDate(a.completedAt)}</span>
                     <span className={`flex items-center gap-0.5 font-medium ${a.passed ? "text-success" : "text-destructive"}`}>
                       {a.maxScore > 0 ? Math.round((a.score / a.maxScore) * 100) : 0}%
-                      {a.passed ? <IconCheck size={12} /> : <IconX size={12} />}
+                      {a.passed ? <IconCheck size={16} /> : <IconX size={16} />}
                     </span>
                   </div>
                 ))

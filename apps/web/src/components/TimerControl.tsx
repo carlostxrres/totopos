@@ -128,7 +128,7 @@ export function TimerControl({
           )}
           aria-label={isActive ? "Pausar temporizador" : "Reanudar temporizador"}
         >
-          {isActive ? <IconPlayerPause /> : <IconPlayerPlay />}
+          {isActive ? <IconPlayerPause size={20} /> : <IconPlayerPlay size={20} />}
           <span>{remainingMs !== null ? formatCountdown(remainingMs) : "—"}</span>
         </button>
       )}
